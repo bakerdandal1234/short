@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جمل ألمانية قصيرة للحياة اليومية</title>
+    
+    <!-- ResponsiveVoice API -->
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=jQZ2zybR"></script>
+    
     <style>
         * {
             margin: 0;
@@ -160,7 +164,6 @@
 
         body.dark-mode .speak-btn.speaking {
             background: #10b981;
-            animation: pulse 1s infinite;
         }
 
         .tabs {
@@ -247,9 +250,9 @@
             color: white;
             border: none;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 1.2em;
+            width: 45px;
+            height: 45px;
+            font-size: 1.3em;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
@@ -274,14 +277,14 @@
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.15); }
         }
         
         .german {
             font-size: 1.5em;
             font-weight: bold;
             color: #667eea;
-            margin: 25px 0 15px 0;
+            margin: 30px 0 15px 0;
             direction: ltr;
             text-align: right;
         }
@@ -320,44 +323,12 @@
                 padding: 10px 16px;
             }
         }
-
-        .audio-status {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #10b981;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            font-size: 1.1em;
-            display: none;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .audio-status.show {
-            display: block;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
     </style>
 </head>
 <body>
     <button class="dark-mode-toggle" id="darkModeToggle" onclick="toggleDarkMode()">
         🌙
     </button>
-
-    <div class="audio-status" id="audioStatus">🔊 جاري النطق...</div>
 
     <div class="container">
         <h1>🗣️ جمل ألمانية قصيرة</h1>
@@ -428,103 +399,38 @@
             document.getElementById('favCount').textContent = favorites.length;
         }
 
-        function showAudioStatus() {
-            const status = document.getElementById('audioStatus');
-            status.classList.add('show');
-            setTimeout(() => {
-                status.classList.remove('show');
-            }, 2000);
-        }
-
         function speak(text, button) {
-            // إيقاف أي نطق سابق
-            if (window.speechSynthesis) {
-                window.speechSynthesis.cancel();
-            }
-
             // إزالة التأثير من الزر السابق
             if (currentSpeakingButton) {
                 currentSpeakingButton.classList.remove('speaking');
             }
 
-            // التحقق من دعم المتصفح
-            if (!('speechSynthesis' in window)) {
-                alert('عذراً، متصفحك لا يدعم النطق الصوتي. جرب Chrome أو Edge');
-                return;
-            }
-
-            try {
-                const utterance = new SpeechSynthesisUtterance(text);
+            // إيقاف أي نطق سابق
+            if (typeof responsiveVoice !== 'undefined') {
+                responsiveVoice.cancel();
                 
-                // إعدادات النطق
-                utterance.lang = 'de-DE';
-                utterance.rate = 0.75; // سرعة النطق
-                utterance.pitch = 1.0; // نغمة الصوت
-                utterance.volume = 1.0; // مستوى الصوت
-
-                // محاولة اختيار صوت ألماني
-                const voices = window.speechSynthesis.getVoices();
-                const germanVoice = voices.find(voice => voice.lang.startsWith('de'));
-                if (germanVoice) {
-                    utterance.voice = germanVoice;
-                }
-
-                // عند بدء النطق
-                utterance.onstart = function() {
-                    console.log('Started speaking:', text);
-                    if (button) {
-                        button.classList.add('speaking');
-                        currentSpeakingButton = button;
-                    }
-                    showAudioStatus();
-                };
-
-                // عند انتهاء النطق
-                utterance.onend = function() {
-                    console.log('Finished speaking');
-                    if (button) {
-                        button.classList.remove('speaking');
-                    }
-                    currentSpeakingButton = null;
-                };
-
-                // عند حدوث خطأ
-                utterance.onerror = function(event) {
-                    console.error('Speech error:', event.error);
-                    if (button) {
-                        button.classList.remove('speaking');
-                    }
-                    currentSpeakingButton = null;
-                    
-                    if (event.error === 'not-allowed') {
-                        alert('يرجى السماح للموقع باستخدام الصوت في إعدادات المتصفح');
-                    } else {
-                        alert('حدث خطأ في النطق. حاول مرة أخرى.');
-                    }
-                };
-
-                // بدء النطق
-                window.speechSynthesis.speak(utterance);
-                
-            } catch (error) {
-                console.error('Error in speak function:', error);
-                alert('حدث خطأ في تشغيل النطق');
+                // إضافة التأثير للزر الجديد
                 if (button) {
-                    button.classList.remove('speaking');
+                    button.classList.add('speaking');
+                    currentSpeakingButton = button;
                 }
+                
+                // بدء النطق بصوت ألماني
+                responsiveVoice.speak(text, "Deutsch Female", {
+                    rate: 0.8,
+                    pitch: 1,
+                    volume: 1,
+                    onend: function() {
+                        if (button) {
+                            button.classList.remove('speaking');
+                        }
+                        currentSpeakingButton = null;
+                    }
+                });
+            } else {
+                alert('يتم تحميل النطق... حاول مرة أخرى بعد ثانية');
             }
         }
-
-        // تحميل الأصوات عند بدء التشغيل
-        window.speechSynthesis.onvoiceschanged = function() {
-            const voices = window.speechSynthesis.getVoices();
-            console.log('Available voices:', voices.length);
-            voices.forEach(voice => {
-                if (voice.lang.startsWith('de')) {
-                    console.log('German voice found:', voice.name, voice.lang);
-                }
-            });
-        };
 
         function toggleFavorite(sentence, event) {
             if (event) event.stopPropagation();
@@ -735,7 +641,7 @@
                 {german: "Einen Moment, bitte.", arabic: "لحظة من فضلك", usage: "طلب الانتظار"},
                 {german: "Er ist nicht da.", arabic: "هو ليس موجوداً", usage: "عند الرد"},
                 {german: "Ich rufe später zurück.", arabic: "سأتصل لاحقاً", usage: "عند إنهاء المكالمة"},
-                {german: "Auf Wiederhören!", arabic: "مع السلامة! (على الهاتف)", usage: "عند إنهاء المكالمة"},
+                {german: "Auf Wiederhören!", arabic: "مع السلامة!", usage: "عند إنهاء المكالمة"},
                 {german: "Falsch verbunden!", arabic: "رقم خاطئ!", usage: "عند الخطأ"},
                 {german: "Kann ich eine Nachricht hinterlassen?", arabic: "هل يمكنني ترك رسالة؟", usage: "عند طلب ترك رسالة"},
                 {german: "Spreche ich mit Herrn Müller?", arabic: "هل أتحدث مع السيد مولر؟", usage: "عند السؤال"},
@@ -908,11 +814,6 @@
         renderSentences('shopping');
         updateFavCount();
         loadDarkMode();
-
-        // تحميل الأصوات
-        if (window.speechSynthesis) {
-            window.speechSynthesis.getVoices();
-        }
     </script>
 </body>
 </html>
