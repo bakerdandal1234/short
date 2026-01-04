@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جمل ألمانية قصيرة للحياة اليومية</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            direction: ltr;
+            text-align: right;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5em;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        body.dark-mode .container {
+            background: #0f3460;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode h1 {
+            color: #7dd3fc;
+        }
+
+        body.dark-mode .subtitle {
+            color: #b0b0b0;
+        }
+
+        body.dark-mode .sentence-card {
+            background: #16213e;
+            border-color: #1a1a2e;
+        }
+
+        body.dark-mode .sentence-card:hover {
+            border-color: #7dd3fc;
+        }
+
+        body.dark-mode .german {
+            color: #7dd3fc;
+        }
+
+        body.dark-mode .arabic {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .usage {
+            color: #b0b0b0;
+            border-top-color: #1a1a2e;
+        }
+
+        body.dark-mode .search-box {
+            background: #16213e;
+            color: #e0e0e0;
+            border-color: #1a1a2e;
+        }
+
+        body.dark-mode .tab-button {
+            background: #16213e;
+            color: #b0b0b0;
+            border: 1px solid #1a1a2e;
+        }
+
+        body.dark-mode .tab-button:hover {
+            background: #1a1a2e;
+            color: #7dd3fc;
+        }
+
+        body.dark-mode .tab-button.active {
+            background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
+            color: white;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: #16213e;
+            border-color: #1a1a2e;
+            color: #fbbf24;
+        }
+
+        body.dark-mode .speak-btn {
+            background: #1a1a2e;
+            color: #7dd3fc;
+        }
+
+        body.dark-mode .speak-btn:hover {
+            background: #7dd3fc;
+            color: #1a1a2e;
+        }
+
+        body.dark-mode .speak-btn.speaking {
+            background: #10b981;
+            animation: pulse 1s infinite;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+
+        .tab-button {
+            background: #f5f5f5;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            color: #666;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .tab-button:hover {
+            background: #e8e8e8;
+            transform: translateY(-2px);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+        
+        .sentences-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        
+        .sentence-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            background: #f9f9f9;
+            transition: all 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .sentence-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: none;
+            border: none;
+            font-size: 1.8em;
+            cursor: pointer;
+            transition: transform 0.2s;
+            z-index: 10;
+        }
+
+        .favorite-btn:hover {
+            transform: scale(1.3);
+        }
+
+        .speak-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .speak-btn:hover {
+            background: #5568d3;
+            transform: scale(1.1);
+        }
+
+        .speak-btn:active {
+            transform: scale(0.95);
+        }
+
+        .speak-btn.speaking {
+            background: #10b981;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .german {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 25px 0 15px 0;
+            direction: ltr;
+            text-align: right;
+        }
+        
+        .arabic {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        
+        .usage {
+            font-size: 0.95em;
+            color: #666;
+            padding-top: 12px;
+            border-top: 1px solid #e0e0e0;
+            font-style: italic;
+        }
+
+        .usage-label {
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .sentences-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .tab-button {
+                font-size: 0.9em;
+                padding: 10px 16px;
+            }
+        }
+
+        .audio-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .audio-status.show {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="dark-mode-toggle" id="darkModeToggle" onclick="toggleDarkMode()">
+        🌙
+    </button>
+
+    <div class="audio-status" id="audioStatus">🔊 جاري النطق...</div>
+
+    <div class="container">
+        <h1>🗣️ جمل ألمانية قصيرة</h1>
+        <p class="subtitle">جمل من 3-5 كلمات للحياة اليومية - اضغط 🔊 للاستماع</p>
+
+        <input type="text" 
+               id="searchBox" 
+               class="search-box" 
+               placeholder="ابحث عن جملة..."
+               oninput="searchSentences()">
+
+        <div class="tabs">
+            <button class="tab-button" onclick="openTab(event, 'favorites')">⭐ مفضلة (<span id="favCount">0</span>)</button>
+            <button class="tab-button active" onclick="openTab(event, 'shopping')">🏪 تسوق</button>
+            <button class="tab-button" onclick="openTab(event, 'transport')">🚌 مواصلات</button>
+            <button class="tab-button" onclick="openTab(event, 'restaurant')">🍽️ مطعم</button>
+            <button class="tab-button" onclick="openTab(event, 'daily')">💬 يومية</button>
+            <button class="tab-button" onclick="openTab(event, 'doctor')">🏥 طبيب</button>
+            <button class="tab-button" onclick="openTab(event, 'work')">💼 عمل</button>
+            <button class="tab-button" onclick="openTab(event, 'home')">🏠 بيت</button>
+            <button class="tab-button" onclick="openTab(event, 'phone')">📞 هاتف</button>
+            <button class="tab-button" onclick="openTab(event, 'emergency')">🆘 طوارئ</button>
+        </div>
+
+        <div id="favorites" class="tab-content">
+            <div class="sentences-grid" id="favoritesGrid"></div>
+            <div id="noFavorites" style="text-align: center; padding: 50px; color: #999; display: none;">
+                <p style="font-size: 2.5em;">⭐</p>
+                <p style="font-size: 1.2em;">لا توجد جمل مفضلة</p>
+            </div>
+        </div>
+
+        <div id="searchResults" class="tab-content">
+            <div class="sentences-grid" id="searchResultsGrid"></div>
+        </div>
+
+        <div id="shopping" class="tab-content active"><div class="sentences-grid"></div></div>
+        <div id="transport" class="tab-content"><div class="sentences-grid"></div></div>
+        <div id="restaurant" class="tab-content"><div class="sentences-grid"></div></div>
+        <div id="daily" class="tab-content"><div class="sentences-grid"></div></div>
+        <div id="doctor" class="tab-content"><div class="sentences-grid"></div></div>
+        <div id="work" class="tab-content"><div class="sentences-grid"></div></div>
+        <div id="home" class="tab-content"><div class="sentences-grid"></div></div>
+        <div id="phone" class="tab-content"><div class="sentences-grid"></div></div>
+        <div id="emergency" class="tab-content"><div class="sentences-grid"></div></div>
+    </div>
+
+    <script>
+        let favorites = JSON.parse(localStorage.getItem('shortSentencesFavorites')) || [];
+        let currentSpeakingButton = null;
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            document.getElementById('darkModeToggle').textContent = isDark ? '☀️' : '🌙';
+        }
+
+        function loadDarkMode() {
+            const isDark = localStorage.getItem('darkMode') === 'true';
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+                document.getElementById('darkModeToggle').textContent = '☀️';
+            }
+        }
+
+        function updateFavCount() {
+            document.getElementById('favCount').textContent = favorites.length;
+        }
+
+        function showAudioStatus() {
+            const status = document.getElementById('audioStatus');
+            status.classList.add('show');
+            setTimeout(() => {
+                status.classList.remove('show');
+            }, 2000);
+        }
+
+        function speak(text, button) {
+            // إيقاف أي نطق سابق
+            if (window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+            }
+
+            // إزالة التأثير من الزر السابق
+            if (currentSpeakingButton) {
+                currentSpeakingButton.classList.remove('speaking');
+            }
+
+            // التحقق من دعم المتصفح
+            if (!('speechSynthesis' in window)) {
+                alert('عذراً، متصفحك لا يدعم النطق الصوتي. جرب Chrome أو Edge');
+                return;
+            }
+
+            try {
+                const utterance = new SpeechSynthesisUtterance(text);
+                
+                // إعدادات النطق
+                utterance.lang = 'de-DE';
+                utterance.rate = 0.75; // سرعة النطق
+                utterance.pitch = 1.0; // نغمة الصوت
+                utterance.volume = 1.0; // مستوى الصوت
+
+                // محاولة اختيار صوت ألماني
+                const voices = window.speechSynthesis.getVoices();
+                const germanVoice = voices.find(voice => voice.lang.startsWith('de'));
+                if (germanVoice) {
+                    utterance.voice = germanVoice;
+                }
+
+                // عند بدء النطق
+                utterance.onstart = function() {
+                    console.log('Started speaking:', text);
+                    if (button) {
+                        button.classList.add('speaking');
+                        currentSpeakingButton = button;
+                    }
+                    showAudioStatus();
+                };
+
+                // عند انتهاء النطق
+                utterance.onend = function() {
+                    console.log('Finished speaking');
+                    if (button) {
+                        button.classList.remove('speaking');
+                    }
+                    currentSpeakingButton = null;
+                };
+
+                // عند حدوث خطأ
+                utterance.onerror = function(event) {
+                    console.error('Speech error:', event.error);
+                    if (button) {
+                        button.classList.remove('speaking');
+                    }
+                    currentSpeakingButton = null;
+                    
+                    if (event.error === 'not-allowed') {
+                        alert('يرجى السماح للموقع باستخدام الصوت في إعدادات المتصفح');
+                    } else {
+                        alert('حدث خطأ في النطق. حاول مرة أخرى.');
+                    }
+                };
+
+                // بدء النطق
+                window.speechSynthesis.speak(utterance);
+                
+            } catch (error) {
+                console.error('Error in speak function:', error);
+                alert('حدث خطأ في تشغيل النطق');
+                if (button) {
+                    button.classList.remove('speaking');
+                }
+            }
+        }
+
+        // تحميل الأصوات عند بدء التشغيل
+        window.speechSynthesis.onvoiceschanged = function() {
+            const voices = window.speechSynthesis.getVoices();
+            console.log('Available voices:', voices.length);
+            voices.forEach(voice => {
+                if (voice.lang.startsWith('de')) {
+                    console.log('German voice found:', voice.name, voice.lang);
+                }
+            });
+        };
+
+        function toggleFavorite(sentence, event) {
+            if (event) event.stopPropagation();
+            
+            const index = favorites.findIndex(f => f.german === sentence.german);
+            
+            if (index > -1) {
+                favorites.splice(index, 1);
+            } else {
+                favorites.push(sentence);
+            }
+            
+            localStorage.setItem('shortSentencesFavorites', JSON.stringify(favorites));
+            updateFavCount();
+            
+            if (document.getElementById('favorites').classList.contains('active')) {
+                renderFavorites();
+            }
+            
+            return favorites.findIndex(f => f.german === sentence.german) > -1;
+        }
+
+        function isFavorite(sentence) {
+            return favorites.findIndex(f => f.german === sentence.german) > -1;
+        }
+
+        function renderFavorites() {
+            const grid = document.getElementById('favoritesGrid');
+            const noFavMsg = document.getElementById('noFavorites');
+            
+            grid.innerHTML = '';
+            
+            if (favorites.length === 0) {
+                noFavMsg.style.display = 'block';
+                grid.style.display = 'none';
+            } else {
+                noFavMsg.style.display = 'none';
+                grid.style.display = 'grid';
+                favorites.forEach(sentence => {
+                    grid.appendChild(renderSentenceCard(sentence));
+                });
+            }
+        }
+
+        const sentencesData = {
+            shopping: [
+                {german: "Wo ist die Milch?", arabic: "أين الحليب؟", usage: "عند البحث عن منتج"},
+                {german: "Wie viel kostet das?", arabic: "كم سعر هذا؟", usage: "عند السؤال عن السعر"},
+                {german: "Ich brauche eine Tüte.", arabic: "أحتاج كيسًا", usage: "عند طلب كيس"},
+                {german: "Kann ich mit Karte zahlen?", arabic: "هل أستطيع الدفع بالبطاقة؟", usage: "عند الدفع"},
+                {german: "Haben Sie das?", arabic: "هل لديكم هذا؟", usage: "عند البحث عن منتج"},
+                {german: "Das ist zu teuer.", arabic: "هذا غالٍ جداً", usage: "عند رفض السعر"},
+                {german: "Ich nehme das.", arabic: "سآخذ هذا", usage: "عند الشراء"},
+                {german: "Wo ist die Kasse?", arabic: "أين الصندوق؟", usage: "عند الدفع"},
+                {german: "Das ist alles.", arabic: "هذا كل شيء", usage: "بعد الانتهاء"},
+                {german: "Noch etwas?", arabic: "شيء آخر؟", usage: "سؤال البائع"},
+                {german: "Nein, danke.", arabic: "لا، شكراً", usage: "الرد بالرفض"},
+                {german: "Ja, gerne.", arabic: "نعم، بكل سرور", usage: "الرد بالقبول"},
+                {german: "Was kostet ein Kilo?", arabic: "كم سعر الكيلو؟", usage: "عند السؤال عن السعر"},
+                {german: "Haben Sie Äpfel?", arabic: "هل لديكم تفاح؟", usage: "عند البحث"},
+                {german: "Wo finde ich Brot?", arabic: "أين أجد الخبز؟", usage: "عند البحث"},
+                {german: "Ist das frisch?", arabic: "هل هذا طازج؟", usage: "عند السؤال"},
+                {german: "Das nehme ich nicht.", arabic: "لن آخذ هذا", usage: "عند الرفض"},
+                {german: "Haben Sie eine Tüte?", arabic: "هل لديكم كيس؟", usage: "عند طلب كيس"},
+                {german: "Wo ist das Gemüse?", arabic: "أين الخضار؟", usage: "عند البحث"},
+                {german: "Ich möchte das.", arabic: "أريد هذا", usage: "عند الطلب"}
+            ],
+            transport: [
+                {german: "Wo ist der Bahnhof?", arabic: "أين المحطة؟", usage: "عند السؤال عن المحطة"},
+                {german: "Wann fährt der Zug?", arabic: "متى يغادر القطار؟", usage: "عند السؤال عن الموعد"},
+                {german: "Eine Fahrkarte, bitte.", arabic: "تذكرة من فضلك", usage: "عند شراء التذكرة"},
+                {german: "Wo ist die Haltestelle?", arabic: "أين الموقف؟", usage: "عند البحث عن الموقف"},
+                {german: "Ich habe mich verlaufen.", arabic: "لقد ضللت الطريق", usage: "عند الضياع"},
+                {german: "Wie komme ich zum Bahnhof?", arabic: "كيف أصل إلى المحطة؟", usage: "عند السؤال عن الطريق"},
+                {german: "Welcher Bus fährt nach Berlin?", arabic: "أي باص يذهب إلى برلين؟", usage: "عند السؤال"},
+                {german: "Wo muss ich aussteigen?", arabic: "أين يجب أن أنزل؟", usage: "في الباص"},
+                {german: "Ist das weit?", arabic: "هل هذا بعيد؟", usage: "عند السؤال عن المسافة"},
+                {german: "Geradeaus, dann links.", arabic: "مباشرة، ثم يسار", usage: "عند إعطاء الاتجاه"},
+                {german: "Hier rechts abbiegen.", arabic: "انعطف يميناً هنا", usage: "عند إعطاء الاتجاه"},
+                {german: "Wo ist die U-Bahn?", arabic: "أين المترو؟", usage: "عند البحث"},
+                {german: "Kommt der Bus bald?", arabic: "هل سيأتي الباص قريباً؟", usage: "عند الانتظار"},
+                {german: "Wo kann ich parken?", arabic: "أين يمكنني الركن؟", usage: "في السيارة"},
+                {german: "Wie viel kostet das?", arabic: "كم السعر؟", usage: "عند شراء التذكرة"},
+                {german: "Hält der Bus hier?", arabic: "هل يقف الباص هنا؟", usage: "عند الانتظار"},
+                {german: "Muss ich umsteigen?", arabic: "هل يجب أن أغير؟", usage: "في الباص/القطار"},
+                {german: "Wo ist Gleis fünf?", arabic: "أين الرصيف 5؟", usage: "في المحطة"},
+                {german: "Der Bus kommt gleich.", arabic: "الباص سيأتي حالاً", usage: "عند الانتظار"},
+                {german: "Nehmen Sie diese Straße.", arabic: "خذ هذا الشارع", usage: "عند إعطاء الاتجاه"}
+            ],
+            restaurant: [
+                {german: "Die Speisekarte, bitte.", arabic: "قائمة الطعام من فضلك", usage: "عند الطلب"},
+                {german: "Ich möchte bestellen.", arabic: "أريد الطلب", usage: "عند الطلب"},
+                {german: "Die Rechnung, bitte.", arabic: "الحساب من فضلك", usage: "عند الدفع"},
+                {german: "Guten Appetit!", arabic: "صحة وعافية!", usage: "قبل الأكل"},
+                {german: "Das schmeckt gut.", arabic: "هذا لذيذ", usage: "عند الإعجاب بالطعام"},
+                {german: "Ein Wasser, bitte.", arabic: "ماء من فضلك", usage: "عند طلب ماء"},
+                {german: "Ein Kaffee, bitte.", arabic: "قهوة من فضلك", usage: "عند طلب قهوة"},
+                {german: "Noch ein Bier?", arabic: "بيرة أخرى؟", usage: "سؤال النادل"},
+                {german: "Ist dieser Tisch frei?", arabic: "هل هذه الطاولة فارغة؟", usage: "عند الجلوس"},
+                {german: "Was empfehlen Sie?", arabic: "بماذا توصون؟", usage: "عند السؤال"},
+                {german: "Ich bin Vegetarier.", arabic: "أنا نباتي", usage: "عند الطلب"},
+                {german: "Ohne Zwiebeln, bitte.", arabic: "بدون بصل من فضلك", usage: "عند الطلب"},
+                {german: "Das war lecker!", arabic: "كان لذيذاً!", usage: "بعد الأكل"},
+                {german: "Haben Sie Pommes?", arabic: "هل لديكم بطاطا مقلية؟", usage: "عند الطلب"},
+                {german: "Ich nehme das Menü.", arabic: "سآخذ القائمة", usage: "عند الطلب"},
+                {german: "Mit oder ohne Eis?", arabic: "مع أو بدون ثلج؟", usage: "سؤال النادل"},
+                {german: "Für hier oder mitnehmen?", arabic: "هنا أو للأخذ؟", usage: "في المطعم"},
+                {german: "Zahlen Sie zusammen?", arabic: "تدفعون معاً؟", usage: "سؤال النادل"},
+                {german: "Getrennt, bitte.", arabic: "منفصل من فضلك", usage: "عند الدفع"},
+                {german: "Das habe ich nicht bestellt.", arabic: "لم أطلب هذا", usage: "عند الخطأ"}
+            ],
+            daily: [
+                {german: "Guten Morgen!", arabic: "صباح الخير!", usage: "في الصباح"},
+                {german: "Wie geht's?", arabic: "كيف حالك؟", usage: "عند التحية"},
+                {german: "Danke, gut!", arabic: "شكراً، بخير!", usage: "الرد على التحية"},
+                {german: "Auf Wiedersehen!", arabic: "مع السلامة!", usage: "عند الوداع"},
+                {german: "Bis später!", arabic: "إلى اللقاء!", usage: "عند الوداع المؤقت"},
+                {german: "Entschuldigung!", arabic: "عفواً! / المعذرة!", usage: "عند الاعتذار"},
+                {german: "Vielen Dank!", arabic: "شكراً جزيلاً!", usage: "عند الشكر"},
+                {german: "Bitte schön!", arabic: "تفضل! / عفواً!", usage: "الرد على الشكر"},
+                {german: "Ich verstehe nicht.", arabic: "لا أفهم", usage: "عند عدم الفهم"},
+                {german: "Wie heißen Sie?", arabic: "ما اسمك؟", usage: "عند التعارف"},
+                {german: "Ich heiße Ahmed.", arabic: "اسمي أحمد", usage: "عند التعريف"},
+                {german: "Woher kommen Sie?", arabic: "من أين أنت؟", usage: "عند التعارف"},
+                {german: "Ich komme aus Syrien.", arabic: "أنا من سوريا", usage: "عند التعريف"},
+                {german: "Sprechen Sie Englisch?", arabic: "هل تتحدث الإنجليزية؟", usage: "عند الحاجة"},
+                {german: "Wie spät ist es?", arabic: "كم الساعة؟", usage: "عند السؤال عن الوقت"},
+                {german: "Es ist drei Uhr.", arabic: "الساعة الثالثة", usage: "الرد على السؤال"},
+                {german: "Ja, gerne!", arabic: "نعم، بكل سرور!", usage: "الرد بالقبول"},
+                {german: "Nein, danke.", arabic: "لا، شكراً", usage: "الرد بالرفض"},
+                {german: "Kein Problem!", arabic: "لا مشكلة!", usage: "عند الرد"},
+                {german: "Alles klar!", arabic: "كل شيء واضح!", usage: "عند الفهم"},
+                {german: "Einen Moment, bitte.", arabic: "لحظة من فضلك", usage: "طلب الانتظار"},
+                {german: "Ich weiß nicht.", arabic: "لا أعرف", usage: "عند عدم المعرفة"},
+                {german: "Das stimmt.", arabic: "هذا صحيح", usage: "عند الموافقة"},
+                {german: "Das macht nichts.", arabic: "لا يهم", usage: "عند التسامح"},
+                {german: "Bis morgen!", arabic: "إلى الغد!", usage: "عند الوداع"}
+            ],
+            doctor: [
+                {german: "Mir geht's nicht gut.", arabic: "لا أشعر بحال جيدة", usage: "عند المرض"},
+                {german: "Ich habe Schmerzen.", arabic: "لدي آلام", usage: "عند الألم"},
+                {german: "Wo tut es weh?", arabic: "أين يؤلم؟", usage: "سؤال الطبيب"},
+                {german: "Ich brauche ein Rezept.", arabic: "أحتاج وصفة طبية", usage: "عند طلب الوصفة"},
+                {german: "Ich habe Fieber.", arabic: "لدي حمى", usage: "عند المرض"},
+                {german: "Mir tut der Kopf weh.", arabic: "رأسي يؤلمني", usage: "عند الألم"},
+                {german: "Ich habe Husten.", arabic: "لدي سعال", usage: "عند المرض"},
+                {german: "Mir ist schlecht.", arabic: "أشعر بالغثيان", usage: "عند المرض"},
+                {german: "Ich bin krank.", arabic: "أنا مريض", usage: "عند المرض"},
+                {german: "Seit wann?", arabic: "منذ متى؟", usage: "سؤال الطبيب"},
+                {german: "Seit gestern.", arabic: "منذ البارحة", usage: "الرد على السؤال"},
+                {german: "Haben Sie Allergien?", arabic: "هل لديك حساسية؟", usage: "سؤال الطبيب"},
+                {german: "Ich bin allergisch gegen Nüsse.", arabic: "لدي حساسية من المكسرات", usage: "عند الإخبار"},
+                {german: "Wo ist die Apotheke?", arabic: "أين الصيدلية؟", usage: "عند البحث"},
+                {german: "Ich brauche Schmerztabletten.", arabic: "أحتاج مسكنات", usage: "في الصيدلية"},
+                {german: "Dreimal täglich.", arabic: "ثلاث مرات يومياً", usage: "تعليمات الدواء"},
+                {german: "Nach dem Essen.", arabic: "بعد الأكل", usage: "تعليمات الدواء"},
+                {german: "Ich kann nicht schlafen.", arabic: "لا أستطيع النوم", usage: "عند المشكلة"},
+                {german: "Mir ist schwindlig.", arabic: "أشعر بالدوار", usage: "عند المرض"},
+                {german: "Ich habe einen Termin.", arabic: "لدي موعد", usage: "عند الطبيب"}
+            ],
+            work: [
+                {german: "Guten Tag!", arabic: "نهارك سعيد!", usage: "تحية في العمل"},
+                {german: "Ich bin fertig.", arabic: "انتهيت", usage: "بعد إنهاء العمل"},
+                {german: "Einen Moment, bitte.", arabic: "لحظة من فضلك", usage: "طلب الانتظار"},
+                {german: "Ich habe eine Frage.", arabic: "لدي سؤال", usage: "عند السؤال"},
+                {german: "Bis morgen!", arabic: "إلى الغد!", usage: "عند المغادرة"},
+                {german: "Wo ist das Büro?", arabic: "أين المكتب؟", usage: "عند البحث"},
+                {german: "Ich brauche Hilfe.", arabic: "أحتاج مساعدة", usage: "عند طلب المساعدة"},
+                {german: "Wann ist die Pause?", arabic: "متى الاستراحة؟", usage: "عند السؤال"},
+                {german: "Ich habe einen Termin.", arabic: "لدي موعد", usage: "عند الإخبار"},
+                {german: "Das ist erledigt.", arabic: "تم إنجاز هذا", usage: "بعد الانتهاء"},
+                {german: "Können Sie mir helfen?", arabic: "هل يمكنك مساعدتي؟", usage: "طلب المساعدة"},
+                {german: "Ich bin beschäftigt.", arabic: "أنا مشغول", usage: "عند الانشغال"},
+                {german: "Wann beginnt die Arbeit?", arabic: "متى يبدأ العمل؟", usage: "عند السؤال"},
+                {german: "Ich habe Pause.", arabic: "لدي استراحة", usage: "عند الإخبار"},
+                {german: "Bis später!", arabic: "إلى اللقاء!", usage: "عند المغادرة المؤقتة"},
+                {german: "Alles in Ordnung?", arabic: "كل شيء بخير؟", usage: "عند السؤال"},
+                {german: "Ja, alles gut.", arabic: "نعم، كل شيء جيد", usage: "الرد على السؤال"},
+                {german: "Ich muss gehen.", arabic: "يجب أن أذهب", usage: "عند المغادرة"},
+                {german: "Wo ist die Toilette?", arabic: "أين الحمام؟", usage: "عند السؤال"},
+                {german: "Ich komme gleich zurück.", arabic: "سأعود حالاً", usage: "عند المغادرة المؤقتة"}
+            ],
+            home: [
+                {german: "Ich bin zu Hause.", arabic: "أنا في البيت", usage: "عند الوصول للبيت"},
+                {german: "Wo sind die Kinder?", arabic: "أين الأطفال؟", usage: "عند البحث عن الأطفال"},
+                {german: "Das Licht ist an.", arabic: "النور مشتعل", usage: "عن حالة النور"},
+                {german: "Die Tür ist zu.", arabic: "الباب مغلق", usage: "عن حالة الباب"},
+                {german: "Kannst du helfen?", arabic: "هل يمكنك المساعدة؟", usage: "طلب المساعدة"},
+                {german: "Ich bin müde.", arabic: "أنا متعب", usage: "عند التعب"},
+                {german: "Ich gehe schlafen.", arabic: "سأذهب للنوم", usage: "قبل النوم"},
+                {german: "Gute Nacht!", arabic: "تصبح على خير!", usage: "قبل النوم"},
+                {german: "Was gibt es zu essen?", arabic: "ما الذي سنأكل؟", usage: "عند السؤال"},
+                {german: "Das Essen ist fertig.", arabic: "الطعام جاهز", usage: "عند تجهيز الطعام"},
+                {german: "Kommst du mit?", arabic: "هل تأتي معي؟", usage: "عند الدعوة"},
+                {german: "Ich bleibe hier.", arabic: "سأبقى هنا", usage: "عند البقاء"},
+                {german: "Bis gleich!", arabic: "إلى اللقاء القريب!", usage: "عند المغادرة المؤقتة"},
+                {german: "Wo ist mein Handy?", arabic: "أين هاتفي؟", usage: "عند البحث"},
+                {german: "Hier ist es.", arabic: "ها هو هنا", usage: "عند الإيجاد"},
+                {german: "Das Fenster ist offen.", arabic: "النافذة مفتوحة", usage: "عن حالة النافذة"},
+                {german: "Mach die Tür zu!", arabic: "أغلق الباب!", usage: "طلب إغلاق الباب"},
+                {german: "Es ist kalt.", arabic: "الجو بارد", usage: "عن الطقس"},
+                {german: "Es ist warm.", arabic: "الجو دافئ", usage: "عن الطقس"},
+                {german: "Ich bin gleich da.", arabic: "سأكون هناك حالاً", usage: "عند الإخبار"}
+            ],
+            phone: [
+                {german: "Hallo?", arabic: "ألو؟", usage: "عند الرد على الهاتف"},
+                {german: "Wer spricht?", arabic: "من يتحدث؟", usage: "عند السؤال"},
+                {german: "Einen Moment, bitte.", arabic: "لحظة من فضلك", usage: "طلب الانتظار"},
+                {german: "Er ist nicht da.", arabic: "هو ليس موجوداً", usage: "عند الرد"},
+                {german: "Ich rufe später zurück.", arabic: "سأتصل لاحقاً", usage: "عند إنهاء المكالمة"},
+                {german: "Auf Wiederhören!", arabic: "مع السلامة! (على الهاتف)", usage: "عند إنهاء المكالمة"},
+                {german: "Falsch verbunden!", arabic: "رقم خاطئ!", usage: "عند الخطأ"},
+                {german: "Kann ich eine Nachricht hinterlassen?", arabic: "هل يمكنني ترك رسالة؟", usage: "عند طلب ترك رسالة"},
+                {german: "Spreche ich mit Herrn Müller?", arabic: "هل أتحدث مع السيد مولر؟", usage: "عند السؤال"},
+                {german: "Ja, am Apparat.", arabic: "نعم، أنا على الهاتف", usage: "عند الرد"},
+                {german: "Bitte nicht auflegen.", arabic: "من فضلك لا تغلق", usage: "طلب الانتظار"},
+                {german: "Die Leitung ist besetzt.", arabic: "الخط مشغول", usage: "عند الانتظار"},
+                {german: "Ich verstehe Sie nicht.", arabic: "لا أفهمك", usage: "عند عدم الفهم"},
+                {german: "Können Sie wiederholen?", arabic: "هل يمكنك التكرار؟", usage: "طلب التكرار"},
+                {german: "Ich verbinde Sie.", arabic: "سأوصلك", usage: "عند التحويل"},
+                {german: "Bleiben Sie dran.", arabic: "ابقَ على الخط", usage: "طلب الانتظار"},
+                {german: "Rufen Sie mich an.", arabic: "اتصل بي", usage: "طلب الاتصال"},
+                {german: "Ich habe keine Zeit.", arabic: "ليس لدي وقت", usage: "عند الرفض"},
+                {german: "Wir sprechen später.", arabic: "سنتحدث لاحقاً", usage: "عند إنهاء المكالمة"},
+                {german: "Danke für den Anruf.", arabic: "شكراً على الاتصال", usage: "عند إنهاء المكالمة"}
+            ],
+            emergency: [
+                {german: "Hilfe!", arabic: "النجدة!", usage: "عند الطوارئ"},
+                {german: "Rufen Sie die Polizei!", arabic: "اتصلوا بالشرطة!", usage: "عند الطوارئ"},
+                {german: "Rufen Sie einen Krankenwagen!", arabic: "اتصلوا بالإسعاف!", usage: "عند الطوارئ"},
+                {german: "Es brennt!", arabic: "هناك حريق!", usage: "عند الحريق"},
+                {german: "Schnell!", arabic: "بسرعة!", usage: "عند الاستعجال"},
+                {german: "Das ist ein Notfall!", arabic: "هذه حالة طارئة!", usage: "عند الطوارئ"},
+                {german: "Wo ist das Krankenhaus?", arabic: "أين المستشفى؟", usage: "عند الطوارئ"},
+                {german: "Ich brauche einen Arzt.", arabic: "أحتاج طبيباً", usage: "عند المرض الشديد"},
+                {german: "Ich kann nicht atmen.", arabic: "لا أستطيع التنفس", usage: "عند الطوارئ"},
+                {german: "Ich bin allergisch!", arabic: "لدي حساسية!", usage: "عند التحذير"},
+                {german: "Wo ist die Notaufnahme?", arabic: "أين قسم الطوارئ؟", usage: "في المستشفى"},
+                {german: "Ich habe Schmerzen!", arabic: "لدي آلام!", usage: "عند الألم الشديد"},
+                {german: "Bitte helfen Sie mir!", arabic: "من فضلك ساعدني!", usage: "طلب المساعدة"},
+                {german: "Mein Pass wurde gestohlen.", arabic: "سُرق جواز سفري", usage: "عند السرقة"},
+                {german: "Ich habe einen Unfall gesehen.", arabic: "رأيت حادثاً", usage: "عند الحادث"},
+                {german: "Bleiben Sie ruhig!", arabic: "ابقَ هادئاً!", usage: "عند التهدئة"},
+                {german: "Es ist dringend!", arabic: "هذا عاجل!", usage: "عند الطوارئ"},
+                {german: "Wo ist die Polizeistation?", arabic: "أين مركز الشرطة؟", usage: "عند البحث"},
+                {german: "Ich brauche dringend Hilfe.", arabic: "أحتاج مساعدة عاجلة", usage: "عند الطوارئ"},
+                {german: "Können Sie Englisch?", arabic: "هل تتحدث الإنجليزية؟", usage: "عند الحاجة"}
+            ]
+        };
+
+        function renderSentenceCard(sentence) {
+            const card = document.createElement('div');
+            card.className = 'sentence-card';
+            
+            const speakBtn = document.createElement('button');
+            speakBtn.className = 'speak-btn';
+            speakBtn.innerHTML = '🔊';
+            speakBtn.onclick = function(e) {
+                e.stopPropagation();
+                speak(sentence.german, this);
+            };
+
+            const favBtn = document.createElement('button');
+            favBtn.className = 'favorite-btn';
+            favBtn.innerHTML = isFavorite(sentence) ? '★' : '☆';
+            favBtn.onclick = function(e) {
+                toggleFavBtn(this, e, sentence);
+            };
+
+            const germanDiv = document.createElement('div');
+            germanDiv.className = 'german';
+            germanDiv.textContent = sentence.german;
+
+            const arabicDiv = document.createElement('div');
+            arabicDiv.className = 'arabic';
+            arabicDiv.textContent = sentence.arabic;
+
+            const usageDiv = document.createElement('div');
+            usageDiv.className = 'usage';
+            usageDiv.innerHTML = `<span class="usage-label">متى تستخدمها:</span> ${sentence.usage}`;
+
+            card.appendChild(favBtn);
+            card.appendChild(speakBtn);
+            card.appendChild(germanDiv);
+            card.appendChild(arabicDiv);
+            card.appendChild(usageDiv);
+
+            card.onclick = function() {
+                speak(sentence.german, speakBtn);
+            };
+
+            card.sentenceData = sentence;
+            return card;
+        }
+
+        function toggleFavBtn(btn, event, sentence) {
+            event.stopPropagation();
+            const isFav = toggleFavorite(sentence, event);
+            btn.innerHTML = isFav ? '★' : '☆';
+        }
+
+        function renderSentences(tabId) {
+            const grid = document.querySelector(`#${tabId} .sentences-grid`);
+            grid.innerHTML = '';
+            
+            sentencesData[tabId].forEach(s => {
+                grid.appendChild(renderSentenceCard(s));
+            });
+        }
+
+        function searchSentences() {
+            const query = document.getElementById('searchBox').value.trim().toLowerCase();
+            
+            if (query.length === 0) {
+                document.getElementById('searchResults').classList.remove('active');
+                const activeTab = document.querySelector('.tab-content.active:not(#searchResults)');
+                if (!activeTab) {
+                    document.getElementById('shopping').classList.add('active');
+                }
+                return;
+            }
+            
+            const allTabs = document.querySelectorAll('.tab-content');
+            allTabs.forEach(tab => tab.classList.remove('active'));
+            document.getElementById('searchResults').classList.add('active');
+            
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            const searchResultsGrid = document.getElementById('searchResultsGrid');
+            searchResultsGrid.innerHTML = '';
+            
+            let foundSentences = [];
+            
+            Object.keys(sentencesData).forEach(tabKey => {
+                sentencesData[tabKey].forEach(sentence => {
+                    if (sentence.german.toLowerCase().includes(query) ||
+                        sentence.arabic.toLowerCase().includes(query)) {
+                        foundSentences.push(sentence);
+                    }
+                });
+            });
+            
+            if (foundSentences.length > 0) {
+                foundSentences.forEach(sentence => {
+                    searchResultsGrid.appendChild(renderSentenceCard(sentence));
+                });
+            } else {
+                searchResultsGrid.innerHTML = '<div style="text-align: center; padding: 40px; color: #999; font-size: 1.2em;">لم يتم العثور على نتائج</div>';
+            }
+        }
+
+        function openTab(evt, tabId) {
+            const searchBox = document.getElementById('searchBox');
+            if (searchBox.value.trim().length > 0) {
+                searchBox.value = '';
+                searchSentences();
+            }
+            
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            const tabButtons = document.getElementsByClassName('tab-button');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+            
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
+            
+            if (tabId === 'favorites') {
+                renderFavorites();
+            } else if (tabId !== 'searchResults') {
+                renderSentences(tabId);
+            }
+        }
+
+        // Initialize
+        renderSentences('shopping');
+        updateFavCount();
+        loadDarkMode();
+
+        // تحميل الأصوات
+        if (window.speechSynthesis) {
+            window.speechSynthesis.getVoices();
+        }
+    </script>
+</body>
+</html>
