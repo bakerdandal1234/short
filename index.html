@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جمل ألمانية قصيرة للحياة اليومية</title>
-    
+
     <!-- ResponsiveVoice API -->
     <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
-    
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             background: white;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
         }
-        
+
         h1 {
             text-align: center;
             color: #667eea;
@@ -77,7 +78,7 @@
             cursor: pointer;
             font-size: 1.5em;
             transition: all 0.3s;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .dark-mode-toggle:hover {
@@ -205,13 +206,13 @@
         .tab-content.active {
             display: block;
         }
-        
+
         .sentences-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 20px;
         }
-        
+
         .sentence-card {
             border: 2px solid #e0e0e0;
             border-radius: 15px;
@@ -238,10 +239,29 @@
             cursor: pointer;
             transition: transform 0.2s;
             z-index: 10;
+            color: #ffd700;
         }
 
         .favorite-btn:hover {
             transform: scale(1.3);
+            color: #ffc107;
+        }
+
+        body.dark-mode .favorite-btn {
+            color: #ffcc00;
+            /* لون ذهبي فاتح للوضع الليلي */
+            text-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+            /* تأثير ظل لزيادة الوضوح */
+        }
+
+        body.dark-mode .favorite-btn:hover {
+            color: #ffd700;
+            /* لون ذهبي أكثر إشراقاً عند التحويم في الوضع الليلي */
+            transform: scale(1.3);
+        }
+
+        .favorite-btn:active {
+            transform: scale(1.1);
         }
 
         .speak-btn {
@@ -278,10 +298,17 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
         }
-        
+
         .german {
             font-size: 1.5em;
             font-weight: bold;
@@ -290,14 +317,14 @@
             direction: ltr;
             text-align: right;
         }
-        
+
         .arabic {
             font-size: 1.3em;
             color: #333;
             margin-bottom: 12px;
             font-weight: 500;
         }
-        
+
         .usage {
             font-size: 0.95em;
             color: #666;
@@ -310,12 +337,12 @@
             font-weight: 600;
             color: #667eea;
         }
-        
+
         @media (max-width: 768px) {
             .sentences-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             h1 {
                 font-size: 1.8em;
             }
@@ -325,96 +352,149 @@
                 padding: 10px 16px;
             }
         }
-       .level-filter {
-  margin: 20px 0;
-}
 
-.level-filter-btn {
-  padding: 10px 20px;
-  border: 2px solid #e0e0e0;
-  border-radius: 25px;
-  background: white;
-  color: #666;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-  font-size: 0.95em;
-}
+        .level-filter {
+            margin: 20px 0;
+        }
 
-.level-filter-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
+        .level-filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            background: white;
+            color: #666;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95em;
+        }
 
-.level-filter-btn.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border-color: #667eea;
-  transform: scale(1.05);
-}
+        .level-filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
 
-/* ألوان خاصة لكل مستوى */
-.level-filter-btn.level-A1.active {
-  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
-  border-color: #2ecc71;
-}
+        .level-filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
 
-.level-filter-btn.level-A2.active {
-  background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
-  border-color: #f1c40f;
-  color: #000;
-}
+        /* ألوان خاصة لكل مستوى */
+        .level-filter-btn.level-A1.active {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            border-color: #2ecc71;
+        }
 
-.level-filter-btn.level-B1.active {
-  background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
-  border-color: #e67e22;
-}
+        .level-filter-btn.level-A2.active {
+            background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+            border-color: #f1c40f;
+            color: #000;
+        }
 
-.level-filter-btn.level-B2.active {
-  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-  border-color: #e74c3c;
-}
+        .level-filter-btn.level-B1.active {
+            background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+            border-color: #e67e22;
+        }
 
-/* Dark Mode للفلتر */
-body.dark-mode .level-filter-btn {
-  background: #16213e;
-  border-color: #1a1a2e;
-  color: #b0b0b0;
-}
+        .level-filter-btn.level-B2.active {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            border-color: #e74c3c;
+        }
 
-body.dark-mode .level-filter-btn:hover {
-  background: #1a1a2e;
-  color: #7dd3fc;
-}
+        /* Dark Mode للفلتر */
+        body.dark-mode .level-filter-btn {
+            background: #16213e;
+            border-color: #1a1a2e;
+            color: #b0b0b0;
+        }
 
-body.dark-mode .level-filter-btn.active {
-  background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
-  color: white;
-}
+        body.dark-mode .level-filter-btn:hover {
+            background: #1a1a2e;
+            color: #7dd3fc;
+        }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .level-filter-btn {
-    padding: 8px 16px;
-    font-size: 0.85em;
-  }
-} 
+        body.dark-mode .level-filter-btn.active {
+            background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .level-filter-btn {
+                padding: 8px 16px;
+                font-size: 0.85em;
+            }
+        }
+
+
+        .level-indicator {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: bold;
+            color: white;
+            z-index: 5;
+        }
+
+        /* ألوان خاصة لكل مستوى */
+        .level-A1 {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            box-shadow: 0 2px 5px rgba(46, 204, 113, 0.3);
+        }
+
+        .level-A2 {
+            background: linear-gradient(135deg, #f39c12, #f1c40f);
+            color: #000;
+            box-shadow: 0 2px 5px rgba(241, 196, 15, 0.3);
+        }
+
+        .level-B1 {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            box-shadow: 0 2px 5px rgba(230, 126, 34, 0.3);
+        }
+
+        .level-B2 {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            box-shadow: 0 2px 5px rgba(231, 76, 60, 0.3);
+        }
+
+        /* Dark Mode للعناصر الجديدة */
+        body.dark-mode .level-indicator {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
+
 <body>
     <button class="dark-mode-toggle" id="darkModeToggle" onclick="toggleDarkMode()">
         🌙
     </button>
+    <!-- أضف هذا في HTML قبل الأزرار -->
+
 
     <div class="container">
-        <h1>🗣️ جمل ألمانية قصيرة</h1>
-        <p class="subtitle">جمل من 3-5 كلمات للحياة اليومية - اضغط 🔊 للاستماع</p>
-
-        <input type="text" 
-               id="searchBox" 
-               class="search-box" 
-               placeholder="ابحث عن جملة..."
-               oninput="searchSentences()">
+        <h1>🗣️ تعلم اللغة الالمانية</h1>
+        <p class="subtitle">- اضغط 🔊 للاستماع</p>
+        <div style="margin-top: 30px;">
+        </div>
+        <div style="max-width: 400px; margin: 20px auto; padding: 15px; background: #f5f5f5; border-radius: 10px;">
+            <label style="display: block; margin-bottom: 10px; font-weight: bold;">
+                🎚️ سرعة النطق: <span id="speedValue">0.8</span>
+            </label>
+            <input type="range" id="speedControl" min="0.5" max="1.5" step="0.1" value="0.8" style="width: 100%;"
+                oninput="updateSpeed(this.value)">
+            <div
+                style="display: flex; justify-content: space-between; font-size: 0.85em; color: #666; margin-top: 5px;">
+                <span>🐌 بطيء</span>
+                <span>🚶 عادي</span>
+                <span>🏃 سريع</span>
+            </div>
+        </div>
         <div class="level-filter">
             <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
                 <button class="level-filter-btn active" onclick="filterByLevel('all')">
@@ -436,7 +516,8 @@ body.dark-mode .level-filter-btn.active {
         </div>
 
         <div class="tabs">
-            <button class="tab-button" onclick="openTab(event, 'favorites')">⭐ مفضلة (<span id="favCount">0</span>)</button>
+            <button class="tab-button" onclick="openTab(event, 'favorites')">⭐ مفضلة (<span
+                    id="favCount">0</span>)</button>
             <button class="tab-button active" onclick="openTab(event, 'shopping')">🏪 تسوق</button>
             <button class="tab-button" onclick="openTab(event, 'transport')">🚌 مواصلات</button>
             <button class="tab-button" onclick="openTab(event, 'restaurant')">🍽️ مطعم</button>
@@ -460,20 +541,39 @@ body.dark-mode .level-filter-btn.active {
             <div class="sentences-grid" id="searchResultsGrid"></div>
         </div>
 
-        <div id="shopping" class="tab-content active"><div class="sentences-grid"></div></div>
-        <div id="transport" class="tab-content"><div class="sentences-grid"></div></div>
-        <div id="restaurant" class="tab-content"><div class="sentences-grid"></div></div>
-        <div id="daily" class="tab-content"><div class="sentences-grid"></div></div>
-        <div id="doctor" class="tab-content"><div class="sentences-grid"></div></div>
-        <div id="work" class="tab-content"><div class="sentences-grid"></div></div>
-        <div id="home" class="tab-content"><div class="sentences-grid"></div></div>
-        <div id="phone" class="tab-content"><div class="sentences-grid"></div></div>
-        <div id="emergency" class="tab-content"><div class="sentences-grid"></div></div>
+        <div id="shopping" class="tab-content active">
+            <div class="sentences-grid"></div>
+        </div>
+        <div id="transport" class="tab-content">
+            <div class="sentences-grid"></div>
+        </div>
+        <div id="restaurant" class="tab-content">
+            <div class="sentences-grid"></div>
+        </div>
+        <div id="daily" class="tab-content">
+            <div class="sentences-grid"></div>
+        </div>
+        <div id="doctor" class="tab-content">
+            <div class="sentences-grid"></div>
+        </div>
+        <div id="work" class="tab-content">
+            <div class="sentences-grid"></div>
+        </div>
+        <div id="home" class="tab-content">
+            <div class="sentences-grid"></div>
+        </div>
+        <div id="phone" class="tab-content">
+            <div class="sentences-grid"></div>
+        </div>
+        <div id="emergency" class="tab-content">
+            <div class="sentences-grid"></div>
+        </div>
     </div>
 
     <script>
         let favorites = JSON.parse(localStorage.getItem('shortSentencesFavorites')) || [];
         let currentBtn = null;
+        let currentLevel = 'all';
 
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
@@ -494,93 +594,25 @@ body.dark-mode .level-filter-btn.active {
             document.getElementById('favCount').textContent = favorites.length;
         }
 
-        function speakText(text, btn) {
-            if (currentBtn) {
-                currentBtn.classList.remove('speaking');
-            }
-            btn.classList.add('speaking');
-            currentBtn = btn;
-
-            try {
-                if (typeof responsiveVoice !== "undefined") {
-                    responsiveVoice.cancel();
-                    responsiveVoice.speak(text, "Deutsch Female", {
-                        rate: 0.8,
-                        onend: () => btn.classList.remove('speaking'),
-                        onerror: () => webSpeech(text, btn)
-                    });
-                    return;
-                }
-            } catch (e) {
-                console.log("ResponsiveVoice failed", e);
-            }
-
-            webSpeech(text, btn);
-        }
-
-        function filterByLevel(level) {
-  currentLevel = level;
-
-  document.querySelectorAll('.level-filter-btn').forEach(btn => {
-    btn.classList.remove('active');
-    if (
-      btn.textContent.includes(level) ||
-      (level === 'all' && btn.textContent.includes('الكل'))
-    ) {
-      btn.classList.add('active');
-    }
-  });
-
-  const activeTab = document.querySelector('.tab-content.active');
-  if (!activeTab) return;
-
-  if (activeTab.id === 'favorites') {
-    renderFavorites();
-  } else {
-    renderSentences(activeTab.id);
-  }
-}
-
-        function webSpeech(text, btn) {
-            if (!window.speechSynthesis) {
-                alert("النطق غير مدعوم في هذا المتصفح");
-                btn.classList.remove('speaking');
-                return;
-            }
-
-            const synth = window.speechSynthesis;
-            synth.cancel();
-
-            const utter = new SpeechSynthesisUtterance(text);
-            const voices = synth.getVoices();
-            const deVoice = voices.find(v => v.lang.startsWith("de"));
-            if (deVoice) utter.voice = deVoice;
-
-            utter.rate = 0.9;
-            utter.onend = () => btn.classList.remove('speaking');
-            utter.onerror = () => btn.classList.remove('speaking');
-
-            synth.speak(utter);
-        }
 
         function toggleFavorite(sentence, event) {
             if (event) event.stopPropagation();
-            
+
             const index = favorites.findIndex(f => f.german === sentence.german);
-            
+
             if (index > -1) {
                 favorites.splice(index, 1);
             } else {
                 favorites.push(sentence);
             }
-            
+
             localStorage.setItem('shortSentencesFavorites', JSON.stringify(favorites));
             updateFavCount();
-            
+
             if (document.getElementById('favorites').classList.contains('active')) {
                 renderFavorites();
             }
-            
+
             return favorites.findIndex(f => f.german === sentence.german) > -1;
         }
 
@@ -588,12 +620,13 @@ body.dark-mode .level-filter-btn.active {
             return favorites.findIndex(f => f.german === sentence.german) > -1;
         }
 
+
         function renderFavorites() {
             const grid = document.getElementById('favoritesGrid');
             const noFavMsg = document.getElementById('noFavorites');
-            
+
             grid.innerHTML = '';
-            
+
             if (favorites.length === 0) {
                 noFavMsg.style.display = 'block';
                 grid.style.display = 'none';
@@ -606,350 +639,674 @@ body.dark-mode .level-filter-btn.active {
             }
         }
 
+        function filterByLevel(level) {
+            currentLevel = level;
+
+            document.querySelectorAll('.level-filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (
+                    btn.textContent.includes(level) ||
+                    (level === 'all' && btn.textContent.includes('الكل'))
+                ) {
+                    btn.classList.add('active');
+                }
+            });
+
+            const activeTab = document.querySelector('.tab-content.active');
+            if (!activeTab) return;
+
+            if (activeTab.id === 'favorites') {
+                renderFavorites();
+            } else {
+                renderSentences(activeTab.id);
+            }
+        }
+
+
+
+        // ===================== متغيرات عامة =====================
+        let voicesLoaded = false;
+
+
+        // ===================== تحميل الأصوات عند بدء الصفحة =====================
+        if ('speechSynthesis' in window) {
+            // تحميل الأصوات مباشرة
+            speechSynthesis.getVoices();
+
+            // الاستماع لحدث تحميل الأصوات
+            speechSynthesis.onvoiceschanged = () => {
+                voicesLoaded = true;
+                console.log("✅ Voices loaded successfully!");
+                showAvailableVoices(); // 👈 عرض الأصوات المتاحة
+            };
+
+            // عرض الأصوات مباشرة لو كانت محملة
+            setTimeout(() => {
+                if (speechSynthesis.getVoices().length > 0) {
+                    showAvailableVoices();
+                }
+            }, 100);
+        }
+
+        // ===================== الدالة الرئيسية للنطق =====================
+        function speakText(text, btn) {
+            if (currentBtn) {
+                currentBtn.classList.remove('speaking');
+            }
+            btn.classList.add('speaking');
+            currentBtn = btn;
+
+            // 1️⃣ محاولة استخدام ResponsiveVoice أولاً
+            try {
+                if (typeof responsiveVoice !== "undefined") {
+                    responsiveVoice.cancel();
+                    responsiveVoice.speak(text, "Deutsch Female", {
+                        rate: speechRate,
+                        onend: () => {
+                            btn.classList.remove('speaking');
+                            console.log("✅ ResponsiveVoice finished");
+                        },
+                        onerror: (e) => {
+                            console.log("❌ ResponsiveVoice error:", e);
+                            webSpeech(text, btn);
+                        }
+                    });
+                    console.log("🎤 Using ResponsiveVoice");
+                    return;
+                }
+            } catch (e) {
+                console.log("❌ ResponsiveVoice failed:", e);
+            }
+
+            // 2️⃣ استخدام Web Speech API كخيار احتياطي
+            webSpeech(text, btn);
+        }
+
+        // ===================== Web Speech API =====================
+        function webSpeech(text, btn) {
+            if (!window.speechSynthesis) {
+                alert("⚠️ النطق غير مدعوم في هذا المتصفح");
+                btn.classList.remove('speaking');
+                return;
+            }
+
+            const synth = window.speechSynthesis;
+            synth.cancel();
+
+            const utter = new SpeechSynthesisUtterance(text);
+
+            // اختيار الصوت الألماني
+            const voices = synth.getVoices();
+            const deVoice = voices.find(v => v.lang.startsWith("de"));
+
+            if (deVoice) {
+                utter.voice = deVoice;
+                console.log("🗣️ Using Web Speech voice:", deVoice.name);
+            } else {
+                console.log("⚠️ No German voice found, using default");
+            }
+
+            utter.pitch = 1.0;
+            utter.volume = 1.0;
+            utter.rate = speechRate;
+
+            utter.onend = () => {
+                btn.classList.remove('speaking');
+                console.log("✅ Web Speech finished");
+            };
+
+            utter.onerror = (e) => {
+                btn.classList.remove('speaking');
+                console.log("❌ Web Speech error:", e.error);
+            };
+
+            synth.speak(utter);
+        }
+
+
+        // في JavaScript
+        let speechRate = 0.8;
+
+        function updateSpeed(value) {
+            speechRate = parseFloat(value);
+            document.getElementById('speedValue').textContent = value;
+            localStorage.setItem('speechRate', value);
+        }
+
+        // تحميل السرعة المحفوظة
+        window.addEventListener('load', () => {
+            const savedRate = localStorage.getItem('speechRate');
+            if (savedRate) {
+                speechRate = parseFloat(savedRate);
+                document.getElementById('speedControl').value = savedRate;
+                document.getElementById('speedValue').textContent = savedRate;
+            }
+        });
+
         const sentencesData = {
             shopping: [
-                {german: "Wo ist die Milch?", arabic: "أين الحليب؟", usage: "عند البحث عن منتج"},
-                {german: "Wie viel kostet das?", arabic: "كم سعر هذا؟", usage: "عند السؤال عن السعر"},
-                {german: "Ich brauche eine Tüte.", arabic: "أحتاج كيسًا", usage: "عند طلب كيس"},
-                {german: "Kann ich mit Karte zahlen?", arabic: "هل أستطيع الدفع بالبطاقة؟", usage: "عند الدفع"},
-                {german: "Haben Sie das?", arabic: "هل لديكم هذا؟", usage: "عند البحث"},
-                {german: "Das ist zu teuer.", arabic: "هذا غالٍ جداً", usage: "عند رفض السعر"},
-                {german: "Ich nehme das.", arabic: "سآخذ هذا", usage: "عند الشراء"},
-                {german: "Wo ist die Kasse?", arabic: "أين الصندوق؟", usage: "عند الدفع"},
-                {german: "Das ist alles.", arabic: "هذا كل شيء", usage: "بعد الانتهاء"},
-                {german: "Noch etwas?", arabic: "شيء آخر؟", usage: "سؤال البائع"},
-                {german: "Nein, danke.", arabic: "لا، شكراً", usage: "الرد بالرفض"},
-                {german: "Ja, gerne.", arabic: "نعم، بكل سرور", usage: "الرد بالقبول"},
-                {german: "Was kostet ein Kilo?", arabic: "كم سعر الكيلو؟", usage: "عند السؤال عن السعر"},
-                {german: "Haben Sie Äpfel?", arabic: "هل لديكم تفاح؟", usage: "عند البحث"},
-                {german: "Wo finde ich Brot?", arabic: "أين أجد الخبز؟", usage: "عند البحث"},
-                {german: "Ist das frisch?", arabic: "هل هذا طازج؟", usage: "عند السؤال"},
-                {german: "Das nehme ich nicht.", arabic: "لن آخذ هذا", usage: "عند الرفض"},
-                {german: "Haben Sie eine Tüte?", arabic: "هل لديكم كيس؟", usage: "عند طلب كيس"},
-                {german: "Wo ist das Gemüse?", arabic: "أين الخضار؟", usage: "عند البحث"},
-                {german: "Ich möchte das.", arabic: "أريد هذا", usage: "عند الطلب"},
-                {german: "Gibt es einen Rabatt?", arabic: "هل يوجد تخفيض؟", usage: "عند السؤال عن التخفيض"},
-                {german: "Das ist zu klein.", arabic: "هذا صغير جداً", usage: "عند رفض المقاس"},
-                {german: "Haben Sie das größer?", arabic: "هل لديكم أكبر؟", usage: "عند طلب مقاس أكبر"},
-                {german: "Ich suche ein Geschenk.", arabic: "أبحث عن هدية", usage: "عند التسوق"},
-                {german: "Wo ist der Ausgang?", arabic: "أين المخرج؟", usage: "عند المغادرة"},
-                {german: "Kann ich das umtauschen?", arabic: "هل يمكنني استبدال هذا؟", usage: "عند الاستبدال"},
-                {german: "Haben Sie eine andere Farbe?", arabic: "هل لديكم لون آخر؟", usage: "عند السؤال عن الألوان"},
-                {german: "Wo ist die Umkleidekabine?", arabic: "أين غرفة القياس؟", usage: "في المحل"},
-                {german: "Das passt mir nicht.", arabic: "هذا لا يناسبني", usage: "عند القياس"},
-                {german: "Ich schaue nur.", arabic: "أنا أتفرج فقط", usage: "عند التصفح"},
-                {german: "Wo kann ich parken?", arabic: "أين يمكنني الركن؟", usage: "عند الوصول"},
-                {german: "Bis wann sind Sie offen?", arabic: "حتى متى أنتم مفتوحون؟", usage: "عند السؤال عن الدوام"},
-                {german: "Kann ich eine Quittung haben?", arabic: "هل يمكنني الحصول على فاتورة؟", usage: "بعد الدفع"},
-                {german: "Das ist das Falsche.", arabic: "هذا خطأ", usage: "عند الخطأ"},
-                {german: "Ich habe das bestellt.", arabic: "طلبت هذا", usage: "عند الاستلام"}
+                { german: "Wo ist die Milch?", arabic: "أين الحليب؟", usage: "عند البحث عن منتج", level: "A1" },
+                { german: "Wie viel kostet das?", arabic: "كم سعر هذا؟", usage: "عند السؤال عن السعر", level: "A1" },
+                { german: "Ich brauche eine Tüte.", arabic: "أحتاج كيسًا", usage: "عند طلب كيس", level: "A1" },
+                { german: "Kann ich mit Karte zahlen?", arabic: "هل أستطيع الدفع بالبطاقة؟", usage: "عند الدفع", level: "A2" },
+                { german: "Haben Sie das?", arabic: "هل لديكم هذا؟", usage: "عند البحث", level: "A1" },
+                { german: "Das ist zu teuer.", arabic: "هذا غالٍ جداً", usage: "عند رفض السعر", level: "A1" },
+                { german: "Ich nehme das.", arabic: "سآخذ هذا", usage: "عند الشراء", level: "A1" },
+                { german: "Wo ist die Kasse?", arabic: "أين الصندوق؟", usage: "عند الدفع", level: "A1" },
+                { german: "Das ist alles.", arabic: "هذا كل شيء", usage: "بعد الانتهاء", level: "A1" },
+                { german: "Noch etwas?", arabic: "شيء آخر؟", usage: "سؤال البائع", level: "A1" },
+                { german: "Nein, danke.", arabic: "لا، شكراً", usage: "الرد بالرفض", level: "A1" },
+                { german: "Ja, gerne.", arabic: "نعم، بكل سرور", usage: "الرد بالقبول", level: "A1" },
+                { german: "Was kostet ein Kilo?", arabic: "كم سعر الكيلو؟", usage: "عند السؤال عن السعر", level: "A1" },
+                { german: "Haben Sie Äpfel?", arabic: "هل لديكم تفاح؟", usage: "عند البحث", level: "A1" },
+                { german: "Wo finde ich Brot?", arabic: "أين أجد الخبز؟", usage: "عند البحث", level: "A2" },
+                { german: "Ist das frisch?", arabic: "هل هذا طازج؟", usage: "عند السؤال", level: "A1" },
+                { german: "Das nehme ich nicht.", arabic: "لن آخذ هذا", usage: "عند الرفض", level: "A1" },
+                { german: "Haben Sie eine Tüte?", arabic: "هل لديكم كيس؟", usage: "عند طلب كيس", level: "A1" },
+                { german: "Wo ist das Gemüse?", arabic: "أين الخضار؟", usage: "عند البحث", level: "A1" },
+                { german: "Ich möchte das.", arabic: "أريد هذا", usage: "عند الطلب", level: "A1" },
+                { german: "Gibt es einen Rabatt?", arabic: "هل يوجد تخفيض؟", usage: "عند السؤال عن التخفيض", level: "A2" },
+                { german: "Das ist zu klein.", arabic: "هذا صغير جداً", usage: "عند رفض المقاس", level: "A1" },
+                { german: "Haben Sie das größer?", arabic: "هل لديكم أكبر؟", usage: "عند طلب مقاس أكبر", level: "A2" },
+                { german: "Ich suche ein Geschenk.", arabic: "أبحث عن هدية", usage: "عند التسوق", level: "A2" },
+                { german: "Wo ist der Ausgang?", arabic: "أين المخرج؟", usage: "عند المغادرة", level: "A1" },
+                { german: "Kann ich das umtauschen?", arabic: "هل يمكنني استبدال هذا؟", usage: "عند الاستبدال", level: "B1" },
+                { german: "Haben Sie eine andere Farbe?", arabic: "هل لديكم لون آخر؟", usage: "عند السؤال عن الألوان", level: "A2" },
+                { german: "Wo ist die Umkleidekabine?", arabic: "أين غرفة القياس؟", usage: "في المحل", level: "A2" },
+                { german: "Das passt mir nicht.", arabic: "هذا لا يناسبني", usage: "عند القياس", level: "A2" },
+                { german: "Ich schaue nur.", arabic: "أنا أتفرج فقط", usage: "عند التصفح", level: "A2" },
+                { german: "Wo kann ich parken?", arabic: "أين يمكنني الركن؟", usage: "عند الوصول", level: "A2" },
+                { german: "Bis wann sind Sie offen?", arabic: "حتى متى أنتم مفتوحون؟", usage: "عند السؤال عن الدوام", level: "A2" },
+                { german: "Kann ich eine Quittung haben?", arabic: "هل يمكنني الحصول على فاتورة؟", usage: "بعد الدفع", level: "B1" },
+                { german: "Das ist das Falsche.", arabic: "هذا خطأ", usage: "عند الخطأ", level: "A2" },
+                { german: "Ich habe das bestellt.", arabic: "طلبت هذا", usage: "عند الاستلام", level: "A2" },
+                { german: "Können Sie das einpacken?", arabic: "هل يمكنكم تغليف هذا؟", usage: "عند الشراء", level: "A2" },
+                { german: "Ist das im Angebot?", arabic: "هل هذا في العرض؟", usage: "عند السؤال", level: "A2" },
+                { german: "Wo sind die Sonderangebote?", arabic: "أين العروض الخاصة؟", usage: "عند البحث", level: "B1" },
+                { german: "Haben Sie eine Kundenkarte?", arabic: "هل لديكم بطاقة عميل؟", usage: "عند الدفع", level: "B1" }
             ],
             transport: [
-                {german: "Wo ist der Bahnhof?", arabic: "أين المحطة؟", usage: "عند البحث عن المحطة"},
-                {german: "Wann fährt der Zug?", arabic: "متى يغادر القطار؟", usage: "عند السؤال عن الموعد"},
-                {german: "Eine Fahrkarte nach Berlin, bitte.", arabic: "تذكرة إلى برلين من فضلك", usage: "عند شراء التذكرة"},
-                {german: "Wo ist die Haltestelle?", arabic: "أين الموقف؟", usage: "عند البحث"},
-                {german: "Ich habe mich verlaufen.", arabic: "لقد ضللت الطريق", usage: "عند الضياع"},
-                {german: "Wie komme ich zum Bahnhof?", arabic: "كيف أصل إلى المحطة؟", usage: "عند السؤال عن الطريق"},
-                {german: "Welcher Bus fährt nach Mitte?", arabic: "أي باص يذهب إلى ميتِّه؟", usage: "عند السؤال"},
-                {german: "Wo muss ich aussteigen?", arabic: "أين يجب أن أنزل؟", usage: "في الباص"},
-                {german: "Ist das weit von hier?", arabic: "هل هذا بعيد من هنا؟", usage: "عند السؤال عن المسافة"},
-                {german: "Geradeaus, dann nach links.", arabic: "مباشرة، ثم يسار", usage: "عند إعطاء الاتجاه"},
-                {german: "Biegen Sie hier rechts ab.", arabic: "انعطف يميناً هنا", usage: "عند إعطاء الاتجاه"},
-                {german: "Wo ist die U-Bahn?", arabic: "أين المترو؟", usage: "عند البحث"},
-                {german: "Kommt der Bus bald?", arabic: "هل سيأتي الباص قريباً؟", usage: "عند الانتظار"},
-                {german: "Wo kann ich ein Taxi finden?", arabic: "أين أجد تاكسي؟", usage: "عند البحث عن تاكسي"},
-                {german: "Wie viel kostet die Fahrt?", arabic: "كم تكلف الرحلة؟", usage: "عند شراء التذكرة"},
-                {german: "Hält der Bus am Hauptbahnhof?", arabic: "هل يقف الباص في المحطة الرئيسية؟", usage: "في الباص"},
-                {german: "Muss ich hier umsteigen?", arabic: "هل يجب أن أغير هنا؟", usage: "في المواصلات"},
-                {german: "Wo ist Gleis fünf?", arabic: "أين الرصيف 5؟", usage: "في المحطة"},
-                {german: "Der Bus kommt gleich.", arabic: "الباص سيأتي حالاً", usage: "عند الانتظار"},
-                {german: "Nehmen Sie diese Straße.", arabic: "خذ هذا الشارع", usage: "عند إعطاء الاتجاه"},
-                {german: "Fahren Sie geradeaus weiter.", arabic: "استمر مباشرة", usage: "عند القيادة"},
-                {german: "Wie lange dauert die Fahrt?", arabic: "كم تستغرق الرحلة؟", usage: "عند السؤال"},
-                {german: "Ist das die richtige Richtung?", arabic: "هل هذا الاتجاه الصحيح؟", usage: "عند التأكد"},
-                {german: "Wo ist der Flughafen?", arabic: "أين المطار؟", usage: "عند البحث عن المطار"},
-                {german: "Kann ich hier parken?", arabic: "هل يمكنني الركن هنا؟", usage: "عند الركن"},
-                {german: "Wo ist eine Tankstelle?", arabic: "أين محطة وقود؟", usage: "عند البحث عن الوقود"},
-                {german: "Ich brauche einen Parkschein.", arabic: "أحتاج تذكرة ركن", usage: "عند الركن"},
-                {german: "Wie komme ich zur Autobahn?", arabic: "كيف أصل إلى الطريق السريع؟", usage: "عند القيادة"},
-                {german: "Gibt es hier eine Haltestelle?", arabic: "هل يوجد هنا موقف؟", usage: "عند البحث"},
-                {german: "Wann ist der nächste Zug?", arabic: "متى القطار التالي؟", usage: "في المحطة"},
-                {german: "Ich möchte nach Hamburg fahren.", arabic: "أريد الذهاب إلى هامبورغ", usage: "عند الحجز"},
-                {german: "Wo ist der Ticketautomat?", arabic: "أين آلة التذاكر؟", usage: "في المحطة"},
-                {german: "Kann ich mit dieser Karte fahren?", arabic: "هل يمكنني السفر بهذه البطاقة؟", usage: "عند التحقق"},
-                {german: "Hat der Zug Verspätung?", arabic: "هل القطار متأخر؟", usage: "عند الانتظار"},
-                {german: "Wo ist der Busbahnhof?", arabic: "أين محطة الباصات؟", usage: "عند البحث"}
+                { german: "Wo ist der Bahnhof?", arabic: "أين المحطة؟", usage: "عند البحث عن المحطة", level: "A1" },
+                { german: "Wann fährt der Zug?", arabic: "متى يغادر القطار؟", usage: "عند السؤال عن الموعد", level: "A1" },
+                { german: "Eine Fahrkarte nach Berlin, bitte.", arabic: "تذكرة إلى برلين من فضلك", usage: "عند شراء التذكرة", level: "A2" },
+                { german: "Wo ist die Haltestelle?", arabic: "أين الموقف؟", usage: "عند البحث", level: "A1" },
+                { german: "Ich habe mich verlaufen.", arabic: "لقد ضللت الطريق", usage: "عند الضياع", level: "A2" },
+                { german: "Wie komme ich zum Bahnhof?", arabic: "كيف أصل إلى المحطة؟", usage: "عند السؤال عن الطريق", level: "A2" },
+                { german: "Welcher Bus fährt nach Mitte?", arabic: "أي باص يذهب إلى ميتِّه؟", usage: "عند السؤال", level: "A2" },
+                { german: "Wo muss ich aussteigen?", arabic: "أين يجب أن أنزل؟", usage: "في الباص", level: "A2" },
+                { german: "Ist das weit von hier?", arabic: "هل هذا بعيد من هنا؟", usage: "عند السؤال عن المسافة", level: "A1" },
+                { german: "Geradeaus, dann nach links.", arabic: "مباشرة، ثم يسار", usage: "عند إعطاء الاتجاه", level: "A1" },
+                { german: "Biegen Sie hier rechts ab.", arabic: "انعطف يميناً هنا", usage: "عند إعطاء الاتجاه", level: "A2" },
+                { german: "Wo ist die U-Bahn?", arabic: "أين المترو؟", usage: "عند البحث", level: "A1" },
+                { german: "Kommt der Bus bald?", arabic: "هل سيأتي الباص قريباً؟", usage: "عند الانتظار", level: "A2" },
+                { german: "Wo kann ich ein Taxi finden?", arabic: "أين أجد تاكسي؟", usage: "عند البحث عن تاكسي", level: "A2" },
+                { german: "Wie viel kostet die Fahrt?", arabic: "كم تكلف الرحلة؟", usage: "عند شراء التذكرة", level: "A1" },
+                { german: "Hält der Bus am Hauptbahnhof?", arabic: "هل يقف الباص في المحطة الرئيسية؟", usage: "في الباص", level: "B1" },
+                { german: "Muss ich hier umsteigen?", arabic: "هل يجب أن أغير هنا؟", usage: "في المواصلات", level: "A2" },
+                { german: "Wo ist Gleis fünf?", arabic: "أين الرصيف 5؟", usage: "في المحطة", level: "A2" },
+                { german: "Der Bus kommt gleich.", arabic: "الباص سيأتي حالاً", usage: "عند الانتظار", level: "A1" },
+                { german: "Nehmen Sie diese Straße.", arabic: "خذ هذا الشارع", usage: "عند إعطاء الاتجاه", level: "A2" },
+                { german: "Fahren Sie geradeaus weiter.", arabic: "استمر مباشرة", usage: "عند القيادة", level: "A2" },
+                { german: "Wie lange dauert die Fahrt?", arabic: "كم تستغرق الرحلة؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ist das die richtige Richtung?", arabic: "هل هذا الاتجاه الصحيح؟", usage: "عند التأكد", level: "A2" },
+                { german: "Wo ist der Flughafen?", arabic: "أين المطار؟", usage: "عند البحث عن المطار", level: "A1" },
+                { german: "Kann ich hier parken?", arabic: "هل يمكنني الركن هنا؟", usage: "عند الركن", level: "A2" },
+                { german: "Wo ist eine Tankstelle?", arabic: "أين محطة وقود؟", usage: "عند البحث عن الوقود", level: "A2" },
+                { german: "Ich brauche einen Parkschein.", arabic: "أحتاج تذكرة ركن", usage: "عند الركن", level: "A2" },
+                { german: "Wie komme ich zur Autobahn?", arabic: "كيف أصل إلى الطريق السريع؟", usage: "عند القيادة", level: "B1" },
+                { german: "Gibt es hier eine Haltestelle?", arabic: "هل يوجد هنا موقف؟", usage: "عند البحث", level: "A2" },
+                { german: "Wann ist der nächste Zug?", arabic: "متى القطار التالي؟", usage: "في المحطة", level: "A2" },
+                { german: "Ich möchte nach Hamburg fahren.", arabic: "أريد الذهاب إلى هامبورغ", usage: "عند الحجز", level: "A2" },
+                { german: "Wo ist der Ticketautomat?", arabic: "أين آلة التذاكر؟", usage: "في المحطة", level: "A2" },
+                { german: "Kann ich mit dieser Karte fahren?", arabic: "هل يمكنني السفر بهذه البطاقة؟", usage: "عند التحقق", level: "B1" },
+                { german: "Hat der Zug Verspätung?", arabic: "هل القطار متأخر؟", usage: "عند الانتظار", level: "A2" },
+                { german: "Wo ist der Busbahnhof?", arabic: "أين محطة الباصات؟", usage: "عند البحث", level: "A1" },
+                { german: "Ich hätte gern eine Monatskarte.", arabic: "أريد بطاقة شهرية", usage: "عند الشراء", level: "B1" },
+                { german: "Gilt das Ticket auch für die S-Bahn?", arabic: "هل التذكرة صالحة للقطار السريع؟", usage: "عند السؤال", level: "B1" },
+                { german: "Wo kann ich mein Ticket entwerten?", arabic: "أين يمكنني ختم تذكرتي؟", usage: "في المواصلات", level: "B1" }
             ],
             restaurant: [
-                {german: "Die Speisekarte, bitte.", arabic: "قائمة الطعام من فضلك", usage: "عند الطلب"},
-                {german: "Ich möchte bitte bestellen.", arabic: "أريد الطلب من فضلك", usage: "عند الطلب"},
-                {german: "Die Rechnung, bitte.", arabic: "الحساب من فضلك", usage: "عند الدفع"},
-                {german: "Guten Appetit!", arabic: "صحة وعافية!", usage: "قبل الأكل"},
-                {german: "Das schmeckt sehr gut.", arabic: "هذا لذيذ جداً", usage: "عند الإعجاب"},
-                {german: "Ein Wasser ohne Gas, bitte.", arabic: "ماء بدون غاز من فضلك", usage: "عند الطلب"},
-                {german: "Ein Kaffee mit Milch, bitte.", arabic: "قهوة مع حليب من فضلك", usage: "عند طلب قهوة"},
-                {german: "Möchten Sie noch etwas?", arabic: "هل تريدون شيئاً آخر؟", usage: "سؤال النادل"},
-                {german: "Ist dieser Tisch noch frei?", arabic: "هل هذه الطاولة لا زالت فارغة؟", usage: "عند الجلوس"},
-                {german: "Was können Sie empfehlen?", arabic: "ماذا توصون؟", usage: "عند السؤال"},
-                {german: "Ich bin Vegetarier.", arabic: "أنا نباتي", usage: "عند الطلب"},
-                {german: "Ohne Zwiebeln, bitte.", arabic: "بدون بصل من فضلك", usage: "عند الطلب"},
-                {german: "Das war sehr lecker!", arabic: "كان لذيذاً جداً!", usage: "بعد الأكل"},
-                {german: "Haben Sie auch Pommes?", arabic: "هل لديكم بطاطا مقلية أيضاً؟", usage: "عند الطلب"},
-                {german: "Ich nehme das Tagesgericht.", arabic: "سآخذ طبق اليوم", usage: "عند الطلب"},
-                {german: "Mit oder ohne Eis?", arabic: "مع أو بدون ثلج؟", usage: "سؤال النادل"},
-                {german: "Für hier oder zum Mitnehmen?", arabic: "هنا أو للأخذ؟", usage: "في المطعم"},
-                {german: "Zahlen Sie zusammen oder getrennt?", arabic: "تدفعون معاً أو منفصل؟", usage: "سؤال النادل"},
-                {german: "Getrennt, bitte.", arabic: "منفصل من فضلك", usage: "عند الدفع"},
-                {german: "Das habe ich nicht bestellt.", arabic: "لم أطلب هذا", usage: "عند الخطأ"},
-                {german: "Haben Sie einen Tisch frei?", arabic: "هل لديكم طاولة فارغة؟", usage: "عند الدخول"},
-                {german: "Ich habe eine Reservierung.", arabic: "لدي حجز", usage: "عند الوصول"},
-                {german: "Wo ist die Toilette?", arabic: "أين الحمام؟", usage: "عند السؤال"},
-                {german: "Das Essen dauert zu lange.", arabic: "الطعام يستغرق وقتاً طويلاً", usage: "عند الشكوى"},
-                {german: "Kann ich die Rechnung haben?", arabic: "هل يمكنني الحساب؟", usage: "عند الطلب"},
-                {german: "Haben Sie auch Kinderstühle?", arabic: "هل لديكم كراسي أطفال؟", usage: "عند وجود أطفال"},
-                {german: "Ist das Essen scharf?", arabic: "هل الطعام حار؟", usage: "عند السؤال"},
-                {german: "Ich bin allergisch gegen Nüsse.", arabic: "لدي حساسية من المكسرات", usage: "عند التحذير"},
-                {german: "Das ist kalt geworden.", arabic: "هذا أصبح بارداً", usage: "عند الشكوى"},
-                {german: "Können Sie das aufwärmen?", arabic: "هل يمكنكم تسخين هذا؟", usage: "عند الطلب"},
-                {german: "Haben Sie auch glutenfreie Gerichte?", arabic: "هل لديكم أطباق خالية من الغلوتين؟", usage: "عند السؤال"},
-                {german: "Was ist im Salat?", arabic: "ما الذي في السلطة؟", usage: "عند السؤال"},
-                {german: "Ich möchte das Medium.", arabic: "أريده متوسط الاستواء", usage: "عند طلب اللحم"},
-                {german: "Stimmt so.", arabic: "خليها هيك (البقية لك)", usage: "عند الدفع"},
-                {german: "Das war ein Missverständnis.", arabic: "كان هناك سوء تفاهم", usage: "عند الخطأ"}
+                { german: "Die Speisekarte, bitte.", arabic: "قائمة الطعام من فضلك", usage: "عند الطلب", level: "A1" },
+                { german: "Ich möchte bitte bestellen.", arabic: "أريد الطلب من فضلك", usage: "عند الطلب", level: "A2" },
+                { german: "Die Rechnung, bitte.", arabic: "الحساب من فضلك", usage: "عند الدفع", level: "A1" },
+                { german: "Guten Appetit!", arabic: "صحة وعافية!", usage: "قبل الأكل", level: "A1" },
+                { german: "Das schmeckt sehr gut.", arabic: "هذا لذيذ جداً", usage: "عند الإعجاب", level: "A1" },
+                { german: "Ein Wasser ohne Gas, bitte.", arabic: "ماء بدون غاز من فضلك", usage: "عند الطلب", level: "A2" },
+                { german: "Ein Kaffee mit Milch, bitte.", arabic: "قهوة مع حليب من فضلك", usage: "عند طلب قهوة", level: "A1" },
+                { german: "Möchten Sie noch etwas?", arabic: "هل تريدون شيئاً آخر؟", usage: "سؤال النادل", level: "A2" },
+                { german: "Ist dieser Tisch noch frei?", arabic: "هل هذه الطاولة لا زالت فارغة؟", usage: "عند الجلوس", level: "A2" },
+                { german: "Was können Sie empfehlen?", arabic: "ماذا توصون؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich bin Vegetarier.", arabic: "أنا نباتي", usage: "عند الطلب", level: "A2" },
+                { german: "Ohne Zwiebeln, bitte.", arabic: "بدون بصل من فضلك", usage: "عند الطلب", level: "A2" },
+                { german: "Das war sehr lecker!", arabic: "كان لذيذاً جداً!", usage: "بعد الأكل", level: "A1" },
+                { german: "Haben Sie auch Pommes?", arabic: "هل لديكم بطاطا مقلية أيضاً؟", usage: "عند الطلب", level: "A1" },
+                { german: "Ich nehme das Tagesgericht.", arabic: "سآخذ طبق اليوم", usage: "عند الطلب", level: "A2" },
+                { german: "Mit oder ohne Eis?", arabic: "مع أو بدون ثلج؟", usage: "سؤال النادل", level: "A1" },
+                { german: "Für hier oder zum Mitnehmen?", arabic: "هنا أو للأخذ؟", usage: "في المطعم", level: "A2" },
+                { german: "Zahlen Sie zusammen oder getrennt?", arabic: "تدفعون معاً أو منفصل؟", usage: "سؤال النادل", level: "A2" },
+                { german: "Getrennt, bitte.", arabic: "منفصل من فضلك", usage: "عند الدفع", level: "A2" },
+                { german: "Das habe ich nicht bestellt.", arabic: "لم أطلب هذا", usage: "عند الخطأ", level: "A2" },
+                { german: "Haben Sie einen Tisch frei?", arabic: "هل لديكم طاولة فارغة؟", usage: "عند الدخول", level: "A2" },
+                { german: "Ich habe eine Reservierung.", arabic: "لدي حجز", usage: "عند الوصول", level: "A2" },
+                { german: "Wo ist die Toilette?", arabic: "أين الحمام؟", usage: "عند السؤال", level: "A1" },
+                { german: "Das Essen dauert zu lange.", arabic: "الطعام يستغرق وقتاً طويلاً", usage: "عند الشكوى", level: "B1" },
+                { german: "Kann ich die Rechnung haben?", arabic: "هل يمكنني الحساب؟", usage: "عند الطلب", level: "A2" },
+                { german: "Haben Sie auch Kinderstühle?", arabic: "هل لديكم كراسي أطفال؟", usage: "عند وجود أطفال", level: "A2" },
+                { german: "Ist das Essen scharf?", arabic: "هل الطعام حار؟", usage: "عند السؤال", level: "A1" },
+                { german: "Ich bin allergisch gegen Nüsse.", arabic: "لدي حساسية من المكسرات", usage: "عند التحذير", level: "B1" },
+                { german: "Das ist kalt geworden.", arabic: "هذا أصبح بارداً", usage: "عند الشكوى", level: "A2" },
+                { german: "Können Sie das aufwärmen?", arabic: "هل يمكنكم تسخين هذا؟", usage: "عند الطلب", level: "A2" },
+                { german: "Haben Sie auch glutenfreie Gerichte?", arabic: "هل لديكم أطباق خالية من الغلوتين؟", usage: "عند السؤال", level: "B1" },
+                { german: "Was ist im Salat?", arabic: "ما الذي في السلطة؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich möchte das Medium.", arabic: "أريده متوسط الاستواء", usage: "عند طلب اللحم", level: "B1" },
+                { german: "Stimmt so.", arabic: "خليها هيك (البقية لك)", usage: "عند الدفع", level: "A2" },
+                { german: "Das war ein Missverständnis.", arabic: "كان هناك سوء تفاهم", usage: "عند الخطأ", level: "B1" },
+                { german: "Kann ich bitte Salz und Pfeffer haben?", arabic: "هل يمكنني الحصول على ملح وفلفل؟", usage: "عند الطلب", level: "A2" },
+                { german: "Gibt es eine Kinderkarte?", arabic: "هل توجد قائمة أطفال؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich hätte gern einen Tisch am Fenster.", arabic: "أريد طاولة عند النافذة", usage: "عند الطلب", level: "B1" }
             ],
             daily: [
-                {german: "Guten Morgen!", arabic: "صباح الخير!", usage: "في الصباح"},
-                {german: "Wie geht's dir?", arabic: "كيف حالك؟", usage: "عند التحية"},
-                {german: "Danke, mir geht's gut!", arabic: "شكراً، أنا بخير!", usage: "الرد على التحية"},
-                {german: "Auf Wiedersehen!", arabic: "مع السلامة!", usage: "عند الوداع"},
-                {german: "Bis später!", arabic: "إلى اللقاء!", usage: "عند الوداع المؤقت"},
-                {german: "Entschuldigung, wo ist...?", arabic: "المعذرة، أين...؟", usage: "عند السؤال"},
-                {german: "Vielen Dank für Ihre Hilfe!", arabic: "شكراً جزيلاً على مساعدتك!", usage: "عند الشكر"},
-                {german: "Bitte schön!", arabic: "تفضل! / عفواً!", usage: "الرد على الشكر"},
-                {german: "Ich verstehe das nicht.", arabic: "لا أفهم هذا", usage: "عند عدم الفهم"},
-                {german: "Wie heißen Sie?", arabic: "ما اسمك؟", usage: "عند التعارف"},
-                {german: "Ich heiße Ahmed.", arabic: "اسمي أحمد", usage: "عند التعريف"},
-                {german: "Woher kommen Sie?", arabic: "من أين أنت؟", usage: "عند التعارف"},
-                {german: "Ich komme aus Syrien.", arabic: "أنا من سوريا", usage: "عند التعريف"},
-                {german: "Sprechen Sie auch Englisch?", arabic: "هل تتحدث الإنجليزية أيضاً؟", usage: "عند الحاجة"},
-                {german: "Wie spät ist es jetzt?", arabic: "كم الساعة الآن؟", usage: "عند السؤال عن الوقت"},
-                {german: "Es ist drei Uhr.", arabic: "الساعة الثالثة", usage: "الرد على السؤال"},
-                {german: "Ja, gerne!", arabic: "نعم، بكل سرور!", usage: "الرد بالقبول"},
-                {german: "Nein, danke.", arabic: "لا، شكراً", usage: "الرد بالرفض"},
-                {german: "Kein Problem!", arabic: "لا مشكلة!", usage: "عند الرد"},
-                {german: "Alles klar!", arabic: "كل شيء واضح!", usage: "عند الفهم"},
-                {german: "Einen Moment noch, bitte.", arabic: "لحظة أخرى من فضلك", usage: "طلب الانتظار"},
-                {german: "Ich weiß es nicht.", arabic: "لا أعرف", usage: "عند عدم المعرفة"},
-                {german: "Das stimmt genau.", arabic: "هذا صحيح تماماً", usage: "عند الموافقة"},
-                {german: "Das macht gar nichts.", arabic: "لا يهم على الإطلاق", usage: "عند التسامح"},
-                {german: "Bis morgen!", arabic: "إلى الغد!", usage: "عند الوداع"},
-                {german: "Können Sie mir helfen?", arabic: "هل يمكنك مساعدتي؟", usage: "طلب المساعدة"},
-                {german: "Wo wohnen Sie?", arabic: "أين تسكن؟", usage: "عند التعارف"},
-                {german: "Was machen Sie beruflich?", arabic: "ما هو عملك؟", usage: "عند التعارف"},
-                {german: "Schönes Wetter heute, oder?", arabic: "الجو جميل اليوم، أليس كذلك؟", usage: "للحديث"},
-                {german: "Wie war Ihr Tag?", arabic: "كيف كان يومك؟", usage: "عند السؤال"},
-                {german: "Freut mich, Sie kennenzulernen.", arabic: "سررت بلقائك", usage: "عند التعارف"},
-                {german: "Können Sie das wiederholen?", arabic: "هل يمكنك التكرار؟", usage: "عند عدم الفهم"},
-                {german: "Langsamer, bitte.", arabic: "أبطأ من فضلك", usage: "عند السرعة في الكلام"},
-                {german: "Wie schreibt man das?", arabic: "كيف يُكتب هذا؟", usage: "عند السؤال"},
-                {german: "Was bedeutet das?", arabic: "ماذا يعني هذا؟", usage: "عند السؤال"}
+                { german: "Guten Morgen!", arabic: "صباح الخير!", usage: "في الصباح", level: "A1" },
+                { german: "Wie geht's dir?", arabic: "كيف حالك؟", usage: "عند التحية", level: "A1" },
+                { german: "Danke, mir geht's gut!", arabic: "شكراً، أنا بخير!", usage: "الرد على التحية", level: "A1" },
+                { german: "Auf Wiedersehen!", arabic: "مع السلامة!", usage: "عند الوداع", level: "A1" },
+                { german: "Bis später!", arabic: "إلى اللقاء!", usage: "عند الوداع المؤقت", level: "A1" },
+                { german: "Entschuldigung, wo ist...?", arabic: "المعذرة، أين...؟", usage: "عند السؤال", level: "A1" },
+                { german: "Vielen Dank für Ihre Hilfe!", arabic: "شكراً جزيلاً على مساعدتك!", usage: "عند الشكر", level: "A2" },
+                { german: "Bitte schön!", arabic: "تفضل! / عفواً!", usage: "الرد على الشكر", level: "A1" },
+                { german: "Ich verstehe das nicht.", arabic: "لا أفهم هذا", usage: "عند عدم الفهم", level: "A1" },
+                { german: "Wie heißen Sie?", arabic: "ما اسمك؟", usage: "عند التعارف", level: "A1" },
+                { german: "Ich heiße Ahmed.", arabic: "اسمي أحمد", usage: "عند التعريف", level: "A1" },
+                { german: "Woher kommen Sie?", arabic: "من أين أنت؟", usage: "عند التعارف", level: "A1" },
+                { german: "Ich komme aus Syrien.", arabic: "أنا من سوريا", usage: "عند التعريف", level: "A1" },
+                { german: "Sprechen Sie auch Englisch?", arabic: "هل تتحدث الإنجليزية أيضاً؟", usage: "عند الحاجة", level: "A1" },
+                { german: "Wie spät ist es jetzt?", arabic: "كم الساعة الآن؟", usage: "عند السؤال عن الوقت", level: "A1" },
+                { german: "Es ist drei Uhr.", arabic: "الساعة الثالثة", usage: "الرد على السؤال", level: "A1" },
+                { german: "Ja, gerne!", arabic: "نعم، بكل سرور!", usage: "الرد بالقبول", level: "A1" },
+                { german: "Nein, danke.", arabic: "لا، شكراً", usage: "الرد بالرفض", level: "A1" },
+                { german: "Kein Problem!", arabic: "لا مشكلة!", usage: "عند الرد", level: "A1" },
+                { german: "Alles klar!", arabic: "كل شيء واضح!", usage: "عند الفهم", level: "A1" },
+                { german: "Einen Moment noch, bitte.", arabic: "لحظة أخرى من فضلك", usage: "طلب الانتظار", level: "A2" },
+                { german: "Ich weiß es nicht.", arabic: "لا أعرف", usage: "عند عدم المعرفة", level: "A1" },
+                { german: "Das stimmt genau.", arabic: "هذا صحيح تماماً", usage: "عند الموافقة", level: "A2" },
+                { german: "Das macht gar nichts.", arabic: "لا يهم على الإطلاق", usage: "عند التسامح", level: "A2" },
+                { german: "Bis morgen!", arabic: "إلى الغد!", usage: "عند الوداع", level: "A1" },
+                { german: "Können Sie mir helfen?", arabic: "هل يمكنك مساعدتي؟", usage: "طلب المساعدة", level: "A1" },
+                { german: "Wo wohnen Sie?", arabic: "أين تسكن؟", usage: "عند التعارف", level: "A1" },
+                { german: "Was machen Sie beruflich?", arabic: "ما هو عملك؟", usage: "عند التعارف", level: "A2" },
+                { german: "Schönes Wetter heute, oder?", arabic: "الجو جميل اليوم، أليس كذلك؟", usage: "للحديث", level: "A2" },
+                { german: "Wie war Ihr Tag?", arabic: "كيف كان يومك؟", usage: "عند السؤال", level: "A2" },
+                { german: "Freut mich, Sie kennenzulernen.", arabic: "سررت بلقائك", usage: "عند التعارف", level: "A2" },
+                { german: "Können Sie das wiederholen?", arabic: "هل يمكنك التكرار؟", usage: "عند عدم الفهم", level: "A2" },
+                { german: "Langsamer, bitte.", arabic: "أبطأ من فضلك", usage: "عند السرعة في الكلام", level: "A1" },
+                { german: "Wie schreibt man das?", arabic: "كيف يُكتب هذا؟", usage: "عند السؤال", level: "A2" },
+                { german: "Was bedeutet das?", arabic: "ماذا يعني هذا؟", usage: "عند السؤال", level: "A1" },
+                { german: "Schönen Tag noch!", arabic: "أتمنى لك يوماً جميلاً!", usage: "عند الوداع", level: "A2" },
+                { german: "Wie bitte?", arabic: "عفواً؟ (لم أسمع)", usage: "عند عدم السماع", level: "A1" },
+                { german: "Tut mir leid, das wusste ich nicht.", arabic: "آسف، لم أكن أعرف", usage: "عند الاعتذار", level: "A2" }
             ],
             doctor: [
-                {german: "Mir geht's nicht gut.", arabic: "لا أشعر بحال جيدة", usage: "عند المرض"},
-                {german: "Ich habe starke Schmerzen.", arabic: "لدي آلام شديدة", usage: "عند الألم"},
-                {german: "Wo tut es weh?", arabic: "أين يؤلم؟", usage: "سؤال الطبيب"},
-                {german: "Ich brauche ein Rezept.", arabic: "أحتاج وصفة طبية", usage: "عند طلب الوصفة"},
-                {german: "Ich habe hohes Fieber.", arabic: "لدي حمى عالية", usage: "عند المرض"},
-                {german: "Mir tut der Kopf weh.", arabic: "رأسي يؤلمني", usage: "عند الألم"},
-                {german: "Ich habe starken Husten.", arabic: "لدي سعال شديد", usage: "عند المرض"},
-                {german: "Mir ist sehr schlecht.", arabic: "أشعر بغثيان شديد", usage: "عند المرض"},
-                {german: "Ich bin seit gestern krank.", arabic: "أنا مريض منذ البارحة", usage: "عند المرض"},
-                {german: "Seit wann haben Sie das?", arabic: "منذ متى لديك هذا؟", usage: "سؤال الطبيب"},
-                {german: "Seit gestern Abend.", arabic: "منذ مساء البارحة", usage: "الرد على السؤال"},
-                {german: "Haben Sie irgendwelche Allergien?", arabic: "هل لديك أي حساسية؟", usage: "سؤال الطبيب"},
-                {german: "Ich bin allergisch gegen Penicillin.", arabic: "لدي حساسية من البنسلين", usage: "عند الإخبار"},
-                {german: "Wo ist die nächste Apotheke?", arabic: "أين أقرب صيدلية؟", usage: "عند البحث"},
-                {german: "Ich brauche starke Schmerztabletten.", arabic: "أحتاج مسكنات قوية", usage: "في الصيدلية"},
-                {german: "Nehmen Sie das dreimal täglich.", arabic: "خذ هذا ثلاث مرات يومياً", usage: "تعليمات الدواء"},
-                {german: "Immer nach dem Essen.", arabic: "دائماً بعد الأكل", usage: "تعليمات الدواء"},
-                {german: "Ich kann nachts nicht schlafen.", arabic: "لا أستطيع النوم ليلاً", usage: "عند المشكلة"},
-                {german: "Mir ist sehr schwindlig.", arabic: "أشعر بدوار شديد", usage: "عند المرض"},
-                {german: "Ich habe einen Termin um 10.", arabic: "لدي موعد الساعة 10", usage: "عند الطبيب"},
-                {german: "Wie lange muss ich warten?", arabic: "كم علي الانتظار؟", usage: "في العيادة"},
-                {german: "Können Sie mir etwas verschreiben?", arabic: "هل يمكنك وصف شيء لي؟", usage: "عند الطبيب"},
-                {german: "Ich habe meine Versicherungskarte vergessen.", arabic: "نسيت بطاقة التأمين", usage: "في العيادة"},
-                {german: "Muss ich zur Apotheke?", arabic: "هل يجب أن أذهب للصيدلية؟", usage: "عند السؤال"},
-                {german: "Wie oft muss ich kommen?", arabic: "كم مرة يجب أن آتي؟", usage: "عند السؤال"},
-                {german: "Ich habe Probleme beim Atmen.", arabic: "لدي مشاكل في التنفس", usage: "عند المرض"},
-                {german: "Mein Rücken tut sehr weh.", arabic: "ظهري يؤلمني جداً", usage: "عند الألم"},
-                {german: "Ich fühle mich sehr schwach.", arabic: "أشعر بضعف شديد", usage: "عند المرض"},
-                {german: "Brauche ich eine Krankmeldung?", arabic: "هل أحتاج شهادة مرضية؟", usage: "للعمل"},
-                {german: "Kann ich wieder arbeiten gehen?", arabic: "هل يمكنني العودة للعمل؟", usage: "عند السؤال"},
-                {german: "Was soll ich vermeiden?", arabic: "ماذا يجب أن أتجنب؟", usage: "عند السؤال"},
-                {german: "Gibt es Nebenwirkungen?", arabic: "هل توجد آثار جانبية؟", usage: "عن الدواء"},
-                {german: "Wie lange dauert die Behandlung?", arabic: "كم تستغرق المعالجة؟", usage: "عند السؤال"},
-                {german: "Muss ich ins Krankenhaus?", arabic: "هل يجب أن أذهب للمستشفى؟", usage: "عند السؤال"},
-                {german: "Ich habe keine Kraft mehr.", arabic: "لم تعد لدي قوة", usage: "عند المرض"}
+                { german: "Mir geht's nicht gut.", arabic: "لا أشعر بحال جيدة", usage: "عند المرض", level: "A1" },
+                { german: "Ich habe starke Schmerzen.", arabic: "لدي آلام شديدة", usage: "عند الألم", level: "A2" },
+                { german: "Wo tut es weh?", arabic: "أين يؤلم؟", usage: "سؤال الطبيب", level: "A1" },
+                { german: "Ich brauche ein Rezept.", arabic: "أحتاج وصفة طبية", usage: "عند طلب الوصفة", level: "A2" },
+                { german: "Ich habe hohes Fieber.", arabic: "لدي حمى عالية", usage: "عند المرض", level: "A2" },
+                { german: "Mir tut der Kopf weh.", arabic: "رأسي يؤلمني", usage: "عند الألم", level: "A1" },
+                { german: "Ich habe starken Husten.", arabic: "لدي سعال شديد", usage: "عند المرض", level: "A2" },
+                { german: "Mir ist sehr schlecht.", arabic: "أشعر بغثيان شديد", usage: "عند المرض", level: "A2" },
+                { german: "Ich bin seit gestern krank.", arabic: "أنا مريض منذ البارحة", usage: "عند المرض", level: "A2" },
+                { german: "Seit wann haben Sie das?", arabic: "منذ متى لديك هذا؟", usage: "سؤال الطبيب", level: "A2" },
+                { german: "Seit gestern Abend.", arabic: "منذ مساء البارحة", usage: "الرد على السؤال", level: "A2" },
+                { german: "Haben Sie irgendwelche Allergien?", arabic: "هل لديك أي حساسية؟", usage: "سؤال الطبيب", level: "B1" },
+                { german: "Ich bin allergisch gegen Penicillin.", arabic: "لدي حساسية من البنسلين", usage: "عند الإخبار", level: "B1" },
+                { german: "Wo ist die nächste Apotheke?", arabic: "أين أقرب صيدلية؟", usage: "عند البحث", level: "A2" },
+                { german: "Ich brauche starke Schmerztabletten.", arabic: "أحتاج مسكنات قوية", usage: "في الصيدلية", level: "B1" },
+                { german: "Nehmen Sie das dreimal täglich.", arabic: "خذ هذا ثلاث مرات يومياً", usage: "تعليمات الدواء", level: "A2" },
+                { german: "Immer nach dem Essen.", arabic: "دائماً بعد الأكل", usage: "تعليمات الدواء", level: "A2" },
+                { german: "Ich kann nachts nicht schlafen.", arabic: "لا أستطيع النوم ليلاً", usage: "عند المشكلة", level: "A2" },
+                { german: "Mir ist sehr schwindlig.", arabic: "أشعر بدوار شديد", usage: "عند المرض", level: "A2" },
+                { german: "Ich habe einen Termin um 10.", arabic: "لدي موعد الساعة 10", usage: "عند الطبيب", level: "A2" },
+                { german: "Wie lange muss ich warten?", arabic: "كم علي الانتظار؟", usage: "في العيادة", level: "A2" },
+                { german: "Können Sie mir etwas verschreiben?", arabic: "هل يمكنك وصف شيء لي؟", usage: "عند الطبيب", level: "B1" },
+                { german: "Ich habe meine Versicherungskarte vergessen.", arabic: "نسيت بطاقة التأمين", usage: "في العيادة", level: "B1" },
+                { german: "Muss ich zur Apotheke?", arabic: "هل يجب أن أذهب للصيدلية؟", usage: "عند السؤال", level: "A2" },
+                { german: "Wie oft muss ich kommen?", arabic: "كم مرة يجب أن آتي؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich habe Probleme beim Atmen.", arabic: "لدي مشاكل في التنفس", usage: "عند المرض", level: "B1" },
+                { german: "Mein Rücken tut sehr weh.", arabic: "ظهري يؤلمني جداً", usage: "عند الألم", level: "A2" },
+                { german: "Ich fühle mich sehr schwach.", arabic: "أشعر بضعف شديد", usage: "عند المرض", level: "A2" },
+                { german: "Brauche ich eine Krankmeldung?", arabic: "هل أحتاج شهادة مرضية؟", usage: "للعمل", level: "B1" },
+                { german: "Kann ich wieder arbeiten gehen?", arabic: "هل يمكنني العودة للعمل؟", usage: "عند السؤال", level: "A2" },
+                { german: "Was soll ich vermeiden?", arabic: "ماذا يجب أن أتجنب؟", usage: "عند السؤال", level: "B1" },
+                { german: "Gibt es Nebenwirkungen?", arabic: "هل توجد آثار جانبية؟", usage: "عن الدواء", level: "B1" },
+                { german: "Wie lange dauert die Behandlung?", arabic: "كم تستغرق المعالجة؟", usage: "عند السؤال", level: "B1" },
+                { german: "Muss ich ins Krankenhaus?", arabic: "هل يجب أن أذهب للمستشفى؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich habe keine Kraft mehr.", arabic: "لم تعد لدي قوة", usage: "عند المرض", level: "A2" },
+                { german: "Ich brauche etwas gegen Kopfschmerzen.", arabic: "أحتاج شيئاً للصداع", usage: "في الصيدلية", level: "A2" },
+                { german: "Haben Sie das rezeptfrei?", arabic: "هل هذا بدون وصفة؟", usage: "في الصيدلية", level: "B1" },
+                { german: "Mein Zahn tut weh.", arabic: "ضرسي يؤلمني", usage: "عند الألم", level: "A1" }
             ],
             work: [
-                {german: "Guten Tag!", arabic: "نهارك سعيد!", usage: "تحية في العمل"},
-                {german: "Ich bin jetzt fertig.", arabic: "انتهيت الآن", usage: "بعد إنهاء العمل"},
-                {german: "Einen Moment noch, bitte.", arabic: "لحظة أخرى من فضلك", usage: "طلب الانتظار"},
-                {german: "Ich habe eine wichtige Frage.", arabic: "لدي سؤال مهم", usage: "عند السؤال"},
-                {german: "Bis morgen!", arabic: "إلى الغد!", usage: "عند المغادرة"},
-                {german: "Wo ist das Büro?", arabic: "أين المكتب؟", usage: "عند البحث"},
-                {german: "Ich brauche dringend Hilfe.", arabic: "أحتاج مساعدة عاجلة", usage: "عند طلب المساعدة"},
-                {german: "Wann ist die Mittagspause?", arabic: "متى استراحة الغداء؟", usage: "عند السؤال"},
-                {german: "Ich habe einen wichtigen Termin.", arabic: "لدي موعد مهم", usage: "عند الإخبار"},
-                {german: "Das ist schon erledigt.", arabic: "تم إنجاز هذا بالفعل", usage: "بعد الانتهاء"},
-                {german: "Können Sie mir dabei helfen?", arabic: "هل يمكنك مساعدتي في هذا؟", usage: "طلب المساعدة"},
-                {german: "Ich bin gerade sehr beschäftigt.", arabic: "أنا مشغول جداً الآن", usage: "عند الانشغال"},
-                {german: "Wann beginnt die Arbeit heute?", arabic: "متى يبدأ العمل اليوم؟", usage: "عند السؤال"},
-                {german: "Ich habe jetzt Pause.", arabic: "لدي استراحة الآن", usage: "عند الإخبار"},
-                {german: "Bis später!", arabic: "إلى اللقاء!", usage: "عند المغادرة المؤقتة"},
-                {german: "Ist alles in Ordnung?", arabic: "هل كل شيء بخير؟", usage: "عند السؤال"},
-                {german: "Ja, alles läuft gut.", arabic: "نعم، كل شيء يسير جيداً", usage: "الرد على السؤال"},
-                {german: "Ich muss jetzt gehen.", arabic: "يجب أن أذهب الآن", usage: "عند المغادرة"},
-                {german: "Wo sind die Toiletten?", arabic: "أين الحمامات؟", usage: "عند السؤال"},
-                {german: "Ich komme gleich zurück.", arabic: "سأعود حالاً", usage: "عند المغادرة المؤقتة"},
-                {german: "Wann ist die nächste Besprechung?", arabic: "متى الاجتماع القادم؟", usage: "عند السؤال"},
-                {german: "Haben Sie einen Moment Zeit?", arabic: "هل لديك لحظة من الوقت؟", usage: "عند طلب الانتباه"},
-                {german: "Das mache ich sofort.", arabic: "سأفعل هذا فوراً", usage: "عند الوعد"},
-                {german: "Ich bin heute nicht da.", arabic: "لن أكون هنا اليوم", usage: "عند الإبلاغ"},
-                {german: "Wann können wir uns treffen?", arabic: "متى يمكننا الالتقاء؟", usage: "عند الترتيب"},
-                {german: "Ich arbeite von zu Hause.", arabic: "أعمل من المنزل", usage: "عند الإخبار"},
-                {german: "Gibt es hier WLAN?", arabic: "هل يوجد هنا واي فاي؟", usage: "عند السؤال"},
-                {german: "Wie ist das Passwort?", arabic: "ما هي كلمة السر؟", usage: "عند السؤال"},
-                {german: "Der Drucker funktioniert nicht.", arabic: "الطابعة لا تعمل", usage: "عند المشكلة"},
-                {german: "Können Sie das für mich drucken?", arabic: "هل يمكنك طباعة هذا لي؟", usage: "عند الطلب"},
-                {german: "Ich schicke Ihnen eine E-Mail.", arabic: "سأرسل لك إيميل", usage: "عند الوعد"},
-                {german: "Haben Sie meine Nachricht bekommen?", arabic: "هل وصلتك رسالتي؟", usage: "عند التأكد"},
-                {german: "Wann ist der Abgabetermin?", arabic: "متى آخر موعد للتسليم؟", usage: "عند السؤال"},
-                {german: "Das schaffe ich bis morgen.", arabic: "سأنجز هذا حتى الغد", usage: "عند الوعد"},
-                {german: "Ich brauche noch mehr Zeit.", arabic: "أحتاج مزيداً من الوقت", usage: "عند الطلب"}
+                { german: "Guten Tag!", arabic: "نهارك سعيد!", usage: "تحية في العمل", level: "A1" },
+                { german: "Ich bin jetzt fertig.", arabic: "انتهيت الآن", usage: "بعد إنهاء العمل", level: "A1" },
+                { german: "Einen Moment noch, bitte.", arabic: "لحظة أخرى من فضلك", usage: "طلب الانتظار", level: "A2" },
+                { german: "Ich habe eine wichtige Frage.", arabic: "لدي سؤال مهم", usage: "عند السؤال", level: "A2" },
+                { german: "Bis morgen!", arabic: "إلى الغد!", usage: "عند المغادرة", level: "A1" },
+                { german: "Wo ist das Büro?", arabic: "أين المكتب؟", usage: "عند البحث", level: "A1" },
+                { german: "Ich brauche dringend Hilfe.", arabic: "أحتاج مساعدة عاجلة", usage: "عند طلب المساعدة", level: "A2" },
+                { german: "Wann ist die Mittagspause?", arabic: "متى استراحة الغداء؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich habe einen wichtigen Termin.", arabic: "لدي موعد مهم", usage: "عند الإخبار", level: "A2" },
+                { german: "Das ist schon erledigt.", arabic: "تم إنجاز هذا بالفعل", usage: "بعد الانتهاء", level: "A2" },
+                { german: "Können Sie mir dabei helfen?", arabic: "هل يمكنك مساعدتي في هذا؟", usage: "طلب المساعدة", level: "A2" },
+                { german: "Ich bin gerade sehr beschäftigt.", arabic: "أنا مشغول جداً الآن", usage: "عند الانشغال", level: "A2" },
+                { german: "Wann beginnt die Arbeit heute?", arabic: "متى يبدأ العمل اليوم؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich habe jetzt Pause.", arabic: "لدي استراحة الآن", usage: "عند الإخبار", level: "A1" },
+                { german: "Bis später!", arabic: "إلى اللقاء!", usage: "عند المغادرة المؤقتة", level: "A1" },
+                { german: "Ist alles in Ordnung?", arabic: "هل كل شيء بخير؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ja, alles läuft gut.", arabic: "نعم، كل شيء يسير جيداً", usage: "الرد على السؤال", level: "A2" },
+                { german: "Ich muss jetzt gehen.", arabic: "يجب أن أذهب الآن", usage: "عند المغادرة", level: "A1" },
+                { german: "Wo sind die Toiletten?", arabic: "أين الحمامات؟", usage: "عند السؤال", level: "A1" },
+                { german: "Ich komme gleich zurück.", arabic: "سأعود حالاً", usage: "عند المغادرة المؤقتة", level: "A2" },
+                { german: "Wann ist die nächste Besprechung?", arabic: "متى الاجتماع القادم؟", usage: "عند السؤال", level: "A2" },
+                { german: "Haben Sie einen Moment Zeit?", arabic: "هل لديك لحظة من الوقت؟", usage: "عند طلب الانتباه", level: "A2" },
+                { german: "Das mache ich sofort.", arabic: "سأفعل هذا فوراً", usage: "عند الوعد", level: "A2" },
+                { german: "Ich bin heute nicht da.", arabic: "لن أكون هنا اليوم", usage: "عند الإبلاغ", level: "A2" },
+                { german: "Wann können wir uns treffen?", arabic: "متى يمكننا الالتقاء؟", usage: "عند الترتيب", level: "A2" },
+                { german: "Ich arbeite von zu Hause.", arabic: "أعمل من المنزل", usage: "عند الإخبار", level: "A2" },
+                { german: "Gibt es hier WLAN?", arabic: "هل يوجد هنا واي فاي؟", usage: "عند السؤال", level: "A2" },
+                { german: "Wie ist das Passwort?", arabic: "ما هي كلمة السر؟", usage: "عند السؤال", level: "A1" },
+                { german: "Der Drucker funktioniert nicht.", arabic: "الطابعة لا تعمل", usage: "عند المشكلة", level: "A2" },
+                { german: "Können Sie das für mich drucken?", arabic: "هل يمكنك طباعة هذا لي؟", usage: "عند الطلب", level: "A2" },
+                { german: "Ich schicke Ihnen eine E-Mail.", arabic: "سأرسل لك إيميل", usage: "عند الوعد", level: "A2" },
+                { german: "Haben Sie meine Nachricht bekommen?", arabic: "هل وصلتك رسالتي؟", usage: "عند التأكد", level: "A2" },
+                { german: "Wann ist der Abgabetermin?", arabic: "متى آخر موعد للتسليم؟", usage: "عند السؤال", level: "B1" },
+                { german: "Das schaffe ich bis morgen.", arabic: "سأنجز هذا حتى الغد", usage: "عند الوعد", level: "A2" },
+                { german: "Ich brauche noch mehr Zeit.", arabic: "أحتاج مزيداً من الوقت", usage: "عند الطلب", level: "A2" },
+                { german: "Wann hast du Feierabend?", arabic: "متى ينتهي دوامك؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich mache Überstunden.", arabic: "أعمل ساعات إضافية", usage: "عند الإخبار", level: "B1" },
+                { german: "Kann ich früher gehen?", arabic: "هل يمكنني المغادرة مبكراً؟", usage: "عند الطلب", level: "A2" }
             ],
             home: [
-                {german: "Ich bin endlich zu Hause.", arabic: "أنا في البيت أخيراً", usage: "عند الوصول للبيت"},
-                {german: "Wo sind die Kinder?", arabic: "أين الأطفال؟", usage: "عند البحث عن الأطفال"},
-                {german: "Das Licht ist noch an.", arabic: "النور لا يزال مشتعلاً", usage: "عن حالة النور"},
-                {german: "Die Tür ist zu.", arabic: "الباب مغلق", usage: "عن حالة الباب"},
-                {german: "Kannst du mir bitte helfen?", arabic: "هل يمكنك مساعدتي من فضلك؟", usage: "طلب المساعدة"},
-                {german: "Ich bin sehr müde.", arabic: "أنا متعب جداً", usage: "عند التعب"},
-                {german: "Ich gehe jetzt schlafen.", arabic: "سأذهب للنوم الآن", usage: "قبل النوم"},
-                {german: "Gute Nacht!", arabic: "تصبح على خير!", usage: "قبل النوم"},
-                {german: "Was gibt es heute zu essen?", arabic: "ما الذي سنأكله اليوم؟", usage: "عند السؤال"},
-                {german: "Das Essen ist gleich fertig.", arabic: "الطعام سيكون جاهزاً حالاً", usage: "عند تجهيز الطعام"},
-                {german: "Kommst du auch mit?", arabic: "هل تأتي معنا أيضاً؟", usage: "عند الدعوة"},
-                {german: "Ich bleibe lieber hier.", arabic: "أفضل البقاء هنا", usage: "عند البقاء"},
-                {german: "Bis gleich!", arabic: "إلى اللقاء القريب!", usage: "عند المغادرة المؤقتة"},
-                {german: "Wo ist mein Handy?", arabic: "أين هاتفي؟", usage: "عند البحث"},
-                {german: "Hier ist es.", arabic: "ها هو هنا", usage: "عند الإيجاد"},
-                {german: "Das Fenster ist offen.", arabic: "النافذة مفتوحة", usage: "عن حالة النافذة"},
-                {german: "Mach bitte die Tür zu!", arabic: "أغلق الباب من فضلك!", usage: "طلب إغلاق الباب"},
-                {german: "Es ist sehr kalt draußen.", arabic: "الجو بارد جداً بالخارج", usage: "عن الطقس"},
-                {german: "Es ist heute sehr warm.", arabic: "الجو دافئ جداً اليوم", usage: "عن الطقس"},
-                {german: "Ich bin gleich wieder da.", arabic: "سأكون هنا مجدداً حالاً", usage: "عند الإخبار"},
-                {german: "Räum bitte dein Zimmer auf!", arabic: "رتب غرفتك من فضلك!", usage: "طلب الترتيب"},
-                {german: "Hast du schon gegessen?", arabic: "هل أكلت بالفعل؟", usage: "عند السؤال"},
-                {german: "Ich habe großen Hunger.", arabic: "أنا جائع جداً", usage: "عند الجوع"},
-                {german: "Können wir heute Pizza bestellen?", arabic: "هل يمكننا طلب بيتزا اليوم؟", usage: "عند الاقتراح"},
-                {german: "Wer macht heute den Abwasch?", arabic: "من سيغسل الصحون اليوم؟", usage: "عن الأعمال المنزلية"},
-                {german: "Ich mache das später.", arabic: "سأفعل هذا لاحقاً", usage: "عند التأجيل"},
-                {german: "Vergiss nicht, Milch zu kaufen!", arabic: "لا تنسَ شراء الحليب!", usage: "تذكير"},
-                {german: "Was machen wir am Wochenende?", arabic: "ماذا سنفعل في نهاية الأسبوع؟", usage: "عند التخطيط"},
-                {german: "Lass uns einen Film schauen.", arabic: "لنشاهد فيلماً", usage: "عند الاقتراح"},
-                {german: "Ich bin gleich fertig.", arabic: "سأنتهي حالاً", usage: "عند الإخبار"},
-                {german: "Wann kommst du nach Hause?", arabic: "متى ستأتي إلى البيت؟", usage: "عند السؤال"},
-                {german: "Ich bin in zehn Minuten da.", arabic: "سأكون هناك خلال 10 دقائق", usage: "عند الرد"},
-                {german: "Hast du den Müll rausgebracht?", arabic: "هل أخرجت القمامة؟", usage: "عند السؤال"},
-                {german: "Kannst du bitte den Tisch decken?", arabic: "هل يمكنك إعداد الطاولة من فضلك؟", usage: "طلب المساعدة"},
-                {german: "Die Heizung funktioniert nicht.", arabic: "التدفئة لا تعمل", usage: "عند المشكلة"}
+                { german: "Ich bin endlich zu Hause.", arabic: "أنا في البيت أخيراً", usage: "عند الوصول للبيت", level: "A2" },
+                { german: "Wo sind die Kinder?", arabic: "أين الأطفال؟", usage: "عند البحث عن الأطفال", level: "A1" },
+                { german: "Das Licht ist noch an.", arabic: "النور لا يزال مشتعلاً", usage: "عن حالة النور", level: "A2" },
+                { german: "Die Tür ist zu.", arabic: "الباب مغلق", usage: "عن حالة الباب", level: "A1" },
+                { german: "Kannst du mir bitte helfen?", arabic: "هل يمكنك مساعدتي من فضلك؟", usage: "طلب المساعدة", level: "A1" },
+                { german: "Ich bin sehr müde.", arabic: "أنا متعب جداً", usage: "عند التعب", level: "A1" },
+                { german: "Ich gehe jetzt schlafen.", arabic: "سأذهب للنوم الآن", usage: "قبل النوم", level: "A1" },
+                { german: "Gute Nacht!", arabic: "تصبح على خير!", usage: "قبل النوم", level: "A1" },
+                { german: "Was gibt es heute zu essen?", arabic: "ما الذي سنأكله اليوم؟", usage: "عند السؤال", level: "A1" },
+                { german: "Das Essen ist gleich fertig.", arabic: "الطعام سيكون جاهزاً حالاً", usage: "عند تجهيز الطعام", level: "A2" },
+                { german: "Kommst du auch mit?", arabic: "هل تأتي معنا أيضاً؟", usage: "عند الدعوة", level: "A2" },
+                { german: "Ich bleibe lieber hier.", arabic: "أفضل البقاء هنا", usage: "عند البقاء", level: "A2" },
+                { german: "Bis gleich!", arabic: "إلى اللقاء القريب!", usage: "عند المغادرة المؤقتة", level: "A1" },
+                { german: "Wo ist mein Handy?", arabic: "أين هاتفي؟", usage: "عند البحث", level: "A1" },
+                { german: "Hier ist es.", arabic: "ها هو هنا", usage: "عند الإيجاد", level: "A1" },
+                { german: "Das Fenster ist offen.", arabic: "النافذة مفتوحة", usage: "عن حالة النافذة", level: "A1" },
+                { german: "Mach bitte die Tür zu!", arabic: "أغلق الباب من فضلك!", usage: "طلب إغلاق الباب", level: "A1" },
+                { german: "Es ist sehr kalt draußen.", arabic: "الجو بارد جداً بالخارج", usage: "عن الطقس", level: "A1" },
+                { german: "Es ist heute sehr warm.", arabic: "الجو دافئ جداً اليوم", usage: "عن الطقس", level: "A1" },
+                { german: "Ich bin gleich wieder da.", arabic: "سأكون هنا مجدداً حالاً", usage: "عند الإخبار", level: "A2" },
+                { german: "Räum bitte dein Zimmer auf!", arabic: "رتب غرفتك من فضلك!", usage: "طلب الترتيب", level: "A2" },
+                { german: "Hast du schon gegessen?", arabic: "هل أكلت بالفعل؟", usage: "عند السؤال", level: "A1" },
+                { german: "Ich habe großen Hunger.", arabic: "أنا جائع جداً", usage: "عند الجوع", level: "A1" },
+                { german: "Können wir heute Pizza bestellen?", arabic: "هل يمكننا طلب بيتزا اليوم؟", usage: "عند الاقتراح", level: "A2" },
+                { german: "Wer macht heute den Abwasch?", arabic: "من سيغسل الصحون اليوم؟", usage: "عن الأعمال المنزلية", level: "A2" },
+                { german: "Ich mache das später.", arabic: "سأفعل هذا لاحقاً", usage: "عند التأجيل", level: "A1" },
+                { german: "Vergiss nicht, Milch zu kaufen!", arabic: "لا تنسَ شراء الحليب!", usage: "تذكير", level: "A2" },
+                { german: "Was machen wir am Wochenende?", arabic: "ماذا سنفعل في نهاية الأسبوع؟", usage: "عند التخطيط", level: "A2" },
+                { german: "Lass uns einen Film schauen.", arabic: "لنشاهد فيلماً", usage: "عند الاقتراح", level: "A2" },
+                { german: "Ich bin gleich fertig.", arabic: "سأنتهي حالاً", usage: "عند الإخبار", level: "A1" },
+                { german: "Wann kommst du nach Hause?", arabic: "متى ستأتي إلى البيت؟", usage: "عند السؤال", level: "A1" },
+                { german: "Ich bin in zehn Minuten da.", arabic: "سأكون هناك خلال 10 دقائق", usage: "عند الرد", level: "A2" },
+                { german: "Hast du den Müll rausgebracht?", arabic: "هل أخرجت القمامة؟", usage: "عند السؤال", level: "A2" },
+                { german: "Kannst du bitte den Tisch decken?", arabic: "هل يمكنك إعداد الطاولة من فضلك؟", usage: "طلب المساعدة", level: "A2" },
+                { german: "Die Heizung funktioniert nicht.", arabic: "التدفئة لا تعمل", usage: "عند المشكلة", level: "A2" }
             ],
             phone: [
-                {german: "Hallo, wer spricht da?", arabic: "ألو، من يتحدث؟", usage: "عند الرد"},
-                {german: "Wer ist am Apparat?", arabic: "من على الهاتف؟", usage: "عند السؤال"},
-                {german: "Einen Moment, bitte.", arabic: "لحظة من فضلك", usage: "طلب الانتظار"},
-                {german: "Er ist leider nicht da.", arabic: "للأسف هو ليس موجوداً", usage: "عند الرد"},
-                {german: "Ich rufe später wieder zurück.", arabic: "سأتصل مجدداً لاحقاً", usage: "عند إنهاء المكالمة"},
-                {german: "Auf Wiederhören!", arabic: "مع السلامة!", usage: "عند إنهاء المكالمة"},
-                {german: "Sie sind falsch verbunden!", arabic: "أنتم على خطأ!", usage: "عند الخطأ"},
-                {german: "Kann ich eine Nachricht hinterlassen?", arabic: "هل يمكنني ترك رسالة؟", usage: "عند طلب ترك رسالة"},
-                {german: "Spreche ich mit Herrn Müller?", arabic: "هل أتحدث مع السيد مولر؟", usage: "عند السؤال"},
-                {german: "Ja, ich bin am Apparat.", arabic: "نعم، أنا على الهاتف", usage: "عند الرد"},
-                {german: "Bitte legen Sie nicht auf.", arabic: "من فضلك لا تغلق الخط", usage: "طلب الانتظار"},
-                {german: "Die Leitung ist gerade besetzt.", arabic: "الخط مشغول الآن", usage: "عند الانتظار"},
-                {german: "Ich verstehe Sie nicht gut.", arabic: "لا أفهمك جيداً", usage: "عند عدم الفهم"},
-                {german: "Können Sie das bitte wiederholen?", arabic: "هل يمكنك التكرار من فضلك؟", usage: "طلب التكرار"},
-                {german: "Ich verbinde Sie gleich.", arabic: "سأوصلك حالاً", usage: "عند التحويل"},
-                {german: "Bleiben Sie bitte am Apparat.", arabic: "ابقَ على الهاتف من فضلك", usage: "طلب الانتظار"},
-                {german: "Können Sie mich bitte zurückrufen?", arabic: "هل يمكنك الاتصال بي لاحقاً؟", usage: "طلب الاتصال"},
-                {german: "Ich habe leider keine Zeit.", arabic: "للأسف ليس لدي وقت", usage: "عند الرفض"},
-                {german: "Wir sprechen morgen weiter.", arabic: "سنكمل الحديث غداً", usage: "عند إنهاء المكالمة"},
-                {german: "Vielen Dank für Ihren Anruf.", arabic: "شكراً جزيلاً على اتصالك", usage: "عند إنهاء المكالمة"},
-                {german: "Die Verbindung ist sehr schlecht.", arabic: "الاتصال سيء جداً", usage: "عند المشكلة"},
-                {german: "Können Sie lauter sprechen?", arabic: "هل يمكنك التحدث بصوت أعلى؟", usage: "عند عدم السماع"},
-                {german: "Ich rufe von der Firma an.", arabic: "أتصل من الشركة", usage: "عند التعريف"},
-                {german: "Wann kann ich Sie erreichen?", arabic: "متى يمكنني الوصول إليك؟", usage: "عند السؤال"},
-                {german: "Haben Sie meine Nachricht bekommen?", arabic: "هل وصلتك رسالتي؟", usage: "عند التأكد"},
-                {german: "Ich habe Sie nicht verstanden.", arabic: "لم أفهمك", usage: "عند عدم الفهم"},
-                {german: "Können Sie das buchstabieren?", arabic: "هل يمكنك تهجئة ذلك؟", usage: "عند السؤال"},
-                {german: "Wie ist Ihre Telefonnummer?", arabic: "ما هو رقم هاتفك؟", usage: "عند السؤال"},
-                {german: "Ich gebe Ihnen meine Nummer.", arabic: "سأعطيك رقمي", usage: "عند الإعطاء"},
-                {german: "Schreiben Sie mir lieber eine SMS.", arabic: "يفضل أن ترسل لي رسالة نصية", usage: "عند الطلب"},
-                {german: "Ich schicke Ihnen eine E-Mail.", arabic: "سأرسل لك إيميل", usage: "عند الوعد"},
-                {german: "Es tut mir leid, ich muss auflegen.", arabic: "آسف، يجب أن أغلق", usage: "عند الاستعجال"},
-                {german: "Ich habe Sie nicht angerufen.", arabic: "لم أتصل بك", usage: "عند التوضيح"},
-                {german: "Das war ein Versehen.", arabic: "كان ذلك خطأً", usage: "عند الاعتذار"},
-                {german: "Können wir später telefonieren?", arabic: "هل يمكننا التحدث لاحقاً؟", usage: "عند التأجيل"}
+                { german: "Hallo, wer spricht da?", arabic: "ألو، من يتحدث؟", usage: "عند الرد", level: "A1" },
+                { german: "Wer ist am Apparat?", arabic: "من على الهاتف؟", usage: "عند السؤال", level: "A2" },
+                { german: "Einen Moment, bitte.", arabic: "لحظة من فضلك", usage: "طلب الانتظار", level: "A1" },
+                { german: "Er ist leider nicht da.", arabic: "للأسف هو ليس موجوداً", usage: "عند الرد", level: "A2" },
+                { german: "Ich rufe später wieder zurück.", arabic: "سأتصل مجدداً لاحقاً", usage: "عند إنهاء المكالمة", level: "A2" },
+                { german: "Auf Wiederhören!", arabic: "مع السلامة!", usage: "عند إنهاء المكالمة", level: "A1" },
+                { german: "Sie sind falsch verbunden!", arabic: "أنتم على خطأ!", usage: "عند الخطأ", level: "A2" },
+                { german: "Kann ich eine Nachricht hinterlassen?", arabic: "هل يمكنني ترك رسالة؟", usage: "عند طلب ترك رسالة", level: "B1" },
+                { german: "Spreche ich mit Herrn Müller?", arabic: "هل أتحدث مع السيد مولر؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ja, ich bin am Apparat.", arabic: "نعم، أنا على الهاتف", usage: "عند الرد", level: "A2" },
+                { german: "Bitte legen Sie nicht auf.", arabic: "من فضلك لا تغلق الخط", usage: "طلب الانتظار", level: "B1" },
+                { german: "Die Leitung ist gerade besetzt.", arabic: "الخط مشغول الآن", usage: "عند الانتظار", level: "A2" },
+                { german: "Ich verstehe Sie nicht gut.", arabic: "لا أفهمك جيداً", usage: "عند عدم الفهم", level: "A2" },
+                { german: "Können Sie das bitte wiederholen?", arabic: "هل يمكنك التكرار من فضلك؟", usage: "طلب التكرار", level: "A2" },
+                { german: "Ich verbinde Sie gleich.", arabic: "سأوصلك حالاً", usage: "عند التحويل", level: "A2" },
+                { german: "Bleiben Sie bitte am Apparat.", arabic: "ابقَ على الهاتف من فضلك", usage: "طلب الانتظار", level: "A2" },
+                { german: "Können Sie mich bitte zurückrufen?", arabic: "هل يمكنك الاتصال بي لاحقاً؟", usage: "طلب الاتصال", level: "A2" },
+                { german: "Ich habe leider keine Zeit.", arabic: "للأسف ليس لدي وقت", usage: "عند الرفض", level: "A2" },
+                { german: "Wir sprechen morgen weiter.", arabic: "سنكمل الحديث غداً", usage: "عند إنهاء المكالمة", level: "A2" },
+                { german: "Vielen Dank für Ihren Anruf.", arabic: "شكراً جزيلاً على اتصالك", usage: "عند إنهاء المكالمة", level: "A2" },
+                { german: "Die Verbindung ist sehr schlecht.", arabic: "الاتصال سيء جداً", usage: "عند المشكلة", level: "A2" },
+                { german: "Können Sie lauter sprechen?", arabic: "هل يمكنك التحدث بصوت أعلى؟", usage: "عند عدم السماع", level: "A2" },
+                { german: "Ich rufe von der Firma an.", arabic: "أتصل من الشركة", usage: "عند التعريف", level: "A2" },
+                { german: "Wann kann ich Sie erreichen?", arabic: "متى يمكنني الوصول إليك؟", usage: "عند السؤال", level: "A2" },
+                { german: "Haben Sie meine Nachricht bekommen?", arabic: "هل وصلتك رسالتي؟", usage: "عند التأكد", level: "A2" },
+                { german: "Ich habe Sie nicht verstanden.", arabic: "لم أفهمك", usage: "عند عدم الفهم", level: "A1" },
+                { german: "Können Sie das buchstabieren?", arabic: "هل يمكنك تهجئة ذلك؟", usage: "عند السؤال", level: "B1" },
+                { german: "Wie ist Ihre Telefonnummer?", arabic: "ما هو رقم هاتفك؟", usage: "عند السؤال", level: "A1" },
+                { german: "Ich gebe Ihnen meine Nummer.", arabic: "سأعطيك رقمي", usage: "عند الإعطاء", level: "A2" },
+                { german: "Schreiben Sie mir lieber eine SMS.", arabic: "يفضل أن ترسل لي رسالة نصية", usage: "عند الطلب", level: "B1" },
+                { german: "Ich schicke Ihnen eine E-Mail.", arabic: "سأرسل لك إيميل", usage: "عند الوعد", level: "A2" },
+                { german: "Es tut mir leid, ich muss auflegen.", arabic: "آسف، يجب أن أغلق", usage: "عند الاستعجال", level: "A2" },
+                { german: "Ich habe Sie nicht angerufen.", arabic: "لم أتصل بك", usage: "عند التوضيح", level: "A2" },
+                { german: "Das war ein Versehen.", arabic: "كان ذلك خطأً", usage: "عند الاعتذار", level: "A2" },
+                { german: "Können wir später telefonieren?", arabic: "هل يمكننا التحدث لاحقاً؟", usage: "عند التأجيل", level: "A2" }
             ],
             emergency: [
-                {german: "Hilfe! Bitte helfen Sie mir!", arabic: "النجدة! ساعدوني من فضلكم!", usage: "عند الطوارئ"},
-                {german: "Rufen Sie sofort die Polizei!", arabic: "اتصلوا بالشرطة فوراً!", usage: "عند الطوارئ"},
-                {german: "Wir brauchen einen Krankenwagen!", arabic: "نحتاج إسعافاً!", usage: "عند الطوارئ"},
-                {german: "Es brennt! Feuer!", arabic: "هناك حريق! نار!", usage: "عند الحريق"},
-                {german: "Schnell! Es ist dringend!", arabic: "بسرعة! هذا عاجل!", usage: "عند الاستعجال"},
-                {german: "Das ist ein Notfall!", arabic: "هذه حالة طارئة!", usage: "عند الطوارئ"},
-                {german: "Wo ist das nächste Krankenhaus?", arabic: "أين أقرب مستشفى؟", usage: "عند الطوارئ"},
-                {german: "Ich brauche dringend einen Arzt.", arabic: "أحتاج طبيباً بشكل عاجل", usage: "عند المرض الشديد"},
-                {german: "Ich kann nicht mehr atmen.", arabic: "لم أعد أستطيع التنفس", usage: "عند الطوارئ"},
-                {german: "Achtung! Ich bin allergisch!", arabic: "انتباه! لدي حساسية!", usage: "عند التحذير"},
-                {german: "Wo ist die Notaufnahme?", arabic: "أين قسم الطوارئ؟", usage: "في المستشفى"},
-                {german: "Ich habe sehr starke Schmerzen!", arabic: "لدي آلام شديدة جداً!", usage: "عند الألم الشديد"},
-                {german: "Bitte helfen Sie mir sofort!", arabic: "من فضلكم ساعدوني فوراً!", usage: "طلب المساعدة"},
-                {german: "Mein Pass wurde heute gestohlen.", arabic: "سُرق جواز سفري اليوم", usage: "عند السرقة"},
-                {german: "Ich habe gerade einen Unfall gesehen.", arabic: "رأيت للتو حادثاً", usage: "عند الحادث"},
-                {german: "Bleiben Sie ruhig und warten Sie!", arabic: "ابقوا هادئين وانتظروا!", usage: "عند التهدئة"},
-                {german: "Das ist sehr dringend!", arabic: "هذا عاجل جداً!", usage: "عند الطوارئ"},
-                {german: "Wo ist die nächste Polizeistation?", arabic: "أين أقرب مركز شرطة؟", usage: "عند البحث"},
-                {german: "Ich brauche sofort dringend Hilfe.", arabic: "أحتاج مساعدة عاجلة فوراً", usage: "عند الطوارئ"},
-                {german: "Spricht hier jemand Englisch?", arabic: "هل يتحدث أحد هنا الإنجليزية؟", usage: "عند الحاجة"},
-                {german: "Ich wurde gerade überfallen.", arabic: "تم الاعتداء علي للتو", usage: "عند السرقة"},
-                {german: "Meine Tasche wurde gestohlen.", arabic: "سُرقت حقيبتي", usage: "عند السرقة"},
-                {german: "Ich habe mein Kind verloren.", arabic: "فقدت طفلي", usage: "عند الطوارئ"},
-                {german: "Rufen Sie bitte die Feuerwehr!", arabic: "اتصلوا بالإطفاء من فضلكم!", usage: "عند الحريق"},
-                {german: "Wo ist der nächste Ausgang?", arabic: "أين أقرب مخرج؟", usage: "عند الطوارئ"},
-                {german: "Es gibt hier einen Notfall.", arabic: "يوجد هنا حالة طارئة", usage: "عند الإبلاغ"},
-                {german: "Ich brauche einen Dolmetscher.", arabic: "أحتاج مترجماً", usage: "عند الحاجة"},
-                {german: "Wo kann ich Anzeige erstatten?", arabic: "أين يمكنني تقديم بلاغ؟", usage: "في الشرطة"},
-                {german: "Das ist eine Verletzung.", arabic: "هذه إصابة", usage: "عند الإخبار"},
-                {german: "Ich bin in großer Gefahr.", arabic: "أنا في خطر كبير", usage: "عند الطوارئ"},
-                {german: "Bitte rufen Sie meine Familie an.", arabic: "من فضلكم اتصلوا بعائلتي", usage: "عند الطلب"},
-                {german: "Ich kenne den Weg nicht.", arabic: "لا أعرف الطريق", usage: "عند الضياع"},
-                {german: "Können Sie mir bitte helfen?", arabic: "هل يمكنكم مساعدتي من فضلكم؟", usage: "طلب المساعدة"},
-                {german: "Wo ist die deutsche Botschaft?", arabic: "أين السفارة الألمانية؟", usage: "عند الحاجة"},
-                {german: "Ich verstehe die Situation nicht.", arabic: "لا أفهم الموقف", usage: "عند عدم الفهم"}
+                { german: "Hilfe! Bitte helfen Sie mir!", arabic: "النجدة! ساعدوني من فضلكم!", usage: "عند الطوارئ", level: "A1" },
+                { german: "Rufen Sie sofort die Polizei!", arabic: "اتصلوا بالشرطة فوراً!", usage: "عند الطوارئ", level: "A2" },
+                { german: "Wir brauchen einen Krankenwagen!", arabic: "نحتاج إسعافاً!", usage: "عند الطوارئ", level: "A2" },
+                { german: "Es brennt! Feuer!", arabic: "هناك حريق! نار!", usage: "عند الحريق", level: "A1" },
+                { german: "Schnell! Es ist dringend!", arabic: "بسرعة! هذا عاجل!", usage: "عند الاستعجال", level: "A1" },
+                { german: "Das ist ein Notfall!", arabic: "هذه حالة طارئة!", usage: "عند الطوارئ", level: "A2" },
+                { german: "Wo ist das nächste Krankenhaus?", arabic: "أين أقرب مستشفى؟", usage: "عند الطوارئ", level: "A1" },
+                { german: "Ich brauche dringend einen Arzt.", arabic: "أحتاج طبيباً بشكل عاجل", usage: "عند المرض الشديد", level: "A2" },
+                { german: "Ich kann nicht mehr atmen.", arabic: "لم أعد أستطيع التنفس", usage: "عند الطوارئ", level: "A2" },
+                { german: "Achtung! Ich bin allergisch!", arabic: "انتباه! لدي حساسية!", usage: "عند التحذير", level: "A2" },
+                { german: "Wo ist die Notaufnahme?", arabic: "أين قسم الطوارئ؟", usage: "في المستشفى", level: "A2" },
+                { german: "Ich habe sehr starke Schmerzen!", arabic: "لدي آلام شديدة جداً!", usage: "عند الألم الشديد", level: "A2" },
+                { german: "Bitte helfen Sie mir sofort!", arabic: "من فضلكم ساعدوني فوراً!", usage: "طلب المساعدة", level: "A2" },
+                { german: "Mein Pass wurde heute gestohlen.", arabic: "سُرق جواز سفري اليوم", usage: "عند السرقة", level: "B1" },
+                { german: "Ich habe gerade einen Unfall gesehen.", arabic: "رأيت للتو حادثاً", usage: "عند الحادث", level: "A2" },
+                { german: "Bleiben Sie ruhig und warten Sie!", arabic: "ابقوا هادئين وانتظروا!", usage: "عند التهدئة", level: "A2" },
+                { german: "Das ist sehr dringend!", arabic: "هذا عاجل جداً!", usage: "عند الطوارئ", level: "A1" },
+                { german: "Wo ist die nächste Polizeistation?", arabic: "أين أقرب مركز شرطة؟", usage: "عند البحث", level: "A2" },
+                { german: "Ich brauche sofort dringend Hilfe.", arabic: "أحتاج مساعدة عاجلة فوراً", usage: "عند الطوارئ", level: "A2" },
+                { german: "Spricht hier jemand Englisch?", arabic: "هل يتحدث أحد هنا الإنجليزية؟", usage: "عند الحاجة", level: "A1" },
+                { german: "Ich wurde gerade überfallen.", arabic: "تم الاعتداء علي للتو", usage: "عند السرقة", level: "B1" },
+                { german: "Meine Tasche wurde gestohlen.", arabic: "سُرقت حقيبتي", usage: "عند السرقة", level: "A2" },
+                { german: "Ich habe mein Kind verloren.", arabic: "فقدت طفلي", usage: "عند الطوارئ", level: "A2" },
+                { german: "Rufen Sie bitte die Feuerwehr!", arabic: "اتصلوا بالإطفاء من فضلكم!", usage: "عند الحريق", level: "A2" },
+                { german: "Wo ist der nächste Ausgang?", arabic: "أين أقرب مخرج؟", usage: "عند الطوارئ", level: "A1" },
+                { german: "Es gibt hier einen Notfall.", arabic: "يوجد هنا حالة طارئة", usage: "عند الإبلاغ", level: "A2" },
+                { german: "Ich brauche einen Dolmetscher.", arabic: "أحتاج مترجماً", usage: "عند الحاجة", level: "B1" },
+                { german: "Wo kann ich Anzeige erstatten?", arabic: "أين يمكنني تقديم بلاغ؟", usage: "في الشرطة", level: "B1" },
+                { german: "Das ist eine Verletzung.", arabic: "هذه إصابة", usage: "عند الإخبار", level: "A2" },
+                { german: "Ich bin in großer Gefahr.", arabic: "أنا في خطر كبير", usage: "عند الطوارئ", level: "A2" },
+                { german: "Bitte rufen Sie meine Familie an.", arabic: "من فضلكم اتصلوا بعائلتي", usage: "عند الطلب", level: "A2" },
+                { german: "Ich kenne den Weg nicht.", arabic: "لا أعرف الطريق", usage: "عند الضياع", level: "A1" },
+                { german: "Können Sie mir bitte helfen?", arabic: "هل يمكنكم مساعدتي من فضلكم؟", usage: "طلب المساعدة", level: "A1" },
+                { german: "Wo ist die deutsche Botschaft?", arabic: "أين السفارة الألمانية؟", usage: "عند الحاجة", level: "A2" },
+                { german: "Ich verstehe die Situation nicht.", arabic: "لا أفهم الموقف", usage: "عند عدم الفهم", level: "A2" }
+            ],
+            bank: [
+                { german: "Ich möchte ein Konto eröffnen.", arabic: "أريد فتح حساب", usage: "في البنك", level: "B1" },
+                { german: "Wo ist der Geldautomat?", arabic: "أين الصراف الآلي؟", usage: "عند البحث", level: "A2" },
+                { german: "Ich habe meine Karte verloren.", arabic: "فقدت بطاقتي", usage: "في البنك", level: "A2" },
+                { german: "Wie hoch sind die Gebühren?", arabic: "كم الرسوم؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich möchte Geld überweisen.", arabic: "أريد تحويل مال", usage: "في البنك", level: "B1" },
+                { german: "Meine Karte funktioniert nicht.", arabic: "بطاقتي لا تعمل", usage: "عند المشكلة", level: "A2" },
+                { german: "Ich brauche eine neue PIN.", arabic: "أحتاج رقم سري جديد", usage: "في البنك", level: "A2" },
+                { german: "Kann ich hier Geld abheben?", arabic: "هل يمكنني سحب مال هنا؟", usage: "عند السؤال", level: "A2" },
+                { german: "Wie ist mein Kontostand?", arabic: "كم رصيدي؟", usage: "في البنك", level: "A2" },
+                { german: "Ich möchte einen Kredit beantragen.", arabic: "أريد التقدم لقرض", usage: "في البنك", level: "B2" },
+                { german: "Welche Dokumente brauche ich?", arabic: "ما الوثائق التي أحتاجها؟", usage: "عند السؤال", level: "A2" },
+                { german: "Kann ich online banking nutzen?", arabic: "هل يمكنني استخدام الخدمات البنكية عبر الإنترنت؟", usage: "في البنك", level: "B1" },
+                { german: "Ich möchte mein Konto schließen.", arabic: "أريد إغلاق حسابي", usage: "في البنك", level: "B1" },
+                { german: "Wann bekomme ich meine Karte?", arabic: "متى سأحصل على بطاقتي؟", usage: "عند السؤال", level: "A2" },
+                { german: "Gibt es eine Jahresgebühr?", arabic: "هل توجد رسوم سنوية؟", usage: "عند السؤال", level: "B1" },
+                { german: "Ich habe eine falsche Abbuchung.", arabic: "لدي خصم خاطئ", usage: "في البنك", level: "B1" },
+                { german: "Kann ich das rückgängig machen?", arabic: "هل يمكنني التراجع عن ذلك؟", usage: "عند السؤال", level: "B1" },
+                { german: "Wo muss ich unterschreiben?", arabic: "أين يجب أن أوقع؟", usage: "في البنك", level: "A2" }
+            ],
+            housing: [
+                { german: "Ich suche eine Wohnung.", arabic: "أبحث عن شقة", usage: "عند البحث", level: "A2" },
+                { german: "Wie hoch ist die Miete?", arabic: "كم الإيجار؟", usage: "عند السؤال", level: "A2" },
+                { german: "Wann kann ich einziehen?", arabic: "متى يمكنني الانتقال؟", usage: "عند السؤال", level: "A2" },
+                { german: "Die Heizung funktioniert nicht.", arabic: "التدفئة لا تعمل", usage: "عند المشكلة", level: "A2" },
+                { german: "Sind die Nebenkosten inklusive?", arabic: "هل التكاليف الإضافية مشمولة؟", usage: "عند السؤال", level: "B1" },
+                { german: "Ich habe ein Problem mit dem Wasserhahn.", arabic: "لدي مشكلة مع الصنبور", usage: "عند المشكلة", level: "A2" },
+                { german: "Wo ist der Hausmeister?", arabic: "أين البواب؟", usage: "عند البحث", level: "A2" },
+                { german: "Ich brauche einen Handwerker.", arabic: "أحتاج حرفياً", usage: "عند الطلب", level: "A2" },
+                { german: "Wann kommt die Müllabfuhr?", arabic: "متى تأتي عربة القمامة؟", usage: "عند السؤال", level: "A2" },
+                { german: "Kann ich die Wohnung besichtigen?", arabic: "هل يمكنني معاينة الشقة؟", usage: "عند الطلب", level: "B1" },
+                { german: "Wie groß ist die Wohnung?", arabic: "كم مساحة الشقة؟", usage: "عند السؤال", level: "A2" },
+                { german: "Gibt es einen Aufzug?", arabic: "هل يوجد مصعد؟", usage: "عند السؤال", level: "A2" },
+                { german: "Wo kann ich parken?", arabic: "أين يمكنني الركن؟", usage: "عند السؤال", level: "A2" },
+                { german: "Sind Haustiere erlaubt?", arabic: "هل الحيوانات الأليفة مسموحة؟", usage: "عند السؤال", level: "B1" },
+                { german: "Ich möchte die Wohnung kündigen.", arabic: "أريد إلغاء عقد الشقة", usage: "عند الإخبار", level: "B2" },
+                { german: "Das Fenster ist kaputt.", arabic: "النافذة مكسورة", usage: "عند المشكلة", level: "A2" },
+                { german: "Wann wird das repariert?", arabic: "متى سيتم إصلاح ذلك؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich brauche einen Schlüssel.", arabic: "أحتاج مفتاحاً", usage: "عند الطلب", level: "A1" },
+                { german: "Wie hoch ist die Kaution?", arabic: "كم التأمين؟", usage: "عند السؤال", level: "B1" }
+            ],
+            school: [
+                { german: "Wann beginnt der Unterricht?", arabic: "متى يبدأ الدرس؟", usage: "في المدرسة", level: "A2" },
+                { german: "Ich habe eine Frage.", arabic: "لدي سؤال", usage: "في الصف", level: "A1" },
+                { german: "Können Sie das erklären?", arabic: "هل يمكنك الشرح؟", usage: "عند الطلب", level: "A2" },
+                { german: "Wann ist die Prüfung?", arabic: "متى الامتحان؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich habe die Hausaufgaben vergessen.", arabic: "نسيت الواجب المنزلي", usage: "في المدرسة", level: "A2" },
+                { german: "Kann ich auf die Toilette gehen?", arabic: "هل يمكنني الذهاب للحمام؟", usage: "في الصف", level: "A1" },
+                { german: "Ich verstehe das nicht.", arabic: "لا أفهم هذا", usage: "في الصف", level: "A1" },
+                { german: "Wann bekommen wir die Noten?", arabic: "متى نحصل على الدرجات؟", usage: "عند السؤال", level: "A2" },
+                { german: "Können Sie das bitte wiederholen?", arabic: "هل يمكنك التكرار من فضلك؟", usage: "في الصف", level: "A2" },
+                { german: "Ich war gestern krank.", arabic: "كنت مريضاً البارحة", usage: "عند الإخبار", level: "A2" },
+                { german: "Wo ist die Bibliothek?", arabic: "أين المكتبة؟", usage: "في المدرسة", level: "A1" },
+                { german: "Wann ist die Pause?", arabic: "متى الاستراحة؟", usage: "عند السؤال", level: "A1" },
+                { german: "Ich brauche Hilfe bei den Hausaufgaben.", arabic: "أحتاج مساعدة في الواجب", usage: "عند الطلب", level: "A2" },
+                { german: "Können Sie langsamer sprechen?", arabic: "هل يمكنك التحدث ببطء أكثر؟", usage: "في الصف", level: "A2" },
+                { german: "Bis wann muss ich das abgeben?", arabic: "حتى متى يجب أن أسلم هذا؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich möchte mich für den Kurs anmelden.", arabic: "أريد التسجيل للدورة", usage: "في المدرسة", level: "B1" },
+                { german: "Gibt es eine Mensa?", arabic: "هل يوجد مطعم للطلاب؟", usage: "عند السؤال", level: "A2" },
+                { german: "Wo finde ich meinen Stundenplan?", arabic: "أين أجد جدول حصصي؟", usage: "عند السؤال", level: "A2" }
+            ],
+            government: [
+                { german: "Ich brauche eine Aufenthaltserlaubnis.", arabic: "أحتاج إقامة", usage: "في دائرة الأجانب", level: "B1" },
+                { german: "Welche Dokumente brauche ich?", arabic: "ما الوثائق التي أحتاجها؟", usage: "عند السؤال", level: "A2" },
+                { german: "Wo muss ich unterschreiben?", arabic: "أين يجب أن أوقع؟", usage: "في الدائرة", level: "A2" },
+                { german: "Wann bekomme ich einen Termin?", arabic: "متى أحصل على موعد؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich möchte meinen Pass verlängern.", arabic: "أريد تجديد جواز سفري", usage: "في الدائرة", level: "B1" },
+                { german: "Wie lange dauert das?", arabic: "كم يستغرق ذلك؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich habe einen Termin um 10 Uhr.", arabic: "لدي موعد الساعة 10", usage: "عند الوصول", level: "A2" },
+                { german: "Wo bekomme ich ein Formular?", arabic: "أين أحصل على استمارة؟", usage: "في الدائرة", level: "A2" },
+                { german: "Ich brauche eine Meldebestätigung.", arabic: "أحتاج شهادة تسجيل", usage: "في الدائرة", level: "B1" },
+                { german: "Kann ich das online machen?", arabic: "هل يمكنني القيام بذلك عبر الإنترنت؟", usage: "عند السؤال", level: "B1" },
+                { german: "Ich möchte mich anmelden.", arabic: "أريد التسجيل", usage: "في الدائرة", level: "A2" },
+                { german: "Wo ist das Einwohnermeldeamt?", arabic: "أين دائرة تسجيل السكان؟", usage: "عند البحث", level: "B1" },
+                { german: "Ich habe meine Adresse geändert.", arabic: "غيرت عنواني", usage: "في الدائرة", level: "A2" },
+                { german: "Brauche ich einen Dolmetscher?", arabic: "هل أحتاج مترجماً؟", usage: "عند السؤال", level: "B1" },
+                { german: "Wie viel kostet das?", arabic: "كم يكلف ذلك؟", usage: "عند السؤال", level: "A1" },
+                { german: "Ich habe alle Dokumente dabei.", arabic: "لدي جميع الوثائق معي", usage: "عند الإخبار", level: "B1" }
+            ],
+            weather: [
+                { german: "Wie ist das Wetter heute?", arabic: "كيف الطقس اليوم؟", usage: "عند السؤال", level: "A1" },
+                { german: "Es regnet.", arabic: "إنها تمطر", usage: "عن الطقس", level: "A1" },
+                { german: "Es schneit.", arabic: "إنها تثلج", usage: "عن الطقس", level: "A1" },
+                { german: "Es ist sonnig.", arabic: "الجو مشمس", usage: "عن الطقس", level: "A1" },
+                { german: "Es ist bewölkt.", arabic: "الجو غائم", usage: "عن الطقس", level: "A1" },
+                { german: "Es ist sehr kalt heute.", arabic: "الجو بارد جداً اليوم", usage: "عن الطقس", level: "A1" },
+                { german: "Es ist sehr warm.", arabic: "الجو حار جداً", usage: "عن الطقس", level: "A1" },
+                { german: "Brauche ich einen Regenschirm?", arabic: "هل أحتاج مظلة؟", usage: "عند السؤال", level: "A2" },
+                { german: "Wie viel Grad sind es?", arabic: "كم الدرجة؟", usage: "عند السؤال", level: "A2" },
+                { german: "Es ist windig.", arabic: "الجو عاصف", usage: "عن الطقس", level: "A1" },
+                { german: "Morgen soll es regnen.", arabic: "من المفترض أن تمطر غداً", usage: "عن الطقس", level: "A2" },
+                { german: "Wie wird das Wetter morgen?", arabic: "كيف سيكون الطقس غداً؟", usage: "عند السؤال", level: "A2" },
+                { german: "Es ist neblig.", arabic: "الجو ضبابي", usage: "عن الطقس", level: "A2" },
+                { german: "Die Sonne scheint.", arabic: "الشمس مشرقة", usage: "عن الطقس", level: "A1" },
+                { german: "Es gibt ein Gewitter.", arabic: "هناك عاصفة رعدية", usage: "عن الطقس", level: "A2" }
+            ],
+            hobbies: [
+                { german: "Was sind deine Hobbys?", arabic: "ما هواياتك؟", usage: "عند التعارف", level: "A2" },
+                { german: "Ich spiele gern Fußball.", arabic: "أحب لعب كرة القدم", usage: "عن الهوايات", level: "A2" },
+                { german: "Hast du morgen Zeit?", arabic: "هل لديك وقت غداً؟", usage: "عند السؤال", level: "A2" },
+                { german: "Lass uns ins Kino gehen.", arabic: "لنذهب للسينما", usage: "عند الدعوة", level: "A2" },
+                { german: "Ich lese gern Bücher.", arabic: "أحب قراءة الكتب", usage: "عن الهوايات", level: "A2" },
+                { german: "Spielst du ein Instrument?", arabic: "هل تعزف آلة موسيقية؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich gehe gern ins Fitnessstudio.", arabic: "أحب الذهاب للنادي الرياضي", usage: "عن الهوايات", level: "A2" },
+                { german: "Magst du Sport?", arabic: "هل تحب الرياضة؟", usage: "عند السؤال", level: "A1" },
+                { german: "Ich schwimme gern.", arabic: "أحب السباحة", usage: "عن الهوايات", level: "A2" },
+                { german: "Wann treffen wir uns?", arabic: "متى نلتقي؟", usage: "عند الترتيب", level: "A2" },
+                { german: "Ich koche gern.", arabic: "أحب الطبخ", usage: "عن الهوايات", level: "A2" },
+                { german: "Hast du Lust spazieren zu gehen?", arabic: "هل تريد التنزه؟", usage: "عند الدعوة", level: "A2" },
+                { german: "Ich zeichne in meiner Freizeit.", arabic: "أرسم في وقت فراغي", usage: "عن الهوايات", level: "B1" },
+                { german: "Kommst du mit?", arabic: "هل تأتي معي؟", usage: "عند الدعوة", level: "A1" },
+                { german: "Ich spiele gern Videospiele.", arabic: "أحب ألعاب الفيديو", usage: "عن الهوايات", level: "A2" }
+            ],
+            hotel: [
+                { german: "Ich habe ein Zimmer reserviert.", arabic: "حجزت غرفة", usage: "في الفندق", level: "A2" },
+                { german: "Wo ist das Frühstück?", arabic: "أين الفطور؟", usage: "في الفندق", level: "A1" },
+                { german: "Um wie viel Uhr ist Check-out?", arabic: "متى وقت المغادرة؟", usage: "عند السؤال", level: "A2" },
+                { german: "Haben Sie WLAN?", arabic: "هل لديكم واي فاي؟", usage: "في الفندق", level: "A2" },
+                { german: "Kann ich ein Zimmer mit Meerblick haben?", arabic: "هل يمكنني غرفة بإطلالة على البحر؟", usage: "عند الطلب", level: "B1" },
+                { german: "Wo ist mein Zimmer?", arabic: "أين غرفتي؟", usage: "في الفندق", level: "A1" },
+                { german: "Kann ich den Safe benutzen?", arabic: "هل يمكنني استخدام الخزنة؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich brauche ein Handtuch.", arabic: "أحتاج منشفة", usage: "في الفندق", level: "A2" },
+                { german: "Die Klimaanlage funktioniert nicht.", arabic: "المكيف لا يعمل", usage: "عند المشكلة", level: "A2" },
+                { german: "Kann ich später auschecken?", arabic: "هل يمكنني المغادرة متأخراً؟", usage: "عند الطلب", level: "B1" },
+                { german: "Wo kann ich mein Gepäck lassen?", arabic: "أين يمكنني ترك حقائبي؟", usage: "عند السؤال", level: "A2" },
+                { german: "Gibt es einen Parkplatz?", arabic: "هل يوجد موقف سيارات؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich möchte das Zimmer wechseln.", arabic: "أريد تغيير الغرفة", usage: "عند الطلب", level: "B1" },
+                { german: "Wo ist der Pool?", arabic: "أين المسبح؟", usage: "عند السؤال", level: "A1" },
+                { german: "Kann ich hier Wäsche waschen?", arabic: "هل يمكنني غسل الملابس هنا؟", usage: "عند السؤال", level: "A2" }
+            ],
+            post: [
+                { german: "Ich möchte ein Paket schicken.", arabic: "أريد إرسال طرد", usage: "في البريد", level: "A2" },
+                { german: "Wie lange dauert das?", arabic: "كم يستغرق؟", usage: "عند السؤال", level: "A2" },
+                { german: "Wo ist die Post?", arabic: "أين البريد؟", usage: "عند البحث", level: "A1" },
+                { german: "Ich möchte Briefmarken kaufen.", arabic: "أريد شراء طوابع", usage: "في البريد", level: "A2" },
+                { german: "Wie viel kostet das Porto?", arabic: "كم تكلفة الطابع؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich erwarte ein Paket.", arabic: "أنتظر طرداً", usage: "في البريد", level: "A2" },
+                { german: "Wo ist mein Paket?", arabic: "أين طردي؟", usage: "عند السؤال", level: "A1" },
+                { german: "Kann ich das versichern?", arabic: "هل يمكنني تأمين ذلك؟", usage: "في البريد", level: "B1" },
+                { german: "Ich brauche einen Karton.", arabic: "أحتاج صندوقاً", usage: "في البريد", level: "A2" },
+                { german: "Wann kommt die Post?", arabic: "متى يأتي البريد؟", usage: "عند السؤال", level: "A2" },
+                { german: "Ich möchte das per Einschreiben schicken.", arabic: "أريد إرسال هذا مسجلاً", usage: "في البريد", level: "B1" },
+                { german: "Wo kann ich das abholen?", arabic: "أين يمكنني استلام ذلك؟", usage: "عند السؤال", level: "A2" }
+            ],
+            feelings: [
+                { german: "Ich bin glücklich.", arabic: "أنا سعيد", usage: "عن المشاعر", level: "A1" },
+                { german: "Ich bin traurig.", arabic: "أنا حزين", usage: "عن المشاعر", level: "A1" },
+                { german: "Das freut mich.", arabic: "هذا يسعدني", usage: "عن المشاعر", level: "A2" },
+                { german: "Das tut mir leid.", arabic: "آسف على ذلك", usage: "عند الاعتذار", level: "A2" },
+                { german: "Ich bin gestresst.", arabic: "أنا متوتر", usage: "عن المشاعر", level: "A2" },
+                { german: "Ich bin aufgeregt.", arabic: "أنا متحمس", usage: "عن المشاعر", level: "A2" },
+                { german: "Ich bin nervös.", arabic: "أنا قلق", usage: "عن المشاعر", level: "A2" },
+                { german: "Ich fühle mich gut.", arabic: "أشعر بشعور جيد", usage: "عن المشاعر", level: "A1" },
+                { german: "Ich bin enttäuscht.", arabic: "أنا محبط", usage: "عن المشاعر", level: "B1" },
+                { german: "Ich bin zufrieden.", arabic: "أنا راضٍ", usage: "عن المشاعر", level: "A2" },
+                { german: "Das macht mich wütend.", arabic: "هذا يغضبني", usage: "عن المشاعر", level: "A2" },
+                { german: "Ich bin müde.", arabic: "أنا متعب", usage: "عن المشاعر", level: "A1" },
+                { german: "Ich bin besorgt.", arabic: "أنا قلق", usage: "عن المشاعر", level: "B1" },
+                { german: "Ich freue mich darauf.", arabic: "أتطلع إلى ذلك", usage: "عن المشاعر", level: "B1" },
+                { german: "Das ist mir peinlich.", arabic: "هذا محرج لي", usage: "عن المشاعر", level: "B1" }
             ]
         };
 
         function renderSentenceCard(sentence) {
             const card = document.createElement('div');
             card.className = 'sentence-card';
-            
+
             const speakBtn = document.createElement('button');
             speakBtn.className = 'speak-btn';
             speakBtn.innerHTML = '🔊';
-            speakBtn.onclick = function(e) {
+            speakBtn.onclick = function (e) {
                 e.stopPropagation();
                 speakText(sentence.german, this);
             };
@@ -957,7 +1314,7 @@ body.dark-mode .level-filter-btn.active {
             const favBtn = document.createElement('button');
             favBtn.className = 'favorite-btn';
             favBtn.innerHTML = isFavorite(sentence) ? '★' : '☆';
-            favBtn.onclick = function(e) {
+            favBtn.onclick = function (e) {
                 toggleFavBtn(this, e, sentence);
             };
 
@@ -973,13 +1330,18 @@ body.dark-mode .level-filter-btn.active {
             usageDiv.className = 'usage';
             usageDiv.innerHTML = `<span class="usage-label">متى تستخدمها:</span> ${sentence.usage}`;
 
+            const levelDiv = document.createElement('div');
+            levelDiv.className = `level-indicator level-${sentence.level}`;
+            levelDiv.textContent = sentence.level;
+
             card.appendChild(favBtn);
             card.appendChild(speakBtn);
             card.appendChild(germanDiv);
             card.appendChild(arabicDiv);
             card.appendChild(usageDiv);
+            card.appendChild(levelDiv);
 
-            card.onclick = function() {
+            card.onclick = function () {
                 speakText(sentence.german, speakBtn);
             };
 
@@ -996,15 +1358,22 @@ body.dark-mode .level-filter-btn.active {
         function renderSentences(tabId) {
             const grid = document.querySelector(`#${tabId} .sentences-grid`);
             grid.innerHTML = '';
-            
+            let filteredCount = 0;
             sentencesData[tabId].forEach(s => {
-                grid.appendChild(renderSentenceCard(s));
+                if (currentLevel === 'all' || s.level === currentLevel) {
+                    grid.appendChild(renderSentenceCard(s));
+                    filteredCount++;
+                }
             });
+            if (filteredCount === 0) {
+                // نعرض رسالة توضيحية
+                grid.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">لا توجد جمل مطابقة للمستوى المحدد</div>';
+            }
         }
 
         function searchSentences() {
             const query = document.getElementById('searchBox').value.trim().toLowerCase();
-            
+
             if (query.length === 0) {
                 document.getElementById('searchResults').classList.remove('active');
                 const activeTab = document.querySelector('.tab-content.active:not(#searchResults)');
@@ -1013,19 +1382,19 @@ body.dark-mode .level-filter-btn.active {
                 }
                 return;
             }
-            
+
             const allTabs = document.querySelectorAll('.tab-content');
             allTabs.forEach(tab => tab.classList.remove('active'));
             document.getElementById('searchResults').classList.add('active');
-            
+
             const tabButtons = document.querySelectorAll('.tab-button');
             tabButtons.forEach(btn => btn.classList.remove('active'));
-            
+
             const searchResultsGrid = document.getElementById('searchResultsGrid');
             searchResultsGrid.innerHTML = '';
-            
+
             let foundSentences = [];
-            
+
             Object.keys(sentencesData).forEach(tabKey => {
                 sentencesData[tabKey].forEach(sentence => {
                     if (sentence.german.toLowerCase().includes(query) ||
@@ -1034,7 +1403,7 @@ body.dark-mode .level-filter-btn.active {
                     }
                 });
             });
-            
+
             if (foundSentences.length > 0) {
                 foundSentences.forEach(sentence => {
                     searchResultsGrid.appendChild(renderSentenceCard(sentence));
@@ -1044,37 +1413,37 @@ body.dark-mode .level-filter-btn.active {
             }
         }
 
+
+
         function openTab(evt, tabId) {
-            const searchBox = document.getElementById('searchBox');
-            if (searchBox.value.trim().length > 0) {
-                searchBox.value = '';
-                searchSentences();
-            }
-            
+            // إزالة جزء مربع البحث لأنه معطل في HTML
             const tabContents = document.getElementsByClassName('tab-content');
             for (let i = 0; i < tabContents.length; i++) {
                 tabContents[i].classList.remove('active');
             }
-            
             const tabButtons = document.getElementsByClassName('tab-button');
             for (let i = 0; i < tabButtons.length; i++) {
                 tabButtons[i].classList.remove('active');
             }
-            
+
             document.getElementById(tabId).classList.add('active');
             evt.currentTarget.classList.add('active');
-            
+
             if (tabId === 'favorites') {
                 renderFavorites();
             } else if (tabId !== 'searchResults') {
-                renderSentences(tabId);
+                if (sentencesData[tabId]) {
+                    renderSentences(tabId);
+                } else {
+                    console.error(`لا توجد بيانات للتبويب: ${tabId}`);
+                }
             }
         }
-
         // Initialize
         renderSentences('shopping');
         updateFavCount();
         loadDarkMode();
     </script>
 </body>
+
 </html>
