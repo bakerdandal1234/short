@@ -5,469 +5,1008 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جمل ألمانية قصيرة للحياة اليومية</title>
-
+    <!-- إضافة Font Awesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- ResponsiveVoice API -->
     <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+ <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        transition: background 0.3s ease;
+        direction: rtl;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    h1 {
+        text-align: center;
+        color: #667eea;
+        margin-bottom: 10px;
+        font-size: 2.2em;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 1.1em;
+        line-height: 1.5;
+    }
+
+    .search-box {
+        width: 100%;
+        padding: 15px;
+        font-size: 1.1em;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        direction: ltr;
+        text-align: right;
+        transition: all 0.3s ease;
+        font-family: inherit;
+    }
+
+    .search-box:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    }
+
+    .dark-mode-toggle {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+        background: white;
+        border: 2px solid #e0e0e0;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 1.5em;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark-mode-toggle:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Dark Mode */
+    body.dark-mode {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    }
+
+    body.dark-mode .container {
+        background: #0f3460;
+        color: #e0e0e0;
+    }
+
+    body.dark-mode h1 {
+        color: #7dd3fc;
+    }
+
+    body.dark-mode .subtitle {
+        color: #b0b0b0;
+    }
+
+    body.dark-mode .sentence-card {
+        background: #16213e;
+        border-color: #1a1a2e;
+    }
+
+    body.dark-mode .sentence-card:hover {
+        border-color: #7dd3fc;
+    }
+
+    body.dark-mode .german {
+        color: #7dd3fc;
+    }
+
+    body.dark-mode .arabic {
+        color: #e0e0e0;
+    }
+
+    body.dark-mode .usage {
+        color: #b0b0b0;
+        border-top-color: #1a1a2e;
+    }
+
+    body.dark-mode .search-box {
+        background: #16213e;
+        color: #e0e0e0;
+        border-color: #1a1a2e;
+    }
+
+    body.dark-mode .tab-button {
+        background: #16213e;
+        color: #b0b0b0;
+        border: 1px solid #1a1a2e;
+    }
+
+    body.dark-mode .tab-button:hover {
+        background: #1a1a2e;
+        color: #7dd3fc;
+    }
+
+    body.dark-mode .tab-button.active {
+        background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
+        color: white;
+        box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3);
+    }
+
+    body.dark-mode .dark-mode-toggle {
+        background: #16213e;
+        border-color: #1a1a2e;
+        color: #fbbf24;
+    }
+
+    body.dark-mode .speak-btn {
+        background: #1a1a2e;
+        color: #7dd3fc;
+    }
+
+    body.dark-mode .speak-btn:hover {
+        background: #7dd3fc;
+        color: #1a1a2e;
+        transform: scale(1.15);
+    }
+
+    body.dark-mode .speak-btn.speaking {
+        background: #10b981;
+    }
+
+    .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 25px;
+        justify-content: center;
+    }
+
+    .tab-button {
+        background: #f5f5f5;
+        border: none;
+        padding: 12px 20px;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: 600;
+        color: #666;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        flex: 0 0 calc(30% - 6px);
+        min-width: 150px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .tab-button:hover {
+        background: #e8e8e8;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .tab-button.active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    .sentences-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
+    }
+
+    .sentence-card {
+        border: 2px solid #e0e0e0;
+        border-radius: 15px;
+        padding: 20px;
+        background: #f9f9f9;
+        transition: all 0.3s ease;
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .sentence-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        border-color: #667eea;
+    }
+
+    .favorite-btn-main {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: none;
+        border: none;
+        font-size: 1.8em;
+        cursor: pointer;
+        transition: transform 0.2s ease, color 0.2s ease;
+        z-index: 10;
+        color: #ffd700;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .favorite-btn-main:hover {
+        transform: scale(1.3);
+        color: #ffc107;
+    }
+
+    body.dark-mode .favorite-btn-main {
+        color: #ffcc00;
+        text-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+    }
+
+    body.dark-mode .favorite-btn-main:hover {
+        color: #ffd700;
+        transform: scale(1.3);
+    }
+
+    .favorite-btn-main:active {
+        transform: scale(1.1);
+    }
+
+    /* زر المفضلة في النافذة المنبثقة */
+    .favorite-btn-modal {
+        position: absolute;
+        bottom: 2px;
+        right: 3px;
+        background: none;
+        border: none;
+        font-size: 1.8em;
+        cursor: pointer;
+        transition: transform 0.2s ease, color 0.2s ease;
+        z-index: 10;
+        color: #ffd700;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .favorite-btn-modal:hover {
+        transform: scale(1.3);
+        color: #ffc107;
+    }
+
+    body.dark-mode .favorite-btn-modal {
+        color: #ffcc00;
+        text-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+    }
+
+    body.dark-mode .favorite-btn-modal:hover {
+        color: #ffd700;
+        transform: scale(1.3);
+    }
+
+    .favorite-btn-modal:active {
+        transform: scale(1.1);
+    }
+
+    .speak-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    }
+
+    .speak-btn:hover {
+        background: #5568d3;
+        transform: scale(1.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    .speak-btn:active {
+        transform: scale(0.95);
+    }
+
+    .speak-btn.speaking {
+        background: #10b981;
+        animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.15);
+        }
+    }
+
+    .german {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #667eea;
+        margin: 30px 0 15px 0;
+        direction: ltr;
+        text-align: right;
+        line-height: 1.3;
+    }
+
+    .arabic {
+        font-size: 1.3em;
+        color: #333;
+        margin-bottom: 12px;
+        font-weight: 500;
+        line-height: 1.5;
+    }
+
+    .usage {
+        font-size: 0.95em;
+        color: #666;
+        padding-top: 12px;
+        border-top: 1px solid #e0e0e0;
+        font-style: italic;
+        line-height: 1.6;
+    }
+
+    .usage-label {
+        font-weight: 600;
+        color: #667eea;
+    }
+
+    @media (max-width: 768px) {
+        .sentences-grid {
+            grid-template-columns: 1fr;
         }
 
         h1 {
-            text-align: center;
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 2.2em;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 1.1em;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 15px;
-            font-size: 1.1em;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            direction: ltr;
-            text-align: right;
-        }
-
-        .search-box:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .dark-mode-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.5em;
-            transition: all 0.3s;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .dark-mode-toggle:hover {
-            transform: scale(1.1);
-        }
-
-        /* Dark Mode */
-        body.dark-mode {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        }
-
-        body.dark-mode .container {
-            background: #0f3460;
-            color: #e0e0e0;
-        }
-
-        body.dark-mode h1 {
-            color: #7dd3fc;
-        }
-
-        body.dark-mode .subtitle {
-            color: #b0b0b0;
-        }
-
-        body.dark-mode .sentence-card {
-            background: #16213e;
-            border-color: #1a1a2e;
-        }
-
-        body.dark-mode .sentence-card:hover {
-            border-color: #7dd3fc;
-        }
-
-        body.dark-mode .german {
-            color: #7dd3fc;
-        }
-
-        body.dark-mode .arabic {
-            color: #e0e0e0;
-        }
-
-        body.dark-mode .usage {
-            color: #b0b0b0;
-            border-top-color: #1a1a2e;
-        }
-
-        body.dark-mode .search-box {
-            background: #16213e;
-            color: #e0e0e0;
-            border-color: #1a1a2e;
-        }
-
-        body.dark-mode .tab-button {
-            background: #16213e;
-            color: #b0b0b0;
-            border: 1px solid #1a1a2e;
-        }
-
-        body.dark-mode .tab-button:hover {
-            background: #1a1a2e;
-            color: #7dd3fc;
-        }
-
-        body.dark-mode .tab-button.active {
-            background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
-            color: white;
-        }
-
-        body.dark-mode .dark-mode-toggle {
-            background: #16213e;
-            border-color: #1a1a2e;
-            color: #fbbf24;
-        }
-
-        body.dark-mode .speak-btn {
-            background: #1a1a2e;
-            color: #7dd3fc;
-        }
-
-        body.dark-mode .speak-btn:hover {
-            background: #7dd3fc;
-            color: #1a1a2e;
-        }
-
-        body.dark-mode .speak-btn.speaking {
-            background: #10b981;
-        }
-
-        .tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 25px;
-            justify-content: center;
+            font-size: 1.8em;
         }
 
         .tab-button {
-            background: #f5f5f5;
-            border: none;
-            padding: 12px 20px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: 600;
-            color: #666;
-            border-radius: 10px;
-            transition: all 0.3s;
-            flex: 0 0 calc(30% - 6px);
-            min-width: 150px;
+            font-size: 0.9em;
+            padding: 10px 16px;
+            flex: 0 0 calc(45% - 6px);
         }
-
-        .tab-button:hover {
-            background: #e8e8e8;
-            transform: translateY(-2px);
-        }
-
-        .tab-button.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .sentences-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 20px;
-        }
-
-        .sentence-card {
-            border: 2px solid #e0e0e0;
-            border-radius: 15px;
-            padding: 20px;
-            background: #f9f9f9;
-            transition: all 0.3s;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .sentence-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
-            border-color: #667eea;
-        }
-
-        .favorite-btn {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: none;
-            border: none;
-            font-size: 1.8em;
-            cursor: pointer;
-            transition: transform 0.2s;
-            z-index: 10;
-            color: #ffd700;
-        }
-
-        .favorite-btn:hover {
-            transform: scale(1.3);
-            color: #ffc107;
-        }
-
-        body.dark-mode .favorite-btn {
-            color: #ffcc00;
-            /* لون ذهبي فاتح للوضع الليلي */
-            text-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
-            /* تأثير ظل لزيادة الوضوح */
-        }
-
-        body.dark-mode .favorite-btn:hover {
-            color: #ffd700;
-            /* لون ذهبي أكثر إشراقاً عند التحويم في الوضع الليلي */
-            transform: scale(1.3);
-        }
-
-        .favorite-btn:active {
-            transform: scale(1.1);
-        }
-
-        .speak-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            font-size: 1.3em;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-
-        .speak-btn:hover {
-            background: #5568d3;
-            transform: scale(1.1);
-        }
-
-        .speak-btn:active {
-            transform: scale(0.95);
-        }
-
-        .speak-btn.speaking {
-            background: #10b981;
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.15);
-            }
-        }
-
+        
         .german {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #667eea;
-            margin: 30px 0 15px 0;
-            direction: ltr;
-            text-align: right;
-        }
-
-        .arabic {
             font-size: 1.3em;
-            color: #333;
-            margin-bottom: 12px;
-            font-weight: 500;
+            margin: 20px 0 12px 0;
         }
-
-        .usage {
-            font-size: 0.95em;
-            color: #666;
-            padding-top: 12px;
-            border-top: 1px solid #e0e0e0;
-            font-style: italic;
+        
+        .arabic {
+            font-size: 1.15em;
         }
+    }
 
-        .usage-label {
-            font-weight: 600;
-            color: #667eea;
-        }
+    .level-filter {
+        margin: 20px 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
 
-        @media (max-width: 768px) {
-            .sentences-grid {
-                grid-template-columns: 1fr;
-            }
+    .level-filter-btn {
+        padding: 10px 20px;
+        border: 2px solid #e0e0e0;
+        border-radius: 25px;
+        background: white;
+        color: #666;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.95em;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
 
-            h1 {
-                font-size: 1.8em;
-            }
+    .level-filter-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
 
-            .tab-button {
-                font-size: 0.9em;
-                padding: 10px 16px;
-            }
-        }
+    .level-filter-btn.active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-color: #667eea;
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
 
-        .level-filter {
-            margin: 20px 0;
-        }
+    /* ألوان خاصة لكل مستوى */
+    .level-filter-btn.level-A1.active {
+        background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        border-color: #2ecc71;
+    }
 
+    .level-filter-btn.level-A2.active {
+        background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+        border-color: #f1c40f;
+        color: #000;
+    }
+
+    .level-filter-btn.level-B1.active {
+        background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+        border-color: #e67e22;
+    }
+
+    .level-filter-btn.level-B2.active {
+        background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        border-color: #e74c3c;
+    }
+
+    /* Dark Mode للفلتر */
+    body.dark-mode .level-filter-btn {
+        background: #16213e;
+        border-color: #1a1a2e;
+        color: #b0b0b0;
+    }
+
+    body.dark-mode .level-filter-btn:hover {
+        background: #1a1a2e;
+        color: #7dd3fc;
+    }
+
+    body.dark-mode .level-filter-btn.active {
+        background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
+        color: white;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
         .level-filter-btn {
-            padding: 10px 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 25px;
-            background: white;
-            color: #666;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.95em;
-        }
-
-        .level-filter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .level-filter-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-color: #667eea;
-            transform: scale(1.05);
-        }
-
-        /* ألوان خاصة لكل مستوى */
-        .level-filter-btn.level-A1.active {
-            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
-            border-color: #2ecc71;
-        }
-
-        .level-filter-btn.level-A2.active {
-            background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
-            border-color: #f1c40f;
-            color: #000;
-        }
-
-        .level-filter-btn.level-B1.active {
-            background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
-            border-color: #e67e22;
-        }
-
-        .level-filter-btn.level-B2.active {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            border-color: #e74c3c;
-        }
-
-        /* Dark Mode للفلتر */
-        body.dark-mode .level-filter-btn {
-            background: #16213e;
-            border-color: #1a1a2e;
-            color: #b0b0b0;
-        }
-
-        body.dark-mode .level-filter-btn:hover {
-            background: #1a1a2e;
-            color: #7dd3fc;
-        }
-
-        body.dark-mode .level-filter-btn.active {
-            background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
-            color: white;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .level-filter-btn {
-                padding: 8px 16px;
-                font-size: 0.85em;
-            }
-        }
-
-
-        .level-indicator {
-            position: absolute;
-            bottom: 12px;
-            left: 12px;
-            padding: 4px 10px;
-            border-radius: 15px;
+            padding: 8px 16px;
             font-size: 0.85em;
-            font-weight: bold;
-            color: white;
-            z-index: 5;
         }
+    }
 
-        /* ألوان خاصة لكل مستوى */
-        .level-A1 {
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            box-shadow: 0 2px 5px rgba(46, 204, 113, 0.3);
-        }
+    .level-indicator {
+        position: absolute;
+        bottom: 12px;
+        left: 12px;
+        padding: 4px 10px;
+        border-radius: 15px;
+        font-size: 0.85em;
+        font-weight: bold;
+        color: white;
+        z-index: 5;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
 
-        .level-A2 {
-            background: linear-gradient(135deg, #f39c12, #f1c40f);
-            color: #000;
-            box-shadow: 0 2px 5px rgba(241, 196, 15, 0.3);
-        }
+    /* ألوان خاصة لكل مستوى */
+    .level-A1 {
+        background: linear-gradient(135deg, #2ecc71, #27ae60);
+        box-shadow: 0 2px 5px rgba(46, 204, 113, 0.3);
+    }
 
-        .level-B1 {
-            background: linear-gradient(135deg, #e67e22, #d35400);
-            box-shadow: 0 2px 5px rgba(230, 126, 34, 0.3);
-        }
+    .level-A2 {
+        background: linear-gradient(135deg, #f39c12, #f1c40f);
+        color: #000;
+        box-shadow: 0 2px 5px rgba(241, 196, 15, 0.3);
+    }
 
-        .level-B2 {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            box-shadow: 0 2px 5px rgba(231, 76, 60, 0.3);
-        }
+    .level-B1 {
+        background: linear-gradient(135deg, #e67e22, #d35400);
+        box-shadow: 0 2px 5px rgba(230, 126, 34, 0.3);
+    }
 
-        /* Dark Mode للعناصر الجديدة */
-        body.dark-mode .level-indicator {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    .level-B2 {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        box-shadow: 0 2px 5px rgba(231, 76, 60, 0.3);
+    }
+
+    /* Dark Mode للعناصر الجديدة */
+    body.dark-mode .level-indicator {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* زر توليد الأمثلة الذكية */
+    .ai-examples-btn {
+        position: absolute;
+        left: 150px;
+        top: 10px;
+        background: linear-gradient(135deg, #6c63ff, #4a45e6);
+        color: white;
+        border: none;
+        border-radius: 20px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(108, 99, 255, 0.3);
+        z-index: 3;
+        transition: all 0.2s ease;
+    }
+
+    .ai-examples-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 3px 8px rgba(108, 99, 255, 0.5);
+    }
+
+    .ai-examples-btn i {
+        font-size: 16px;
+    }
+
+    /* حاوية الأمثلة المتولدة */
+    .generated-examples-container {
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #e0e0e0;
+        display: none;
+    }
+
+    .example-card {
+        background: #f8f9ff;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 12px;
+        border-left: 3px solid #6c63ff;
+        position: relative;
+        transition: all 0.2s ease;
+    }
+
+    .example-card:hover {
+        transform: translateX(5px);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Level Badge المحسّن */
+    .level-badge {
+        position: absolute;
+        bottom: 4px;
+        left: 150px;
+        padding: 9px 18px;
+        border-radius: 25px;
+        font-size: 0.9em;
+        font-weight: 800;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        z-index: 8;
+        user-select: none;
+    }
+
+    /* الأيقونة قبل النص */
+    .level-badge::before {
+        content: '📊';
+        font-size: 1.15em;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+    /* حالة Hover */
+    .level-badge:hover {
+        transform: translateY(-3px) scale(1.08);
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        cursor: default;
+    }
+
+    /* ألوان المستويات */
+    .level-badge.level-A1 {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        box-shadow: 0 6px 16px rgba(40, 167, 69, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .level-badge.level-A1:hover {
+        background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%);
+        box-shadow: 0 8px 22px rgba(40, 167, 69, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .level-badge.level-A2 {
+        background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+        color: #212529;
+        box-shadow: 0 6px 16px rgba(255, 193, 7, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .level-badge.level-A2:hover {
+        background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+        box-shadow: 0 8px 22px rgba(255, 193, 7, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .level-badge.level-B1 {
+        background: linear-gradient(135deg, #fd7e14 0%, #e83e8c 100%);
+        box-shadow: 0 6px 16px rgba(253, 126, 20, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .level-badge.level-B1:hover {
+        background: linear-gradient(135deg, #ff6b35 0%, #e83e8c 100%);
+        box-shadow: 0 8px 22px rgba(253, 126, 20, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .level-badge.level-B2 {
+        background: linear-gradient(135deg, #dc3545 0%, #bd2130 100%);
+        box-shadow: 0 6px 16px rgba(220, 53, 69, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .level-badge.level-B2:hover {
+        background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        box-shadow: 0 8px 22px rgba(220, 53, 69, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .level-badge.level-C1 {
+        background: linear-gradient(135deg, #6f42c1 0%, #5a32a3 100%);
+        box-shadow: 0 6px 16px rgba(111, 66, 193, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .level-badge.level-C1:hover {
+        background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        box-shadow: 0 8px 22px rgba(111, 66, 193, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    /* زر الصوت في النافذة المنبثقة */
+    .speak-btn-modal {
+        position: absolute;
+        bottom: 7px;
+        left: 60px;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        font-size: 1.2em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .speak-btn-modal:hover {
+        background: #5568d3;
+        transform: scale(1.1);
+        box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    }
+
+    .speak-btn-modal:active {
+        transform: scale(0.95);
+    }
+
+    .speak-btn-modal.speaking {
+        background: #10b981;
+        animation: pulse 1s infinite;
+    }
+
+    .german-example {
+        font-weight: bold;
+        color: #1a237e;
+        margin-bottom: 4px;
+        font-size: 1.1em;
+        line-height: 1.4;
+    }
+
+    .arabic-example {
+        color: #495057;
+        margin-bottom: 6px;
+        font-size: 1.05em;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        line-height: 1.5;
+    }
+
+    .complexity-note {
+        font-size: 0.9em;
+        color: #6c757d;
+        font-style: italic;
+        margin-top: 4px;
+        padding-left: 10px;
+        border-left: 2px solid #e9ecef;
+        line-height: 1.5;
+    }
+
+    .loading-examples {
+        text-align: center;
+        padding: 20px;
+        color: #6c63ff;
+    }
+
+    .loading-spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(108, 99, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #6c63ff;
+        animation: spin 1s linear infinite;
+        margin-bottom: 10px;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
         }
-    </style>
+    }
+
+    /* وضع الظلام للنافذة المنبثقة */
+    body.dark-mode .example-card {
+        background: #2d2d3d;
+        border-color: #5a55e6;
+    }
+
+    body.dark-mode .german-example {
+        color: #a8d8ff;
+    }
+
+    body.dark-mode .arabic-example {
+        color: #e9ecef;
+    }
+
+    body.dark-mode .complexity-note {
+        color: #adb5bd;
+        border-left-color: #6c757d;
+    }
+
+    /* نافذة منبثقة محسّنة - الإصلاح الرئيسي هنا */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: none; /* مهم جداً - يبدأ مخفياً */
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background: white;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 800px;
+        max-height: 80vh;
+        overflow-y: auto;
+        position: relative;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+        padding: 25px;
+        direction: rtl;
+    }
+
+    body.dark-mode .modal-content {
+        background: #16213e;
+        color: #e0e0e0;
+    }
+
+    .close-modal {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: #6c757d;
+        transition: all 0.3s ease;
+        z-index: 20;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .close-modal:hover {
+        color: #dc3545;
+        background: rgba(0, 0, 0, 0.05);
+    }
+
+    body.dark-mode .close-modal {
+        color: #b0b0b0;
+    }
+
+    body.dark-mode .close-modal:hover {
+        color: #f87171;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-examples-container {
+        margin-top: 20px;
+    }
+
+    /* تنسيق الأمثلة في النافذة المنبثقة */
+    .example-card {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-left: 4px solid #0d6efd;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .example-card:hover {
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark-mode .example-card {
+        background: #2d2d3d;
+        border-left-color: #5a55e6;
+    }
+
+    .level-badge {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        font-size: 0.85em;
+    }
+
+    .german-example {
+        font-weight: bold;
+        font-size: 1.1em;
+        margin: 5px 0;
+        color: #0d6efd;
+    }
+
+    .arabic-example {
+        color: #495057;
+        margin: 8px 0;
+        font-size: 1.05em;
+    }
+
+    .complexity-note {
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-top: 10px;
+        border-top: 1px dashed #e9ecef;
+        padding-top: 8px;
+    }
+
+    body.dark-mode .german-example {
+        color: #7dd3fc;
+    }
+
+    body.dark-mode .arabic-example {
+        color: #e0e0e0;
+    }
+
+    body.dark-mode .complexity-note {
+        color: #adb5bd;
+        border-top-color: #4a4a5a;
+    }
+
+    .retry-btn {
+        background: #0d6efd;
+        color: white;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        margin-top: 15px;
+        display: inline-block;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .retry-btn:hover {
+        background: #0b5ed7;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    body.dark-mode .retry-btn {
+        background: #3b82f6;
+    }
+
+    body.dark-mode .retry-btn:hover {
+        background: #2563eb;
+    }
+
+    /* بطاقات الذكاء الاصطناعي */
+    .ai-generated-card {
+        border-left: 4px solid #6f42c1;
+        background-color: #f8f9fc;
+    }
+
+    body.dark-mode .ai-generated-card {
+        background-color: #252c42;
+        border-left-color: #8b5cf6;
+    }
+
+    .ai-generated-card .level-indicator {
+        background-color: #6f42c1;
+        color: white;
+    }
+
+    .ai-badge {
+        background: #6f42c1;
+        color: white;
+        font-size: 0.75em;
+        padding: 2px 6px;
+        border-radius: 4px;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+    /* تحسينات إضافية */
+    .no-favorites {
+        text-align: center;
+        padding: 40px;
+        color: #666;
+        font-size: 1.2em;
+        font-style: italic;
+    }
+
+    body.dark-mode .no-favorites {
+        color: #b0b0b0;
+    }
+
+    /* رسائل النجاح */
+    #success-message {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #28a745;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        animation: fadeOut 3s forwards;
+        font-weight: 500;
+    }
+
+    @keyframes fadeOut {
+        0% { opacity: 1; transform: translateY(0); }
+        70% { opacity: 1; }
+        100% { opacity: 0; transform: translateY(-20px); }
+    }
+
+    /* الإصلاح الرئيسي: إزالة جميع التعديلات التي تعطل فتح النافذة */
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
 </head>
 
 <body>
@@ -478,7 +1017,7 @@
 
 
     <div class="container">
-        <h1>🗣️ تعلم اللغة الالمانية</h1>
+        <h1>🗣️ تعلم اللغة الالمانيةaaa</h1>
         <p class="subtitle">- اضغط 🔊 للاستماع</p>
         <div style="margin-top: 30px;">
         </div>
@@ -527,6 +1066,8 @@
             <button class="tab-button" onclick="openTab(event, 'home')">🏠 بيت</button>
             <button class="tab-button" onclick="openTab(event, 'phone')">📞 هاتف</button>
             <button class="tab-button" onclick="openTab(event, 'emergency')">🆘 طوارئ</button>
+            <button class="tab-button" onclick="openTab(event, 'clothing')">👗 ملابس</button>
+            <button class="tab-button" onclick="openTab(event, 'hairdresser')">💇‍♂️ حلاق</button>
         </div>
 
         <div id="favorites" class="tab-content">
@@ -567,6 +1108,22 @@
         </div>
         <div id="emergency" class="tab-content">
             <div class="sentences-grid"></div>
+        </div>
+        <div id="clothing" class="tab-content">
+            <div class="sentences-grid"></div>
+        </div>
+        <div id="hairdresser" class="tab-content">
+            <div class="sentences-grid"></div>
+        </div>
+    </div>
+
+    <div id="aiExamplesModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <h3>أمثلة متولدة بواسطة الذكاء الاصطناعي</h3>
+            <div id="modalExamplesContainer" class="modal-examples-container">
+                <!-- سيتم ملء المحتوى هنا ديناميكياً -->
+            </div>
         </div>
     </div>
 
@@ -782,6 +1339,7 @@
                 document.getElementById('speedValue').textContent = savedRate;
             }
         });
+
 
         const sentencesData = {
             shopping: [
@@ -1296,10 +1854,58 @@
                 { german: "Ich bin besorgt.", arabic: "أنا قلق", usage: "عن المشاعر", level: "B1" },
                 { german: "Ich freue mich darauf.", arabic: "أتطلع إلى ذلك", usage: "عن المشاعر", level: "B1" },
                 { german: "Das ist mir peinlich.", arabic: "هذا محرج لي", usage: "عن المشاعر", level: "B1" }
-            ]
+            ],
+            clothing: [
+                { german: "Welche Größe haben Sie?", arabic: "ما مقاسك؟", usage: "في محل الملابس", level: "A2" },
+                { german: "Kann ich das anprobieren?", arabic: "هل يمكنني تجربة هذا؟", usage: "في محل الملابس", level: "A2" },
+                { german: "Wo ist die Umkleidekabine?", arabic: "أين غرفة القياس؟", usage: "في المحل", level: "A2" },
+                { german: "Das steht mir nicht.", arabic: "هذا لا يناسبني", usage: "عند القياس", level: "A2" },
+                { german: "Haben Sie das in einer anderen Größe?", arabic: "هل لديكم هذا بمقاس آخر؟", usage: "في المحل", level: "A2" },
+                { german: "Das ist zu eng.", arabic: "هذا ضيق جداً", usage: "عند القياس", level: "A2" },
+                { german: "Das ist zu weit.", arabic: "هذا واسع جداً", usage: "عند القياس", level: "A2" },
+                { german: "Das passt perfekt.", arabic: "هذا مناسب تماماً", usage: "عند القياس", level: "A2" },
+                { german: "Haben Sie das auch in Blau?", arabic: "هل لديكم هذا بالأزرق؟", usage: "في المحل", level: "A2" },
+                { german: "Wie viel kostet das?", arabic: "كم سعر هذا؟", usage: "في المحل", level: "A1" },
+                { german: "Das ist zu teuer.", arabic: "هذا غالٍ جداً", usage: "عند السعر", level: "A1" },
+                { german: "Haben Sie etwas Günstigeres?", arabic: "هل لديكم شيء أرخص؟", usage: "في المحل", level: "A2" },
+                { german: "Ich suche eine Jacke.", arabic: "أبحث عن جاكيت", usage: "في المحل", level: "A2" },
+                { german: "Ich brauche Schuhe.", arabic: "أحتاج أحذية", usage: "في المحل", level: "A1" },
+                { german: "Welche Schuhgröße haben Sie?", arabic: "ما مقاس حذائك؟", usage: "في محل الأحذية", level: "A2" },
+                { german: "Die Schuhe drücken.", arabic: "الحذاء يضغط", usage: "عند القياس", level: "A2" },
+                { german: "Haben Sie das eine Nummer größer?", arabic: "هل لديكم رقم أكبر؟", usage: "في المحل", level: "A2" },
+                { german: "Das nehme ich.", arabic: "سآخذ هذا", usage: "عند الشراء", level: "A1" },
+                { german: "Kann ich mit Karte zahlen?", arabic: "هل يمكنني الدفع بالبطاقة؟", usage: "عند الدفع", level: "A2" },
+                { german: "Haben Sie eine Tüte?", arabic: "هل لديكم كيس؟", usage: "عند الشراء", level: "A1" }
+            ],
+            hairdresser: [
+                { german: "Ich möchte einen Termin.", arabic: "أريد موعداً", usage: "في الصالون", level: "A2" },
+                { german: "Wann haben Sie Zeit?", arabic: "متى لديكم وقت؟", usage: "عند الحجز", level: "A2" },
+                { german: "Nur schneiden, bitte.", arabic: "فقط قص من فضلك", usage: "في الصالون", level: "A2" },
+                { german: "Nicht zu kurz!", arabic: "ليس قصيراً جداً!", usage: "عند القص", level: "A2" },
+                { german: "Nur die Spitzen, bitte.", arabic: "فقط الأطراف من فضلك", usage: "في الصالون", level: "A2" },
+                { german: "Können Sie das färben?", arabic: "هل يمكنك صبغ هذا؟", usage: "في الصالون", level: "A2" },
+                { german: "Welche Farbe möchten Sie?", arabic: "أي لون تريد؟", usage: "سؤال الحلاق", level: "A2" },
+                { german: "Können Sie das waschen?", arabic: "هل يمكنك غسل هذا؟", usage: "في الصالون", level: "A2" },
+                { german: "Ich möchte eine neue Frisur.", arabic: "أريد تسريحة جديدة", usage: "في الصالون", level: "A2" },
+                { german: "Was empfehlen Sie?", arabic: "بماذا توصي؟", usage: "في الصالون", level: "A2" },
+                { german: "Wie viel kostet das?", arabic: "كم يكلف ذلك؟", usage: "عند السؤال", level: "A1" },
+                { german: "Das sieht gut aus!", arabic: "هذا يبدو جيداً!", usage: "بعد القص", level: "A1" },
+                { german: "Vielen Dank!", arabic: "شكراً جزيلاً!", usage: "بعد الانتهاء", level: "A1" },
+                { german: "Können Sie die Haare föhnen?", arabic: "هل يمكنك تجفيف الشعر؟", usage: "في الصالون", level: "A2" },
+                { german: "Ich habe einen Termin um 3 Uhr.", arabic: "لدي موعد الساعة 3", usage: "عند الوصول", level: "A2" },
+                { german: "Ich komme ohne Termin.", arabic: "جئت بدون موعد", usage: "عند الوصول", level: "A2" },
+                { german: "Wie lange dauert das?", arabic: "كم يستغرق ذلك؟", usage: "عند السؤال", level: "A2" },
+                { german: "Können Sie den Bart schneiden?", arabic: "هل يمكنك قص اللحية؟", usage: "في الصالون", level: "A2" }
+            ],
         };
 
+
         function renderSentenceCard(sentence) {
+            console.log("sen", sentence);
+            const usageText = sentence.usage ||
+                sentence.note ||
+                (sentence.type === 'ai-generated' ? `مستوى ${sentence.level} - مثال متولد بواسطة الذكاء الاصطناعي` : 'عام');
+
             const card = document.createElement('div');
             card.className = 'sentence-card';
 
@@ -1312,7 +1918,7 @@
             };
 
             const favBtn = document.createElement('button');
-            favBtn.className = 'favorite-btn';
+            favBtn.className = 'favorite-btn-main';
             favBtn.innerHTML = isFavorite(sentence) ? '★' : '☆';
             favBtn.onclick = function (e) {
                 toggleFavBtn(this, e, sentence);
@@ -1328,11 +1934,28 @@
 
             const usageDiv = document.createElement('div');
             usageDiv.className = 'usage';
-            usageDiv.innerHTML = `<span class="usage-label">متى تستخدمها:</span> ${sentence.usage}`;
+            usageDiv.innerHTML = `<span class="usage-label">متى تستخدمها:</span> ${usageText}`;
 
             const levelDiv = document.createElement('div');
             levelDiv.className = `level-indicator level-${sentence.level}`;
             levelDiv.textContent = sentence.level;
+
+            const aiBtn = document.createElement('button');
+            aiBtn.className = 'ai-examples-btn';
+            // aiBtn.innerHTML = '<i>🧠</i>';
+            // aiBtn.innerHTML = '🧠';
+            aiBtn.innerHTML = '<i class="fas fa-brain" style="font-size: 18px;"></i> AI';
+            aiBtn.style.width = '45px';
+            aiBtn.style.padding = '0 8px';
+            aiBtn.onclick = function (e) {
+                e.stopPropagation();
+                generateExamples(sentence, this);
+            };
+            aiBtn.title = 'توليد أمثلة متدرجة بهذا المستوى';
+
+            // حاوية الأمثلة المتولدة
+            const examplesContainer = document.createElement('div');
+            examplesContainer.className = 'generated-examples-container';
 
             card.appendChild(favBtn);
             card.appendChild(speakBtn);
@@ -1340,6 +1963,8 @@
             card.appendChild(arabicDiv);
             card.appendChild(usageDiv);
             card.appendChild(levelDiv);
+            card.appendChild(aiBtn);
+            card.appendChild(examplesContainer);
 
             card.onclick = function () {
                 speakText(sentence.german, speakBtn);
@@ -1439,6 +2064,250 @@
                 }
             }
         }
+
+
+        // دالة توليد الأمثلة المتدرجة باستخدام الذكاء الاصطناعي
+        async function generateExamples(sentence, btn) {
+            const modal = document.getElementById('aiExamplesModal');
+            const modalContainer = document.getElementById('modalExamplesContainer');
+            const closeButton = modal.querySelector('.close-modal');
+
+            // إذا كانت النافذة مفتوحة، أغلقها
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+                return;
+            }
+
+            // إظهار النافذة مع مؤشر التحميل
+            modal.style.display = 'flex';
+            modalContainer.innerHTML = `
+        <div class="loading-examples">
+            <div class="loading-spinner"></div>
+            <p>جاري توليد الأمثلة باستخدام الذكاء الاصطناعي...</p>
+            <p style="font-size: 0.9em; color: #6c757d; margin-top: 5px;">
+                قد يستغرق هذا حتى 15 ثانية
+            </p>
+        </div>
+    `;
+
+            // إغلاق النافذة عند النقر على زر الإغلاق
+            closeButton.onclick = () => {
+                modal.style.display = 'none';
+            };
+
+            // إغلاق النافذة عند النقر خارج المحتوى
+            window.onclick = (event) => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            };
+
+            btn.disabled = true;
+            btn.innerHTML = '<i>⏳</i>';
+
+            try {
+                console.log('جاري إرسال طلب لتوليد أمثلة للجملة:', sentence.german, 'بالمستوى:', sentence.level);
+
+                const response = await fetch('https://baker-l14t.onrender.com/api/generate-examples', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        german: sentence.german,
+                        arabic: sentence.arabic,
+                        level: sentence.level,
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'فشل في توليد الأمثلة');
+                }
+
+                const data = await response.json();
+                console.log('الرد من الخادم:', data);
+
+                if (data.examples && data.examples.length > 0) {
+                    displayExamplesInModal(modalContainer, data.examples, sentence);
+                } else {
+                    throw new Error('لم يتم توليد أمثلة صالحة');
+                }
+
+            } catch (error) {
+                console.error('خطأ في توليد الأمثلة:', error);
+                modalContainer.innerHTML = `
+            <div style="color: #dc3545; text-align: center; padding: 20px;">
+                <p>❌ فشل في توليد الأمثلة</p>
+                <p style="font-size: 0.9em; margin-top: 8px;">${error.message || 'حدث خطأ غير متوقع'}</p>
+                <button class="retry-btn">
+                    حاول مرة أخرى
+                </button>
+            </div>
+        `;
+
+                // معالج إعادة المحاولة
+                modalContainer.querySelector('.retry-btn').onclick = () => {
+                    generateExamples(sentence, btn);
+                };
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i>🧠</i>';
+            }
+        }
+
+
+
+
+
+        // دالة لعرض الأمثلة المتولدة
+        function displayExamplesInModal(container, examples, originalSentence) {
+            // ابدأ بسلسلة فارغة (بدون عرض الجملة الأصلية)
+            let html = '';
+
+            // عرض الأمثلة المتولدة فقط
+            examples.forEach(example => {
+                const parts = example.split('|').map(part => part.trim());
+                let german = '', arabic = '', level = 'A1', note = '';
+
+                parts.forEach(part => {
+                    if (part.startsWith('GERMAN:')) german = part.replace('GERMAN:', '').trim();
+                    else if (part.startsWith('ARABIC:')) arabic = part.replace('ARABIC:', '').trim();
+                    else if (part.startsWith('LEVEL:')) level = part.replace('LEVEL:', '').trim();
+                    else if (part.startsWith('NOTE:')) note = part.replace('NOTE:', '').trim();
+                });
+
+                // التحقق من البيانات الأساسية
+                if (!german) german = example;
+                if (!arabic) arabic = `ترجمة ${level} لهذا السياق`;
+                if (!note) note = `مستوى ${level} - تم توليد بواسطة الذكاء الاصطناعي`;
+
+                // تجنب مشاكل الاقتباسات في onclick
+                const safeGerman = german.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+                const safeArabic = arabic.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+
+                html += `
+        <div class="example-card" data-level="${level}">
+            <div class="level-badge level-${level}">${level}</div>
+            <div class="german-example">${german}</div>
+            <div class="arabic-example">${arabic}</div>
+            <div class="complexity-note">${note}</div>
+            <button class="speak-btn-modal" onclick="event.stopPropagation(); speakText('${safeGerman}', this)">
+                🔊
+            </button>
+            <button class="favorite-btn-modal" onclick="event.stopPropagation(); toggleFavoriteExample(this, { german: '${safeGerman}', arabic: '${safeArabic}', level: '${level}',note:'${note}' })">
+                ☆
+            </button>
+        </div>
+        `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // دالة لإضافة مثال متولد إلى المفضلة
+        function toggleFavoriteExample(btn, example) {
+            const isFavorite = btn.textContent === '★';
+            btn.textContent = isFavorite ? '☆' : '★';
+            btn.style.color = isFavorite ? '' : '#ffc107';
+
+            if (!isFavorite) {
+                // إضافة حقل usage إذا لم يكن موجوداً
+                const usageText = example.usage ||
+                    example.note ||
+                    (example.level ? `مستوى ${example.level} - مثال متولد بواسطة الذكاء الاصطناعي` : 'مثال متولد بواسطة الذكاء الاصطناعي');
+
+                // إضافة إلى المفضلة مع ضمان وجود حقل usage
+                const favoriteItem = {
+                    ...example,
+                    usage: usageText, // ← إضافة حقل usage هنا
+                    id: `ai-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`
+                };
+
+                favorites.push(favoriteItem);
+                localStorage.setItem('shortSentencesFavorites', JSON.stringify(favorites));
+                updateFavCount();
+
+                // رسائل نجاح خفيفة
+                const successMsg = document.createElement('div');
+                successMsg.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            animation: fadeOut 3s forwards;
+        `;
+                successMsg.innerHTML = '✓ تمت إضافة المثال إلى المفضلة';
+                document.body.appendChild(successMsg);
+
+                setTimeout(() => {
+                    if (successMsg.parentNode) {
+                        document.body.removeChild(successMsg);
+                    }
+                }, 3000);
+            } else {
+                // إزالة من المفضلة
+                favorites = favorites.filter(fav => fav.german !== example.german);
+                localStorage.setItem('shortSentencesFavorites', JSON.stringify(favorites));
+                updateFavCount();
+            }
+        }
+
+
+        function showSuccessMessage(message) {
+            // إزالة أي رسالة سابقة
+            const existingMsg = document.getElementById('success-message');
+            if (existingMsg) {
+                existingMsg.remove();
+            }
+
+            const successMsg = document.createElement('div');
+            successMsg.id = 'success-message';
+            successMsg.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 1000;
+        animation: fadeOut 3s forwards;
+    `;
+            successMsg.innerHTML = message;
+            document.body.appendChild(successMsg);
+
+            // إضافة أنميشن fadeOut إذا لم يكن موجوداً
+            if (!document.querySelector('#fadeOutStyle')) {
+                const style = document.createElement('style');
+                style.id = 'fadeOutStyle';
+                style.innerHTML = `
+            @keyframes fadeOut {
+                0% { opacity: 1; transform: translateY(0); }
+                70% { opacity: 1; }
+                100% { opacity: 0; transform: translateY(-20px); }
+            }
+        `;
+                document.head.appendChild(style);
+            }
+
+            setTimeout(() => {
+                if (successMsg.parentNode) {
+                    document.body.removeChild(successMsg);
+                }
+            }, 3000);
+        }
+
+        // تعديل دالة renderSentenceCard لإضافة زر الذكاء الاصطناعي
+
+
+
         // Initialize
         renderSentences('shopping');
         updateFavCount();
